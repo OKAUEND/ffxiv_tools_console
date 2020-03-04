@@ -4,7 +4,12 @@
       <input type="text" placeholder="E-mail" v-model="email" />
     </div>
     <div>
-      <input type="text" placeholder="Password" v-model="password" />
+      <input
+        type="password"
+        autocomplete="off"
+        placeholder="Password"
+        v-model="password"
+      />
     </div>
     <button @click="singinConsole">Sing in</button>
   </div>
