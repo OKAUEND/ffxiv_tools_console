@@ -48,6 +48,10 @@ export default {
     storeLog: {
       type: Object,
       required: true
+    },
+    SortID: {
+      type: Number,
+      required: true
     }
   },
   computed: {
@@ -58,7 +62,7 @@ export default {
           path: "none"
         };
       }
-      const DocumentPath = `CraftingLog/${Number(this.ChildDocumentID)}`;
+      const DocumentPath = `CraftLog/${Number(this.ChildDocumentID)}`;
       const Ref = firebase.firestore().doc(DocumentPath);
       return Ref;
     },
@@ -73,37 +77,43 @@ export default {
       this.isEnable = LogData.isEnable;
       this.value = LogData.value ? LogData.value : 0;
       this.IconName = LogData.image;
-      this.ChildDocumentID = LogData.ChildDocument.id ? LogData.value : 0;
+      this.ChildDocumentID = LogData.IngredientID ? LogData.IngredientID : 0;
     }
   },
   methods: {
     EventEmit() {
       if (!this.isEnable) {
         return this.$emit("change", {
-          isEnable: false
+          isEnable: false,
+          IngredientID: 0
         });
       }
 
       if (this.value <= 0) {
         return this.$emit("change", {
-          isEnable: false
+          isEnable: false,
+          IngredientID: 0
         });
       }
 
       if (this.ChildDocumentID === 0 || this.ChildDocumentID === "") {
         return this.$emit("change", {
-          isEnable: false
+          isEnable: false,
+          IngredientID: 0
         });
       }
 
-      const DocumentPath = `CraftingLog/${Number(this.ChildDocumentID)}`;
+      const ZeroPadding = `"0000000${this.ChildDocumentID}`.slice(-7);
+      const DocumentID = `Log${ZeroPadding}`;
+      const DocumentPath = `CraftLog/${DocumentID}`;
       const DocRef = firebase.firestore().doc(DocumentPath);
 
       return this.$emit("change", {
         isEnable: this.isEnable,
         value: this.value,
-        Icon: this.IconName,
-        ChildDocument: DocRef
+        Icon: this.IconName ? this.IconName : "none",
+        LogPath: DocRef,
+        IngredientID: this.ChildDocumentID
       });
     }
   }
