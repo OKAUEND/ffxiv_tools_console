@@ -57,7 +57,11 @@
         <button @click="bindLog(Log)">{{ Log.name }}</button>
       </li>
     </ul>
-    <img :src="iconpath" />
+    <ul>
+      <li v-for="(Icon, index) in iconpath" :key="index">
+        <img :src="Icon.url" />
+      </li>
+    </ul>
     <button @click="fetchIconsList()">アイコン取得</button>
   </div>
 </template>
@@ -97,7 +101,7 @@ export default {
       slot5: { isEnable: false, IngredientID: 0 },
       Logs: [],
       isUpadateMode: true,
-      iconpath: ""
+      iconpath: []
     };
   },
   computed: {
@@ -330,6 +334,7 @@ export default {
       console.log(this.iconpath);
     },
     fetchIconsList() {
+      this.iconpath.length = 0;
       const ImageRef = firebase
         .firestore()
         .collection("Image")
@@ -338,26 +343,28 @@ export default {
         .where("ProductionStageLevel", "==", 1)
         .where("type", "==", 1);
       ImageRef.get().then(querySnapshot => {
-        console.log(querySnapshot.docs.map(doc => doc.data().path));
+        const List = querySnapshot.docs.map(doc => doc.data());
+        const URLs = List.map(Doc => {
+          const Image = {
+            sortID: Doc.ID,
+            url: ""
+          };
+
+          firebase
+            .storage()
+            .ref(Doc.path)
+            .getDownloadURL()
+            .then(url => {
+              Image.url = url;
+            });
+          return Image;
+        });
+        this.iconpath = URLs;
       });
-      // const storageRef = firebase.storage().ref();
-      // storageRef
-      //   .child("Material/End/Wood1.png")
-      //   .getDownloadURL()
-      //   .then(url => {
-      //     const test = url;
-      //     console.log("TEST", test);
-      //     this.iconpath = test;
-      //   });
-      // console.log(this.iconpath);
     }
   }
 };
 </script>
-
-// const ZeroString = "0000000"; // const ZeroPadding =
-`${ZeroString}${ID}`.slice(7); // const DocumentID = `Log${ZeroPadding}`; //
-console.log(DocumentID);
 
 <style lang="scss">
 .LogRegister {
