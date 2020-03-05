@@ -5,7 +5,7 @@
       有効化<input type="checkbox" v-model="isEnable" @change="EventEmit" />
     </div>
     <div>
-      value<input
+      必要個数<input
         type="text"
         :disabled="!isEnable"
         v-model="value"
@@ -13,7 +13,7 @@
       />
     </div>
     <div>
-      IconPath<input
+      アイコンID<input
         type="text"
         :disabled="!isEnable"
         v-model="IconName"
