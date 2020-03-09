@@ -255,11 +255,17 @@ export default {
       }
 
       this.fetchLastID().then(ID => {
-        const nextNumber = this.isUpadateMode ? ID : ID + 1;
-        const Logdata = { ...NewLogDataNoID, ID: nextNumber };
+        const LastID = ID > 0 ? ID : 1;
+        const nextNumber =
+          this.isUpadateMode === true ? this.CraftingLog.ID : LastID + 1;
+        const UpdateScheduleLogdata = {
+          ...this.UpdateScheduleData,
+          Ingredients: this.Ingredients,
+          ID: nextNumber
+        };
         const ZeroPadding = `"0000000${nextNumber}`.slice(-7);
         const DocumentID = `Log${ZeroPadding}`;
-        return this.writeStoreLog(DocumentID, Logdata);
+        return this.writeStoreLog(DocumentID, UpdateScheduleLogdata);
       });
       // this.writeStoreLog(NewLogDataNoID);
     },
