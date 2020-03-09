@@ -13,7 +13,8 @@
       />
     </div>
     <div>
-      アイコンID<input
+      <label>素材のID</label>
+      <input
         type="text"
         :disabled="!isEnable"
         v-model="IconName"
@@ -159,5 +160,10 @@ export default {
   &.isDisabled {
     border: solid 2px red;
   }
+}
+
+.minisize {
+  height: 45px;
+  width: 45px;
 }
 </style>
