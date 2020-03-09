@@ -27,6 +27,12 @@
         v-model="ChildDocumentID"
         @input="EventEmit"
       />
+      <button @click="fetchDocument">取得</button>
+      <div>
+        現在の選択中<br />
+        <img class="minisize" :src="CandidateData.imgurl" /><br />
+        {{ CandidateData.name }}
+      </div>
     </div>
     <!-- <div>{{ DocumentReference.path }}</div> -->
   </div>
@@ -41,7 +47,8 @@ export default {
       isEnable: false,
       value: 0,
       IconName: "none",
-      ChildDocumentID: 0
+      ChildDocumentID: 0,
+      CandidateData: {}
     };
   },
   props: {
@@ -81,6 +88,27 @@ export default {
     }
   },
   methods: {
+    fetchDocument() {
+      if (this.ChildDocumentID === 0) {
+        return;
+      }
+
+      const ZeroPadding = `"0000000${this.ChildDocumentID}`.slice(-7);
+      // const DocumentPath = `CraftLog/Log${ZeroPadding}`;
+      const DocRef = firebase
+        .firestore()
+        .collection("CraftLog")
+        .doc(`Log${ZeroPadding}`);
+      DocRef.get().then(doc => {
+        const DocData = doc.data();
+        const CandidateData = {
+          ID: DocData.ID,
+          name: DocData.name,
+          imgurl: DocData.image
+        };
+        this.CandidateData = CandidateData;
+      });
+    },
     EventEmit() {
       if (!this.isEnable) {
         return this.$emit("change", {
