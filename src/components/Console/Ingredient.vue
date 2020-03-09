@@ -6,7 +6,7 @@
       必要個数<input
         type="text"
         :disabled="!isEnable"
-        v-model="ReqValue"
+        v-model.number="ReqValue"
         @input="EventEmit"
       />
     </div>
@@ -15,7 +15,7 @@
       <input
         type="text"
         :disabled="!isEnable"
-        v-model="ChildDocumentID"
+        v-model.number="ChildDocumentID"
         @input="EventEmit"
       />
       <button @click="fetchDocument">取得</button>

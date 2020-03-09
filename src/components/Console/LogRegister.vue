@@ -16,15 +16,25 @@
         <input type="radio" id="Complete" value="3" v-model="crafttype" />
         <label for="Complete">完成</label>
       </div>
-      <div>画像パス:<input type="text" v-model="image" /></div>
       <div>
-        下限レベル:<input type="text" v-model="CraftingLog.bottomLevel" />
+        画像パス:<input type="text" v-model="image" /><br />
+        <button @click="fetchIcon()">取得</button><br />
+        <img :src="imageurl" />
       </div>
       <div>
-        上限レベル:<input type="text" v-model="CraftingLog.upperLevel" />
+        下限レベル:<input
+          type="text"
+          v-model.number="CraftingLog.bottomLevel"
+        />
       </div>
       <div>
-        アイテムレベル:<input type="text" v-model="CraftingLog.ItemLevel" />
+        上限レベル:<input type="text" v-model.number="CraftingLog.upperLevel" />
+      </div>
+      <div>
+        アイテムレベル:<input
+          type="text"
+          v-model.number="CraftingLog.ItemLevel"
+        />
       </div>
       <div class="LogRegister__Ingredients">
         <ingredient v-model="IngredientSlot0" :SortID="1" />
