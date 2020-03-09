@@ -55,7 +55,7 @@
       </li>
     </ul>
     <ul>
-      <li v-for="(Icon, index) in iconpath" :key="index">
+      <li v-for="(Icon, ID) in iconpath" :key="ID">
         <img :src="Icon.url" />
       </li>
     </ul>
