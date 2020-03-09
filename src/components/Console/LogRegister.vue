@@ -6,6 +6,15 @@
     <div class="LogRegister__Body">
       <div>名前:<input type="text" v-model="name" /></div>
       <div>
+        種類:
+        <input type="radio" id="Raw" value="0" v-model="crafttype" />
+        <label for="Raw">原材</label>
+        <input type="radio" id="End" value="1" v-model="crafttype" />
+        <label for="End">末端</label>
+        <input type="radio" id="Middle" value="2" v-model="crafttype" />
+        <label for="Middle">中間</label>
+        <input type="radio" id="Complete" value="3" v-model="crafttype" />
+        <label for="Complete">完成</label>
       </div>
       <div>画像パス:<input type="text" v-model="image" /></div>
       <div>
@@ -55,8 +64,6 @@ export default {
   data() {
     return {
       CraftingLog: {
-        name: "",
-        image: "",
         bottomLevel: 0,
         upperLevel: 0,
         ItemLevel: 0,
@@ -69,7 +76,10 @@ export default {
           slot5: {}
         }
       },
+      name: "",
+      Icon: "",
       image: "",
+      crafttype: 0,
       slot0: { isEnable: false, IngredientID: 0 },
       slot1: { isEnable: false, IngredientID: 0 },
       slot2: { isEnable: false, IngredientID: 0 },
