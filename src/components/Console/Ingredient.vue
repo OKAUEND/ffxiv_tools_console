@@ -63,10 +63,10 @@ export default {
   watch: {
     value: function(LogData) {
       this.isEnable = LogData.isEnable;
-      this.ReqValue = LogData.value ? LogData.value : 0;
+      this.ReqValue = LogData.Value ? LogData.Value : 0;
       this.IconName = LogData.image;
       this.ChildDocumentID = LogData.IngredientID ? LogData.IngredientID : 0;
-      this.ImgUrl = LogData.imgurl;
+      this.ImgUrl = LogData.Imgurl;
     }
   },
   methods: {
@@ -83,8 +83,8 @@ export default {
         .doc(`Log${ZeroPadding}`);
       DocRef.get().then(doc => {
         const DocData = doc.data();
-        this.ImgUrl = DocData.image;
-        this.Name = DocData.name;
+        this.ImgUrl = DocData.Image;
+        this.Name = DocData.Name;
         this.EventEmit();
       });
     },
