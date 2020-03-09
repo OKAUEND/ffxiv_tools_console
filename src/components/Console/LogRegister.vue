@@ -150,6 +150,26 @@ export default {
       get() {
         return this.CraftingLog.Ingredients.slot5;
       }
+    },
+    UpdateScheduleData() {
+      return {
+        Name: this.Name,
+        ImgUrl: this.ImgUrl,
+        Type: this.crafttype,
+        UpperLevel: this.CraftingLog.UpperLevel,
+        BottomLevel: this.CraftingLog.BottomLevel,
+        ItemLevel: this.CraftingLog.ItemLevel
+      };
+    },
+    Ingredients() {
+      return {
+        slot0: this.slot0,
+        slot1: this.slot1,
+        slot2: this.slot2,
+        slot3: this.slot3,
+        slot4: this.slot4,
+        slot5: this.slot5
+      };
     }
   },
   methods: {
@@ -229,29 +249,11 @@ export default {
       };
     },
     writeInterface() {
-      const Ingredients = {
-        slot0: this.IngredientSlot0,
-        slot1: this.IngredientSlot1,
-        slot2: this.IngredientSlot2,
-        slot3: this.IngredientSlot3,
-        slot4: this.IngredientSlot4,
-        slot5: this.IngredientSlot5
-      };
-
       if (this.CraftingLog.name === "") {
         alert("名前が入力されていません");
         return;
       }
 
-      const NewLogDataNoID = {
-        name: this.CraftingLog.name,
-        image: this.CraftingLog.image,
-        upperLevel: this.CraftingLog.upperLevel,
-        bottomLevel: this.CraftingLog.bottomLevel,
-        ItemLevel: this.CraftingLog.ItemLevel,
-        Ingredients: Ingredients
-      };
-      console.log(NewLogDataNoID);
       this.fetchLastID().then(ID => {
         const nextNumber = this.isUpadateMode ? ID : ID + 1;
         const Logdata = { ...NewLogDataNoID, ID: nextNumber };
