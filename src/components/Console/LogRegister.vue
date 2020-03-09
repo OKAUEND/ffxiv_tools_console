@@ -99,7 +99,12 @@ export default {
       slot5: { isEnable: false, IngredientID: 0 },
       Logs: [],
       isUpadateMode: true,
-      iconpath: []
+      iconpath: [],
+      Paths: [
+        { url: "Material/Raw/" },
+        { url: "Material/End/" },
+        { url: "Material/Middle/" }
+      ]
     };
   },
   computed: {
@@ -298,16 +303,13 @@ export default {
       this.isUpadateMode = true;
     },
     fetchIcon() {
-      const storageRef = firebase.storage().ref();
-      storageRef
-        .child("Material/End/Wood1.png")
-        .getDownloadURL()
-        .then(url => {
-          const test = url;
-          console.log("TEST", test);
-          this.iconpath = test;
-        });
-      console.log(this.iconpath);
+      if (this.Image === "") {
+        return "";
+      }
+      const Path = this.Paths[this.crafttype].url;
+      const GCP_URL =
+        "https://storage.googleapis.com/ffxivcrafttools.appspot.com/";
+      this.ImgUrl = `${GCP_URL}${Path}${this.Image}.png`;
     },
     fetchIconsList() {
       this.iconpath.length = 0;
