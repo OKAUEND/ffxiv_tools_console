@@ -4,8 +4,10 @@
     <div v-else-if="!isUpadateMode">新規追加モード</div>
     <button @click="isUpadateMode = false">新規追加モードへ</button>
     <div class="LogRegister__Body">
-      <div>名前:<input type="text" v-model="CraftingLog.name" /></div>
-      <div>画像パス:<input type="text" v-model="CraftingLog.image" /></div>
+      <div>名前:<input type="text" v-model="name" /></div>
+      <div>
+      </div>
+      <div>画像パス:<input type="text" v-model="image" /></div>
       <div>
         下限レベル:<input type="text" v-model="CraftingLog.bottomLevel" />
       </div>
@@ -67,8 +69,7 @@ export default {
           slot5: {}
         }
       },
-      name: "TEST",
-      Icon: "TEST",
+      image: "",
       slot0: { isEnable: false, IngredientID: 0 },
       slot1: { isEnable: false, IngredientID: 0 },
       slot2: { isEnable: false, IngredientID: 0 },
