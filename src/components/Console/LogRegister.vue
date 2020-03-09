@@ -4,7 +4,7 @@
     <div v-else-if="!isUpadateMode">新規追加モード</div>
     <button @click="isUpadateMode = false">新規追加モードへ</button>
     <div class="LogRegister__Body">
-      <div>名前:<input type="text" v-model="name" /></div>
+      <div>名前:<input type="text" v-model="Name" /></div>
       <div>
         種類:
         <input type="radio" id="Raw" value="0" v-model="crafttype" />
@@ -17,18 +17,18 @@
         <label for="Complete">完成</label>
       </div>
       <div>
-        画像パス:<input type="text" v-model="image" /><br />
+        画像パス:<input type="text" v-model="Image" /><br />
         <button @click="fetchIcon()">取得</button><br />
-        <img :src="imageurl" />
+        <img :src="ImgUrl" />
       </div>
       <div>
         下限レベル:<input
           type="text"
-          v-model.number="CraftingLog.bottomLevel"
+          v-model.number="CraftingLog.BottomLevel"
         />
       </div>
       <div>
-        上限レベル:<input type="text" v-model.number="CraftingLog.upperLevel" />
+        上限レベル:<input type="text" v-model.number="CraftingLog.UpperLevel" />
       </div>
       <div>
         アイテムレベル:<input
@@ -51,7 +51,7 @@
     <button @click="fetchCraftLogs()">取得</button>
     <ul>
       <li v-for="(Log, ID) in Logs" :key="ID">
-        <button @click="bindLog(Log)">{{ Log.name }}</button>
+        <button @click="bindLog(Log)">{{ Log.Name }}</button>
       </li>
     </ul>
     <ul>
@@ -74,8 +74,8 @@ export default {
   data() {
     return {
       CraftingLog: {
-        bottomLevel: 0,
-        upperLevel: 0,
+        BottomLevel: 0,
+        UpperLevel: 0,
         ItemLevel: 0,
         Ingredients: {
           slot0: {},
@@ -86,9 +86,10 @@ export default {
           slot5: {}
         }
       },
-      name: "",
+      Name: "",
       Icon: "",
-      image: "",
+      Image: "",
+      ImgUrl: "",
       crafttype: 0,
       slot0: { isEnable: false, IngredientID: 0 },
       slot1: { isEnable: false, IngredientID: 0 },
@@ -298,6 +299,8 @@ export default {
       console.log("BIND", Log);
       console.log("BIND", Log.name);
       this.CraftingLog = Log;
+      this.Name = Log.Name;
+      this.ImgUrl = Log.ImgUrl;
       this.isUpadateMode = true;
     },
     fetchIcon() {
