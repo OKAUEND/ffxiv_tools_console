@@ -139,9 +139,10 @@ export default {
       return this.$emit("change", {
         isEnable: this.isEnable,
         value: this.value,
-        Icon: this.IconName ? this.IconName : "none",
+        Icon: this.CandidateData.imgurl,
         LogPath: DocRef,
-        IngredientID: this.ChildDocumentID
+        IngredientID: this.ChildDocumentID,
+        sort: this.SortID
       });
     }
   }
