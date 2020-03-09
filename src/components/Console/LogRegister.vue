@@ -295,8 +295,6 @@ export default {
       });
     },
     bindLog(Log) {
-      console.log("BIND", Log);
-      console.log("BIND", Log.name);
       this.CraftingLog = Log;
       this.Name = Log.Name;
       this.ImgUrl = Log.ImgUrl;
