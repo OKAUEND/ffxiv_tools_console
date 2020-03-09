@@ -17,14 +17,6 @@
       <input
         type="text"
         :disabled="!isEnable"
-        v-model="IconName"
-        @input="EventEmit"
-      />
-    </div>
-    <div>
-      素材のID<input
-        type="text"
-        :disabled="!isEnable"
         v-model="ChildDocumentID"
         @input="EventEmit"
       />
@@ -63,17 +55,6 @@ export default {
     }
   },
   computed: {
-    DocumentReference() {
-      console.log(this.ChildDocumentID);
-      if (this.ChildDocumentID === 0 || this.ChildDocumentID === "") {
-        return {
-          path: "none"
-        };
-      }
-      const DocumentPath = `CraftLog/${Number(this.ChildDocumentID)}`;
-      const Ref = firebase.firestore().doc(DocumentPath);
-      return Ref;
-    },
     DisabledBorderColor() {
       return {
         isDisabled: !this.isEnable
