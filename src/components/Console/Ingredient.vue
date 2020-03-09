@@ -21,8 +21,8 @@
       <button @click="fetchDocument">取得</button>
       <div>
         現在の選択中<br />
-        <img class="minisize" :src="CandidateData.imgurl" /><br />
-        {{ CandidateData.name }}
+        <img class="minisize" :src="ImgUrl" /><br />
+        {{ Name }}
       </div>
     </div>
     <!-- <div>{{ DocumentReference.path }}</div> -->
@@ -37,7 +37,8 @@ export default {
     return {
       isEnable: false,
       ReqValue: 0,
-      IconName: "none",
+      ImgUrl: "none",
+      Name: "",
       ChildDocumentID: 0,
       CandidateData: {}
     };
@@ -61,10 +62,11 @@ export default {
   },
   watch: {
     value: function(LogData) {
-      // this.isEnable = LogData.isEnable;
+      this.isEnable = LogData.isEnable;
       this.ReqValue = LogData.value ? LogData.value : 0;
       this.IconName = LogData.image;
       this.ChildDocumentID = LogData.IngredientID ? LogData.IngredientID : 0;
+      this.ImgUrl = LogData.imgurl;
     }
   },
   methods: {
@@ -81,11 +83,9 @@ export default {
         .doc(`Log${ZeroPadding}`);
       DocRef.get().then(doc => {
         const DocData = doc.data();
-        this.CandidateData = {
-          ID: DocData.ID,
-          name: DocData.name,
-          imgurl: DocData.image
-        };
+        this.ImgUrl = DocData.image;
+        this.Name = DocData.name;
+        this.EventEmit();
       });
     },
     EventEmit() {
@@ -117,11 +117,11 @@ export default {
 
       return this.$emit("input", {
         isEnable: true,
-        value: this.ReqValue,
-        Icon: this.CandidateData.imgurl,
+        Value: this.ReqValue,
+        Imgurl: this.ImgUrl,
         LogPath: DocRef,
         IngredientID: this.ChildDocumentID,
-        sort: this.SortID
+        SortID: this.SortID
       });
     }
   }
