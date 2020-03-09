@@ -16,36 +16,12 @@
         アイテムレベル:<input type="text" v-model="CraftingLog.ItemLevel" />
       </div>
       <div class="LogRegister__Ingredients">
-        <ingredient
-          :storeLog="CraftingLog.Ingredients.slot0"
-          :SortID="1"
-          @change="setSlot0"
-        />
-        <ingredient
-          :storeLog="CraftingLog.Ingredients.slot1"
-          :SortID="2"
-          @change="setSlot1"
-        />
-        <ingredient
-          :storeLog="CraftingLog.Ingredients.slot2"
-          :SortID="3"
-          @change="setSlot2"
-        />
-        <ingredient
-          :storeLog="CraftingLog.Ingredients.slot3"
-          :SortID="4"
-          @change="setSlot3"
-        />
-        <ingredient
-          :storeLog="CraftingLog.Ingredients.slot4"
-          :SortID="5"
-          @change="setSlot4"
-        />
-        <ingredient
-          :storeLog="CraftingLog.Ingredients.slot5"
-          :SortID="6"
-          @change="setSlot5"
-        />
+        <ingredient v-model="IngredientSlot0" :SortID="1" />
+        <ingredient v-model="IngredientSlot1" :SortID="2" />
+        <ingredient v-model="IngredientSlot2" :SortID="3" />
+        <ingredient v-model="IngredientSlot3" :SortID="4" />
+        <ingredient v-model="IngredientSlot4" :SortID="5" />
+        <ingredient v-model="IngredientSlot5" :SortID="6" />
       </div>
     </div>
     <button @click="writeInterface()">追加/更新</button>
@@ -110,7 +86,7 @@ export default {
         this.slot0 = val;
       },
       get() {
-        return this.slot0;
+        return this.CraftingLog.Ingredients.slot0;
       }
     },
     IngredientSlot1: {
@@ -118,7 +94,7 @@ export default {
         this.slot1 = val;
       },
       get() {
-        return this.slot1;
+        return this.CraftingLog.Ingredients.slot1;
       }
     },
     IngredientSlot2: {
@@ -126,7 +102,7 @@ export default {
         this.slot2 = val;
       },
       get() {
-        return this.slot2;
+        return this.CraftingLog.Ingredients.slot2;
       }
     },
     IngredientSlot3: {
@@ -134,7 +110,7 @@ export default {
         this.slot3 = val;
       },
       get() {
-        return this.slot3;
+        return this.CraftingLog.Ingredients.slot3;
       }
     },
     IngredientSlot4: {
@@ -142,7 +118,7 @@ export default {
         this.slot4 = val;
       },
       get() {
-        return this.slot4;
+        return this.CraftingLog.Ingredients.slot4;
       }
     },
     IngredientSlot5: {
@@ -150,29 +126,11 @@ export default {
         this.slot5 = val;
       },
       get() {
-        return this.slot5;
+        return this.CraftingLog.Ingredients.slot5;
       }
     }
   },
   methods: {
-    setSlot0(val) {
-      this.IngredientSlot0 = val;
-    },
-    setSlot1(val) {
-      this.IngredientSlot1 = val;
-    },
-    setSlot2(val) {
-      this.IngredientSlot2 = val;
-    },
-    setSlot3(val) {
-      this.IngredientSlot3 = val;
-    },
-    setSlot4(val) {
-      this.IngredientSlot4 = val;
-    },
-    setSlot5(val) {
-      this.IngredientSlot5 = val;
-    },
     async fetchCraftLogs() {
       const docRef = firebase
         .firestore()

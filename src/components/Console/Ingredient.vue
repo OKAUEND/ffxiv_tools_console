@@ -1,14 +1,12 @@
 <template>
   <div class="Ingredient" :class="DisabledBorderColor">
     必須素材
-    <div>
-      有効化<input type="checkbox" v-model="isEnable" @change="EventEmit" />
-    </div>
+    <div>有効化<input type="checkbox" v-model="isEnable" /></div>
     <div>
       必要個数<input
         type="text"
         :disabled="!isEnable"
-        v-model="value"
+        v-model="ReqValue"
         @input="EventEmit"
       />
     </div>
@@ -38,14 +36,14 @@ export default {
   data() {
     return {
       isEnable: false,
-      value: 0,
+      ReqValue: 0,
       IconName: "none",
       ChildDocumentID: 0,
       CandidateData: {}
     };
   },
   props: {
-    storeLog: {
+    value: {
       type: Object,
       required: true
     },
@@ -62,9 +60,9 @@ export default {
     }
   },
   watch: {
-    storeLog: function(LogData) {
-      this.isEnable = LogData.isEnable;
-      this.value = LogData.value ? LogData.value : 0;
+    value: function(LogData) {
+      // this.isEnable = LogData.isEnable;
+      this.ReqValue = LogData.value ? LogData.value : 0;
       this.IconName = LogData.image;
       this.ChildDocumentID = LogData.IngredientID ? LogData.IngredientID : 0;
     }
@@ -83,31 +81,30 @@ export default {
         .doc(`Log${ZeroPadding}`);
       DocRef.get().then(doc => {
         const DocData = doc.data();
-        const CandidateData = {
+        this.CandidateData = {
           ID: DocData.ID,
           name: DocData.name,
           imgurl: DocData.image
         };
-        this.CandidateData = CandidateData;
       });
     },
     EventEmit() {
       if (!this.isEnable) {
-        return this.$emit("change", {
+        return this.$emit("input", {
           isEnable: false,
           IngredientID: 0
         });
       }
 
       if (this.value <= 0) {
-        return this.$emit("change", {
+        return this.$emit("input", {
           isEnable: false,
           IngredientID: 0
         });
       }
 
       if (this.ChildDocumentID === 0 || this.ChildDocumentID === "") {
-        return this.$emit("change", {
+        return this.$emit("input", {
           isEnable: false,
           IngredientID: 0
         });
@@ -118,9 +115,9 @@ export default {
       const DocumentPath = `CraftLog/${DocumentID}`;
       const DocRef = firebase.firestore().doc(DocumentPath);
 
-      return this.$emit("change", {
-        isEnable: this.isEnable,
-        value: this.value,
+      return this.$emit("input", {
+        isEnable: true,
+        value: this.ReqValue,
         Icon: this.CandidateData.imgurl,
         LogPath: DocRef,
         IngredientID: this.ChildDocumentID,
