@@ -2,7 +2,7 @@
   <div class="LogRegister">
     <div v-if="isUpadateMode">更新モード</div>
     <div v-else-if="!isUpadateMode">新規追加モード</div>
-    <button @click="isUpadateMode = false">新規追加モードへ</button>
+    <button @click="isUpadateMode = !isUpadateMode">新規追加モードへ</button>
     <div class="LogRegister__Body">
       <div>名前:<input type="text" v-model="Name" /></div>
       <div>
