@@ -274,27 +274,13 @@ export default {
         .firestore()
         .collection("CraftLog")
         .doc(DocumentID)
-        .set(LogData);
-
-      //   .then(function() {
-      //     console.log("Document successfully written!");
-      //     const DocID = firebase
-      //       .firestore()
-      //       .collection("CraftingLog")
-      //       .orderBy("ID");
-      //     return DocID.get();
-      //   })
-      //   .then(function(querySnapshot) {
-      //     const docs = querySnapshot.docs.map(doc => doc.data());
-      //     console.log(docs);
-      //     return docs;
-      //   })
-      //   .catch(function(error) {
-      //     console.error("Error writing document: ", error);
-      //   });
-
-      // console.log("RESULT", Logs);
-      // this.Logs = Logs;
+        .set(LogData)
+        .then(() => {
+          alert("Success!");
+        })
+        .catch(error => {
+          console.error("Firestore Error", error);
+        });
     },
     async fetchLastID() {
       const LogCollection = firebase.firestore().collection("CraftLog");
