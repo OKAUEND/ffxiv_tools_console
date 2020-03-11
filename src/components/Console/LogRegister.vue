@@ -221,6 +221,9 @@ export default {
         Name: this.Name,
         ImgUrl: this.ImgUrl,
         Type: this.crafttype,
+        Job: this.job,
+        CraftGroup: this.craftgroup,
+        Equipped: this.loggroup,
         UpperLevel: this.CraftingLog.UpperLevel,
         BottomLevel: this.CraftingLog.BottomLevel,
         ItemLevel: this.CraftingLog.ItemLevel
