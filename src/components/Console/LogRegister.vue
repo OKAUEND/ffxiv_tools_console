@@ -6,55 +6,93 @@
     <div class="LogRegister__Body">
       <div>名前:<input type="text" v-model="Name" /></div>
       <div>
-        種類:
-        <input type="radio" id="Raw" value="0" v-model="crafttype" />
-        <label for="Raw">原材</label>
-        <input type="radio" id="End" value="1" v-model="crafttype" />
-        <label for="End">末端</label>
-        <input type="radio" id="Middle" value="2" v-model="crafttype" />
-        <label for="Middle">中間</label>
-        <input type="radio" id="Complete" value="3" v-model="crafttype" />
-        <label for="Complete">完成</label>
-      </div>
-      <div>
-        作成ジョブ:
-        <input type="radio" id="Carpenter" value="0" v-model="Job" />
-        <label for="Carpenter">木工</label>
-        <input type="radio" id="Blacksmith" value="1" v-model="Job" />
-        <label for="Blacksmith">鍛冶</label>
-        <input type="radio" id="Armorer" value="2" v-model="Job" />
-        <label for="Armorer">甲冑</label>
-        <input type="radio" id="Goldsmith" value="3" v-model="Job" />
-        <label for="Goldsmith">彫金</label>
-        <input type="radio" id="Leatherworker" value="4" v-model="Job" />
-        <label for="Leatherworker">革細工</label>
-        <input type="radio" id="Weaver" value="5" v-model="Job" />
-        <label for="Weaver">裁縫</label>
-        <input type="radio" id="Alchemist" value="6" v-model="Job" />
-        <label for="Alchemist">錬金</label>
-        <input type="radio" id="Culinarian" value="7" v-model="Job" />
-        <label for="Culinarian">調理</label>
-      </div>
-      <div>
         画像パス:<input type="text" v-model="Image" /><br />
         <button @click="fetchIcon()">取得</button><br />
         <img :src="ImgUrl" />
       </div>
-      <div>
-        下限レベル:<input
-          type="text"
-          v-model.number="CraftingLog.BottomLevel"
-        />
-      </div>
-      <div>
-        上限レベル:<input type="text" v-model.number="CraftingLog.UpperLevel" />
-      </div>
-      <div>
-        アイテムレベル:<input
-          type="text"
-          v-model.number="CraftingLog.ItemLevel"
-        />
-      </div>
+      <section>
+        <h2>情報</h2>
+        <div>
+          段階:
+          <input type="radio" id="Raw" value="0" v-model="crafttype" />
+          <label for="Raw">原材</label>
+          <input type="radio" id="End" value="1" v-model="crafttype" />
+          <label for="End">末端</label>
+          <input type="radio" id="Middle" value="2" v-model="crafttype" />
+          <label for="Middle">中間</label>
+          <input type="radio" id="Complete" value="3" v-model="crafttype" />
+          <label for="Complete">完成</label>
+        </div>
+        <div>
+          種別:
+          <input type="radio" id="Battle" value="0" v-model="loggroup" />
+          <label for="Battle">戦闘</label>
+          <input type="radio" id="NoBattle" value="1" v-model="loggroup" />
+          <label for="NoBattle">非戦闘</label>
+          <input type="radio" id="Fashionable" value="2" v-model="loggroup" />
+          <label for="Fashionable">おしゃれ</label>
+          <input type="radio" id="Furniture" value="3" v-model="loggroup" />
+          <label for="Furniture">家具</label>
+          <input type="radio" id="GardenTools" value="4" v-model="loggroup" />
+          <label for="GardenTools">庭具</label>
+        </div>
+        <div>
+          作成ジョブ:
+          <input type="radio" id="Carpenter" value="0" v-model="job" />
+          <label for="Carpenter">木工</label>
+          <input type="radio" id="Blacksmith" value="1" v-model="job" />
+          <label for="Blacksmith">鍛冶</label>
+          <input type="radio" id="Armorer" value="2" v-model="job" />
+          <label for="Armorer">甲冑</label>
+          <input type="radio" id="Goldsmith" value="3" v-model="job" />
+          <label for="Goldsmith">彫金</label>
+          <input type="radio" id="Leatherworker" value="4" v-model="job" />
+          <label for="Leatherworker">革細工</label>
+          <input type="radio" id="Weaver" value="5" v-model="job" />
+          <label for="Weaver">裁縫</label>
+          <input type="radio" id="Alchemist" value="6" v-model="job" />
+          <label for="Alchemist">錬金</label>
+          <input type="radio" id="Culinarian" value="7" v-model="job" />
+          <label for="Culinarian">調理</label>
+        </div>
+      </section>
+      <section>
+        <h2>グループ</h2>
+        <div>
+          製作種別:
+          <input type="radio" id="Nomal" value="0" v-model="craftgroup" />
+          <label for="Nomal">通常</label>
+          <input type="radio" id="Master" value="1" v-model="craftgroup" />
+          <label for="Master">秘伝書</label>
+          <input
+            type="radio"
+            id="IshgardianRestoration"
+            value="2"
+            v-model="craftgroup"
+          />
+          <label for="IshgardianRestoration">イシュガルド復興</label>
+        </div>
+        <template v-if="craftgroup === '0'">
+          <div>
+            下限レベル:<input
+              type="text"
+              v-model.number="CraftingLog.BottomLevel"
+            />
+          </div>
+          <div>
+            上限レベル:<input
+              type="text"
+              v-model.number="CraftingLog.UpperLevel"
+            />
+          </div>
+          <div>
+            アイテムレベル:<input
+              type="text"
+              v-model.number="CraftingLog.ItemLevel"
+            /></div
+        ></template>
+        <template v-if="craftgroup === '1'"></template>
+      </section>
       <div class="LogRegister__Ingredients">
         <ingredient v-model="IngredientSlot0" :SortID="1" />
         <ingredient v-model="IngredientSlot1" :SortID="2" />
@@ -109,8 +147,10 @@ export default {
       Icon: "",
       Image: "",
       ImgUrl: "",
-      Job: "",
+      job: 0,
       crafttype: 0,
+      loggroup: 0,
+      craftgroup: 0,
       slot0: { isEnable: false, IngredientID: 0 },
       slot1: { isEnable: false, IngredientID: 0 },
       slot2: { isEnable: false, IngredientID: 0 },
