@@ -83,7 +83,7 @@ export default {
         .doc(`Log${ZeroPadding}`);
       DocRef.get().then(doc => {
         const DocData = doc.data();
-        this.ImgUrl = DocData.Image;
+        this.ImgUrl = DocData.ImgUrl;
         this.Name = DocData.Name;
         this.EventEmit();
       });
