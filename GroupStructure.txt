@@ -1,0 +1,66 @@
+Material
+-End
+-Middle
+Weapon
+-Gladiator
+-Marauder
+-DarkKnight
+-Gunbreaker
+-Lancer
+-Pugilist
+-Samurai
+-Rogue
+-Archer
+-Machinist
+-Dancer
+-Thaumaturge
+-Arcanist
+-RedMage
+-BlueMage
+-Conjurer
+-Scholar
+-Astrologian
+Tools
+Armor
+-Shield
+    -Tank
+    -Mele
+    -Range
+    -Caster
+    -Heler
+-Head
+    -Tank
+    -Mele
+    -Range
+    -Caster
+    -Heler
+-Body
+    -Tank
+    -Mele
+    -Range
+    -Caster
+    -Heler
+-Hands
+    -Tank
+    -Mele
+    -Range
+    -Caster
+    -Heler
+-Waist
+    -Tank
+    -Mele
+    -Range
+    -Caster
+    -Heler
+-Legs
+    -Tank
+    -Mele
+    -Range
+    -Caster
+    -Heler
+-Feet
+    -Tank
+    -Mele
+    -Range
+    -Caster
+    -Heler
