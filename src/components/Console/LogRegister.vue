@@ -3,6 +3,7 @@
     <div v-if="isUpadateMode">更新モード</div>
     <div v-else-if="!isUpadateMode">新規追加モード</div>
     <button @click="isUpadateMode = !isUpadateMode">新規追加モードへ</button>
+    <button @click="resetData">リセット</button>
     <div class="LogRegister__Body">
       <div>名前:<input type="text" v-model="Name" /></div>
       <div>
@@ -358,6 +359,9 @@ export default {
       this.Name = Log.Name;
       this.ImgUrl = Log.ImgUrl;
       this.isUpadateMode = true;
+    },
+    resetData() {
+      Object.assign(this.$data, this.$options.data());
     },
     fetchIcon() {
       if (this.Image === "") {
