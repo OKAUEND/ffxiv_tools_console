@@ -117,26 +117,31 @@
           />
           <label for="IshgardianRestoration">イシュガルド復興</label>
         </div>
-        <template v-if="craftgroup === '0'">
+        <template v-if="craftgroup === 0">
+          <div>製作レベル:<input type="text" v-model.number="level" /></div>
           <div>
-            下限レベル:<input
-              type="text"
-              v-model.number="CraftingLog.BottomLevel"
-            />
+            アイテムレベル:<input type="text" v-model.number="itemlevel" />
           </div>
-          <div>
-            上限レベル:<input
-              type="text"
-              v-model.number="CraftingLog.UpperLevel"
-            />
-          </div>
-          <div>
-            アイテムレベル:<input
-              type="text"
-              v-model.number="CraftingLog.ItemLevel"
-            /></div
+          <div>ランク<input type="text" v-model.number="rank" /></div
         ></template>
-        <template v-if="craftgroup === '1'"></template>
+        <template v-if="craftgroup === 1">
+          <div>秘伝書番号:<input type="text" v-model.number="master" /></div>
+          <div>製作レベル:<input type="text" v-model.number="level" /></div>
+          <div>ランク<input type="text" v-model.number="rank" /></div>
+        </template>
+        <template v-if="craftgroup === 2">
+          <div>
+            イシュガルド復興段階:<input
+              type="text"
+              v-model.number="contentversion"
+            />
+          </div>
+          <div>製作レベル:<input type="text" v-model.number="level" /></div>
+          <div>ランク<input type="text" v-model.number="rank" /></div>
+          <div>
+            高難易度ランク<input type="text" v-model.number="expertlevel" />
+          </div>
+        </template>
       </section>
       <div class="LogRegister__Ingredients">
         <ingredient v-model="IngredientSlot0" :SortID="1" />
@@ -176,9 +181,6 @@ export default {
   data() {
     return {
       CraftingLog: {
-        BottomLevel: 0,
-        UpperLevel: 0,
-        ItemLevel: 0,
         Ingredients: {
           slot0: {},
           slot1: {},
@@ -192,10 +194,17 @@ export default {
       Icon: "",
       Image: "",
       ImgUrl: "",
+      level: 0,
+      rank: 0,
+      itemlevel: 0,
+      expertlevel: 0,
       job: 0,
       crafttype: 0,
       loggroup: 0,
       craftgroup: 0,
+      master: 0,
+      contentversion: 0,
+
       slot0: { isEnable: false, IngredientID: 0 },
       slot1: { isEnable: false, IngredientID: 0 },
       slot2: { isEnable: false, IngredientID: 0 },
