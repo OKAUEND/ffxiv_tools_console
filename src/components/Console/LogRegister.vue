@@ -14,45 +14,80 @@
         <h2>情報</h2>
         <div>
           段階:
-          <input type="radio" id="Raw" value="0" v-model="crafttype" />
+          <input type="radio" id="Raw" value="0" v-model.number="crafttype" />
           <label for="Raw">原材</label>
-          <input type="radio" id="End" value="1" v-model="crafttype" />
+          <input type="radio" id="End" value="1" v-model.number="crafttype" />
           <label for="End">末端</label>
-          <input type="radio" id="Middle" value="2" v-model="crafttype" />
+          <input
+            type="radio"
+            id="Middle"
+            value="2"
+            v-model.number="crafttype"
+          />
           <label for="Middle">中間</label>
-          <input type="radio" id="Complete" value="3" v-model="crafttype" />
+          <input
+            type="radio"
+            id="Complete"
+            value="3"
+            v-model.number="crafttype"
+          />
           <label for="Complete">完成</label>
         </div>
         <div>
           種別:
-          <input type="radio" id="Battle" value="0" v-model="loggroup" />
+          <input type="radio" id="Battle" value="0" v-model.number="loggroup" />
           <label for="Battle">戦闘</label>
-          <input type="radio" id="NoBattle" value="1" v-model="loggroup" />
+          <input
+            type="radio"
+            id="NoBattle"
+            value="1"
+            v-model.number="loggroup"
+          />
           <label for="NoBattle">非戦闘</label>
-          <input type="radio" id="Fashionable" value="2" v-model="loggroup" />
+          <input
+            type="radio"
+            id="Fashionable"
+            value="2"
+            v-model.number="loggroup"
+          />
           <label for="Fashionable">おしゃれ</label>
-          <input type="radio" id="Furniture" value="3" v-model="loggroup" />
+          <input
+            type="radio"
+            id="Furniture"
+            value="3"
+            v-model.number="loggroup"
+          />
           <label for="Furniture">家具</label>
-          <input type="radio" id="GardenTools" value="4" v-model="loggroup" />
+          <input
+            type="radio"
+            id="GardenTools"
+            value="4"
+            v-model.number="loggroup"
+          />
           <label for="GardenTools">庭具</label>
         </div>
         <div>
           作成ジョブ:
-          <input type="radio" id="Carpenter" value="0" v-model="job" />
+          <input type="radio" id="Carpenter" value="0" v-model.number="job" />
           <label for="Carpenter">木工</label>
-          <input type="radio" id="Blacksmith" value="1" v-model="job" />
+          <input type="radio" id="Blacksmith" value="1" v-model.number="job" />
           <label for="Blacksmith">鍛冶</label>
-          <input type="radio" id="Armorer" value="2" v-model="job" />
+          <input type="radio" id="Armorer" value="2" v-model.number="job" />
           <label for="Armorer">甲冑</label>
-          <input type="radio" id="Goldsmith" value="3" v-model="job" />
+          <input type="radio" id="Goldsmith" value="3" v-model.number="job" />
           <label for="Goldsmith">彫金</label>
-          <input type="radio" id="Leatherworker" value="4" v-model="job" />
+          <input
+            type="radio"
+            id="Leatherworker"
+            value="4"
+            v-model.number="job"
+          />
           <label for="Leatherworker">革細工</label>
-          <input type="radio" id="Weaver" value="5" v-model="job" />
+          <input type="radio" id="Weaver" value="5" v-model.number="job" />
           <label for="Weaver">裁縫</label>
-          <input type="radio" id="Alchemist" value="6" v-model="job" />
+          <input type="radio" id="Alchemist" value="6" v-model.number="job" />
           <label for="Alchemist">錬金</label>
-          <input type="radio" id="Culinarian" value="7" v-model="job" />
+          <input type="radio" id="Culinarian" value="7" v-model.number="job" />
           <label for="Culinarian">調理</label>
         </div>
       </section>
@@ -60,15 +95,25 @@
         <h2>グループ</h2>
         <div>
           製作種別:
-          <input type="radio" id="Nomal" value="0" v-model="craftgroup" />
+          <input
+            type="radio"
+            id="Nomal"
+            value="0"
+            v-model.number="craftgroup"
+          />
           <label for="Nomal">通常</label>
-          <input type="radio" id="Master" value="1" v-model="craftgroup" />
+          <input
+            type="radio"
+            id="Master"
+            value="1"
+            v-model.number="craftgroup"
+          />
           <label for="Master">秘伝書</label>
           <input
             type="radio"
             id="IshgardianRestoration"
             value="2"
-            v-model="craftgroup"
+            v-model.number="craftgroup"
           />
           <label for="IshgardianRestoration">イシュガルド復興</label>
         </div>
