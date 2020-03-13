@@ -312,64 +312,6 @@ export default {
         });
       this.Logs = storeLogs;
     },
-    async createCollectionRef(DocumentPath) {
-      return firebase.firestore().doc(DocumentPath);
-    },
-    async createFirestoreDocRef(DocumentPath) {
-      const DocRef = await firebase.firestore().doc(DocumentPath);
-      return await DocRef.get().then(function(doc) {
-        return doc.data();
-      });
-    },
-    async createIngredientsArray(Ingredients) {
-      console.log("Ingredients", Ingredients);
-
-      const Slot0Ingredients = await this.testFunction(
-        Ingredients.slot0.ChildDocument.path
-      );
-
-      const Slot0Data = { ...Slot0Ingredients, value: Ingredients.slot0.value };
-
-      console.log("Slot0Data", Slot0Data);
-
-      console.log("Slot1", Ingredients.slot1);
-      const Slot1Ingredients = await this.testFunction(
-        Ingredients.slot1.ChildDocument.path
-      );
-      console.log("Slot1", Ingredients.slot1.ChildDocument.path);
-      const Slot1Data = { ...Slot1Ingredients, value: Ingredients.slot1.value };
-      console.log("Slot1Data", Slot1Data);
-      return Slot0Data;
-    },
-    async testFunction(IngredientPath) {
-      const LogData = await this.createFirestoreDocRef(IngredientPath).then(
-        value => {
-          return value;
-        }
-      );
-
-      //子の必須素材情報がなかった場合は、処理を抜ける
-      //フラグ管理にしたほうがいいかもしれない
-      if (LogData.Ingredients === undefined) {
-        return {
-          name: LogData.name,
-          image: LogData.image
-        };
-      }
-
-      //再帰的に処理をし、親から見て孫の素材情報を取得する
-      const ChildIngredients = await this.createIngredientsArray(
-        LogData.Ingredients
-      ).then(value => {
-        console.log("Ingredients", value);
-        return value ? value : [];
-      });
-      return {
-        name: LogData.name,
-        image: LogData.image,
-        ingredients: ChildIngredients
-      };
-    },
     writeInterface() {
       if (this.CraftingLog.name === "") {
         alert("名前が入力されていません");
