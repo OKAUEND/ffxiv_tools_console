@@ -97,17 +97,11 @@ export default {
       }
 
       if (this.value <= 0) {
-        return this.$emit("input", {
-          isEnable: false,
-          IngredientID: 0
-        });
+        return;
       }
 
       if (this.ChildDocumentID === 0 || this.ChildDocumentID === "") {
-        return this.$emit("input", {
-          isEnable: false,
-          IngredientID: 0
-        });
+        return;
       }
 
       const ZeroPadding = `"0000000${this.ChildDocumentID}`.slice(-7);
