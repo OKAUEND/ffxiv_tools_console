@@ -2,30 +2,30 @@
   <div class="Ingredient" :class="DisabledBorderColor">
     必須素材
     <div>有効化<input type="checkbox" v-model="isEnable" /></div>
-    <div>
-      必要個数<input
+    <div class="Ingredient__Child">
+      <label>必要個数</label>
+      <input
         type="text"
         :disabled="!isEnable"
         v-model.number="ReqValue"
         @input="EventEmit"
       />
     </div>
-    <div>
-      <label>素材のID</label>
+    <div class="Ingredient__Child">
+      素材のID
       <input
         type="text"
         :disabled="!isEnable"
         v-model.number="ChildDocumentID"
         @input="EventEmit"
       />
-      <button @click="fetchDocument">取得</button>
-      <div>
-        現在の選択中<br />
-        <img class="minisize" :src="ImgUrl" /><br />
-        {{ Name }}
-      </div>
     </div>
-    <!-- <div>{{ DocumentReference.path }}</div> -->
+    <button @click="fetchDocument">取得</button>
+    <div>
+      現在の選択中<br />
+      <img class="minisize" :src="ImgUrl" /><br />
+      {{ Name }}
+    </div>
   </div>
 </template>
 
@@ -130,13 +130,24 @@ export default {
 
 <style lang="scss">
 .Ingredient {
-  margin: 5px;
-  padding: 5px;
+  display: flex;
+  flex-direction: column;
   border: solid 2px;
   border-radius: 5px;
-
+  padding: 5px;
+  margin: 5px;
+  box-sizing: border-box;
   &.isDisabled {
     border: solid 2px red;
+  }
+
+  & input {
+    width: 50px;
+  }
+
+  &__Child {
+    display: flex;
+    flex-direction: row;
   }
 }
 
