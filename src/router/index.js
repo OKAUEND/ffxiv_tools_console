@@ -4,6 +4,7 @@ import VueRouter from "vue-router";
 import Singin from "@/components/Console/singin.vue";
 import Console from "@/components/Console/Console.vue";
 import LogRegister from "@/components/Console/LogRegister.vue";
+import IconManagement from "@/components/Console/IconManagement.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,10 @@ const routes = [
       {
         path: "/",
         component: LogRegister
+      },
+      {
+        path: "/IconManagement",
+        component: IconManagement
       }
     ]
   }
