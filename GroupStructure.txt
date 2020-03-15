@@ -65,3 +65,16 @@ Armor
     -Range
     -Caster
     -Heler
+
+
+-Ingredient
+-Seafood
+-Stone
+-Metal
+-Lumber
+-Cloth
+-Leather
+-Bone
+-Reagent
+-Part
+-FCCraft
