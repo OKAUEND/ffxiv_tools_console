@@ -68,13 +68,24 @@ Armor
 
 
 -Ingredient
+1
 -Seafood
+2
 -Stone
+3
 -Metal
+4
 -Lumber
+5
 -Cloth
+6
 -Leather
+7
 -Bone
+8
 -Reagent
+9
 -Part
+10
 -FCCraft
+11
