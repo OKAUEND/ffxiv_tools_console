@@ -61,7 +61,11 @@ export default {
   data() {
     return {
       groups: [
-        [{ name: "Raw" }, { name: "End" }, { name: "Middle" }],
+        [
+          { name: "Material/Raw" },
+          { name: "Material/End" },
+          { name: "Material/Middle" }
+        ],
         [{ name: "Weapon" }],
         [{ name: "Tools" }],
         [{ name: "Armor" }]
