@@ -30,11 +30,22 @@
       <div v-for="(Type, index) in SelectTypes" :key="index">
         <input
           type="radio"
-          :id="Type"
+          :id="Type.name"
           :value="index"
           v-model.number="selecttype"
         />
-        <label :for="Type">{{ Type }}</label>
+        <label :for="Type.name">{{ Type.name }}</label>
+      </div>
+    </div>
+    <div class="RadioList">
+      <div v-for="(Role, index) in showRoles" :key="index">
+        <input
+          type="radio"
+          :id="Role.name"
+          :value="index"
+          v-model.number="selectrole"
+        />
+        <label :for="Role.name">{{ Role.name }}</label>
       </div>
     </div>
     <label>名前</label>
@@ -125,7 +136,8 @@ export default {
       ],
       selectgroup: 0,
       selectname: 0,
-      selecttype: 0
+      selecttype: 0,
+      selectrole: 0
     };
   },
   computed: {
@@ -135,10 +147,21 @@ export default {
     SelectTypes() {
       return this.types[this.selectgroup];
     },
+    showRoles() {
+      return this.SelectTypes[this.selecttype].isRole === true
+        ? this.roles
+        : [];
+    },
     createStoragePath() {
-      return `${this.SelectGroups[this.selectname].name}/${
-        this.SelectTypes[this.selecttype]
+      const storagepath = `${this.SelectGroups[this.selectname].name}/${
+        this.SelectTypes[this.selecttype].name
       }/`;
+      //防具を選択し、尚且アクセサリ以外の部位を選択している場合のみ
+      const role =
+        this.SelectTypes[this.selecttype].isRole === true
+          ? `${this.roles[this.selectrole].name}/`
+          : "";
+      return `${storagepath}${role}`;
     }
   }
 };
