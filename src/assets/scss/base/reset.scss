@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   //スクロールバー分を最初から除外しておく
-  max-width: 1341px;
+  max-width: calc(100vw - 30px);
 }
 
 h1,
