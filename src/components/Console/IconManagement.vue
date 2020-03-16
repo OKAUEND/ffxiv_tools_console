@@ -50,12 +50,14 @@
     </div>
     <label>名前</label>
     <input type="text" />
-
+    <input type="file" @change="e => setUploadFile(e.target.files[0])" />
+    <img :src="imagefile" />
     <button>追加</button>
   </div>
 </template>
 
 <script>
+import firebase from "../../firebase.js";
 export default {
   name: "IconManagement",
   data() {
@@ -141,7 +143,8 @@ export default {
       selectgroup: 0,
       selectname: 0,
       selecttype: 0,
-      selectrole: 0
+      selectrole: 0,
+      imagefile: ""
     };
   },
   computed: {
@@ -167,6 +170,26 @@ export default {
           : "";
       return `${storagepath}${role}`;
     }
+  },
+  methods: {
+    setUploadFile(file) {
+      if (!file) {
+        //何も無い時はインスタンスも初期化し、何も表示しないようにしておく
+        this.imagefile = "";
+        return;
+      }
+      this.renderImageFile(file);
+      const storageRef = firebase.storage().ref();
+      const mountainImageRef = storageRef.child(this.createStoragePath);
+      console.log(mountainImageRef);
+    },
+    renderImageFile(file) {
+      const render = new FileReader();
+      render.onload = e => {
+        this.imagefile = e.target.result;
+      };
+      render.readAsDataURL(file);
+    },
   }
 };
 </script>
