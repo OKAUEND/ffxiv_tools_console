@@ -15,19 +15,19 @@
       <input type="radio" id="Armor" value="3" v-model.number="selectgroup" />
       <label for="Armor">防具</label>
     </div>
-    <div class="RadioList">
-      <div v-for="(Group, ID) in SelectGroups" :key="ID">
+    <div class="RadioList Stage">
+      <div v-for="(Stage, index) in selectStages" :key="index">
         <input
           type="radio"
-          :id="Group.name"
-          :value="ID"
-          v-model.number="selectname"
+          :id="Stage.name"
+          :value="index"
+          v-model.number="selectsubducument"
         />
-        <label :for="Group.name">{{ Group.name }}</label>
+        <label :for="Stage.name">{{ Stage.name }}</label>
       </div>
     </div>
     <div class="RadioList">
-      <div v-for="(Type, index) in SelectTypes" :key="index">
+      <div v-for="(Type, index) in selectTypes" :key="index">
         <input
           type="radio"
           :id="Type.name"
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="RadioList">
-      <div v-for="(Role, index) in showRoles" :key="index">
+      <div v-for="(Role, index) in selectRoles" :key="index">
         <input
           type="radio"
           :id="Role.name"
@@ -63,14 +63,11 @@ export default {
   data() {
     return {
       groups: [
-        [
-          { name: "Material/Raw" },
-          { name: "Material/End" },
-          { name: "Material/Middle" }
-        ],
-        [{ name: "Weapon" }],
-        [{ name: "Tools" }],
-        [{ name: "Armor" }]
+        { name: "Material", isSubDocument: true },
+        { name: "Weapon", isSubDocument: false },
+        { name: "Tools", isSubDocument: false },
+        { name: "Armor", isSubDocument: false },
+        { name: "House", isSubDocument: false }
       ],
       types: [
         [
@@ -133,14 +130,17 @@ export default {
           { name: "Ring", isRole: false }
         ]
       ],
+      stages: [{ name: "Raw" }, { name: "End" }, { name: "Middle" }],
       roles: [
         { name: "Tank" },
         { name: "Mele" },
         { name: "Range" },
         { name: "Caster" },
-        { name: "Heler" }
+        { name: "Heler" },
+        { name: "Other" }
       ],
       selectgroup: 0,
+      selectsubducument: 0,
       selectname: 0,
       selecttype: 0,
       selectrole: 0,
@@ -148,27 +148,34 @@ export default {
     };
   },
   computed: {
-    SelectGroups() {
+    selectGroups() {
       return this.groups[this.selectgroup];
     },
-    SelectTypes() {
+    selectTypes() {
       return this.types[this.selectgroup];
     },
-    showRoles() {
-      return this.SelectTypes[this.selecttype].isRole === true
+    selectStages() {
+      return this.selectGroups.isSubDocument === true ? this.stages : [];
+    },
+    selectRoles() {
+      return this.selectTypes[this.selecttype].isRole === true
         ? this.roles
         : [];
     },
     createStoragePath() {
-      const storagepath = `${this.SelectGroups[this.selectname].name}/${
-        this.SelectTypes[this.selecttype].name
-      }/`;
+      const group = this.selectGroups.name;
+      const type = this.selectTypes[this.selecttype].name;
+      //Groupの中で、サブドキュメントが存在している場合Pathに加える
+      const stage =
+        this.selectGroups.isSubDocument === true
+          ? `${this.selectStages[this.selectsubducument].name}/`
+          : "";
       //防具を選択し、尚且アクセサリ以外の部位を選択している場合のみ
       const role =
-        this.SelectTypes[this.selecttype].isRole === true
+        this.selectTypes[this.selecttype].isRole === true
           ? `${this.roles[this.selectrole].name}/`
           : "";
-      return `${storagepath}${role}`;
+      return `${group}/${stage}${type}/${role}`;
     }
   },
   methods: {
