@@ -42,6 +42,13 @@
     <input type="file" @change="e => setUploadFile(e.target.files[0])" />
     <img :src="imagefile" />
     <button>追加</button>
+    <ul>
+      <li v-for="(Icon, ID) in iconpath" :key="ID">
+        <img :src="Icon.url" />
+      </li>
+    </ul>
+    <button @click="fetchIconAllList()">アイコン取得</button>
+    <button @click="fetchIcons()">条件取得</button>
   </div>
 </template>
 
@@ -163,6 +170,56 @@ export default {
       };
       render.readAsDataURL(file);
     },
+    createDocumentRef(isChildType, MaterialName) {
+      if (isChildType) {
+        return firebase
+          .firestore()
+          .collection("Image")
+          .doc(this.selectGroups.name)
+          .collection(this.selectTypes[this.selecttype].name)
+          .where("Type", "==", MaterialName);
+      } else {
+        return firebase
+          .firestore()
+          .collection("Image")
+          .doc(this.selectGroups.name)
+          .collection(this.selectTypes[this.selecttype].name);
+      }
+    },
+    fetchIconAllList() {
+      this.iconpath.length = 0;
+      const ImageRef = this.createDocumentRef(
+        false,
+        this.selectMaterialTypes[this.MaterialNumber].name
+      );
+      ImageRef.get().then(querySnapshot => {
+        this.iconpath = querySnapshot.docs
+          .map(doc => doc.data())
+          .map(Doc => {
+            return {
+              ID: Doc.ID,
+              url: Doc.URL
+            };
+          });
+      });
+    },
+    fetchIcons() {
+      this.iconpath.length = 0;
+      const ImageRef = this.createDocumentRef(
+        this.selectGroups.isChildType,
+        this.selectMaterialTypes[this.MaterialNumber].name
+      );
+      ImageRef.get().then(querySnapshot => {
+        this.iconpath = querySnapshot.docs
+          .map(doc => doc.data())
+          .map(Doc => {
+            return {
+              ID: Doc.ID,
+              url: Doc.URL
+            };
+          });
+      });
+    }
   }
 };
 </script>
