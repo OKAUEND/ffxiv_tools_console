@@ -24,47 +24,16 @@ Weapon
 Tools
 Armor
 -Shield
-    -Tank
-    -Mele
-    -Range
-    -Caster
-    -Heler
 -Head
-    -Tank
-    -Mele
-    -Range
-    -Caster
-    -Heler
 -Body
-    -Tank
-    -Mele
-    -Range
-    -Caster
-    -Heler
 -Hands
-    -Tank
-    -Mele
-    -Range
-    -Caster
-    -Heler
 -Waist
-    -Tank
-    -Mele
-    -Range
-    -Caster
-    -Heler
 -Legs
-    -Tank
-    -Mele
-    -Range
-    -Caster
-    -Heler
 -Feet
-    -Tank
-    -Mele
-    -Range
-    -Caster
-    -Heler
+-Earrings
+-Necklace
+-Bracelets
+-Ring
 
 
 -Ingredient
