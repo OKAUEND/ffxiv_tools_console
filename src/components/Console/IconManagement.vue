@@ -179,9 +179,14 @@ export default {
       };
       render.readAsDataURL(file);
     },
-    createDocumentRef(isMaterialTypeInfo, MaterialName) {
+    /* 
+        @param  {Boolean}  isMaterialTypeInfo  - 素材の情報を扱うかどうか
+        @param  {string}   MaterialName        - 素材名
+        @return {FirebaseQuery}                - FirestoreQueryを返す
+    */
+    createDocumentRef(isMaterialTypeInfo = false, MaterialName = "") {
       //材料のアイコンであった場合、種類で条件検索を行いたいため、
-      //FirestoreRefの作成方法を分ける
+      //FirestoreQueryの作成方法を分ける
       if (isMaterialTypeInfo) {
         return firebase
           .firestore()
