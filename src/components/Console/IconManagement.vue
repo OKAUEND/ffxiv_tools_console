@@ -59,11 +59,11 @@ export default {
   data() {
     return {
       groups: [
-        { name: "Material", isChildType: true },
-        { name: "Weapon", isChildType: false },
-        { name: "Tools", isChildType: false },
-        { name: "Armor", isChildType: false },
-        { name: "House", isChildType: false }
+        { name: "Material", isMaterialTypeInfo: true },
+        { name: "Weapon", isMaterialTypeInfo: false },
+        { name: "Tools", isMaterialTypeInfo: false },
+        { name: "Armor", isMaterialTypeInfo: false },
+        { name: "House", isMaterialTypeInfo: false }
       ],
       types: [
         [{ name: "Raw" }, { name: "End" }, { name: "Middle" }],
@@ -132,7 +132,8 @@ export default {
       selectname: 0,
       selecttype: 0,
       MaterialNumber: 0,
-      imagefile: ""
+      imagefile: "",
+      iconpath: []
     };
   },
   computed: {
@@ -143,7 +144,9 @@ export default {
       return this.types[this.selectgroup];
     },
     selectMaterialTypes() {
-      return this.selectGroups.isChildType === true ? this.materialtype : [];
+      return this.selectGroups.isMaterialTypeInfo === true
+        ? this.materialtype
+        : [];
     },
     createStoragePath() {
       const group = this.selectGroups.name;
@@ -170,8 +173,10 @@ export default {
       };
       render.readAsDataURL(file);
     },
-    createDocumentRef(isChildType, MaterialName) {
-      if (isChildType) {
+    createDocumentRef(isMaterialTypeInfo, MaterialName) {
+      //材料のアイコンであった場合、種類で条件検索を行いたいため、
+      //FirestoreRefの作成方法を分ける
+      if (isMaterialTypeInfo) {
         return firebase
           .firestore()
           .collection("Image")
@@ -206,7 +211,7 @@ export default {
     fetchIcons() {
       this.iconpath.length = 0;
       const ImageRef = this.createDocumentRef(
-        this.selectGroups.isChildType,
+        this.selectGroups.isMaterialTypeInfo,
         this.selectMaterialTypes[this.MaterialNumber].name
       );
       ImageRef.get().then(querySnapshot => {
