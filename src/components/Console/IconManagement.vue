@@ -204,10 +204,7 @@ export default {
     },
     fetchIconAllList() {
       this.iconpath.length = 0;
-      const ImageRef = this.createDocumentRef(
-        false,
-        this.selectMaterialTypes[this.MaterialNumber].name
-      );
+      const ImageRef = this.createDocumentRef();
       ImageRef.get().then(querySnapshot => {
         this.iconpath = querySnapshot.docs
           .map(doc => doc.data())
