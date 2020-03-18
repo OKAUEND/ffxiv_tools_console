@@ -15,17 +15,6 @@
       <input type="radio" id="Armor" value="3" v-model.number="selectgroup" />
       <label for="Armor">防具</label>
     </div>
-    <div class="RadioList Stage">
-      <div v-for="(Stage, index) in selectStages" :key="index">
-        <input
-          type="radio"
-          :id="Stage.name"
-          :value="index"
-          v-model.number="selectsubducument"
-        />
-        <label :for="Stage.name">{{ Stage.name }}</label>
-      </div>
-    </div>
     <div class="RadioList">
       <div v-for="(Type, index) in selectTypes" :key="index">
         <input
@@ -38,14 +27,14 @@
       </div>
     </div>
     <div class="RadioList">
-      <div v-for="(Role, index) in selectRoles" :key="index">
+      <div v-for="(MaterialType, index) in selectMaterialTypes" :key="index">
         <input
           type="radio"
-          :id="Role.name"
+          :id="MaterialType.name"
           :value="index"
-          v-model.number="selectrole"
+          v-model.number="MaterialNumber"
         />
-        <label :for="Role.name">{{ Role.name }}</label>
+        <label :for="MaterialType.name">{{ MaterialType.name }}</label>
       </div>
     </div>
     <label>名前</label>
@@ -63,87 +52,79 @@ export default {
   data() {
     return {
       groups: [
-        { name: "Material", isSubDocument: true },
-        { name: "Weapon", isSubDocument: false },
-        { name: "Tools", isSubDocument: false },
-        { name: "Armor", isSubDocument: false },
-        { name: "House", isSubDocument: false }
+        { name: "Material", isChildType: true },
+        { name: "Weapon", isChildType: false },
+        { name: "Tools", isChildType: false },
+        { name: "Armor", isChildType: false },
+        { name: "House", isChildType: false }
       ],
       types: [
+        [{ name: "Raw" }, { name: "End" }, { name: "Middle" }],
         [
-          { name: "Ingredient", isRole: false },
-          { name: "Seafood", isRole: false },
-          { name: "Stone", isRole: false },
-          { name: "Metal", isRole: false },
-          { name: "Lumber", isRole: false },
-          { name: "Cloth", isRole: false },
-          { name: "Leather", isRole: false },
-          { name: "Bone", isRole: false },
-          { name: "Reagent", isRole: false },
-          { name: "Part", isRole: false },
-          { name: "GuildCraft", isRole: false }
+          { name: "Gladiator" },
+          { name: "Marauder" },
+          { name: "DarkKnight" },
+          { name: "Gunbreaker" },
+          { name: "Lancer" },
+          { name: "Pugilist" },
+          { name: "Samurai" },
+          { name: "Rogue" },
+          { name: "Archer" },
+          { name: "Machinist" },
+          { name: "Dancer" },
+          { name: "Thaumaturge" },
+          { name: "Arcanist" },
+          { name: "RedMage" },
+          { name: "BlueMage" },
+          { name: "Conjurer" },
+          { name: "Scholar" },
+          { name: "Astrologian" }
         ],
         [
-          { name: "Gladiator", isRole: false },
-          { name: "Marauder", isRole: false },
-          { name: "DarkKnight", isRole: false },
-          { name: "Gunbreaker", isRole: false },
-          { name: "Lancer", isRole: false },
-          { name: "Pugilist", isRole: false },
-          { name: "Samurai", isRole: false },
-          { name: "Rogue", isRole: false },
-          { name: "Archer", isRole: false },
-          { name: "Machinist", isRole: false },
-          { name: "Dancer", isRole: false },
-          { name: "Thaumaturge", isRole: false },
-          { name: "Arcanist", isRole: false },
-          { name: "RedMage", isRole: false },
-          { name: "BlueMage", isRole: false },
-          { name: "Conjurer", isRole: false },
-          { name: "Scholar", isRole: false },
-          { name: "Astrologian", isRole: false }
+          { name: "Carpenter" },
+          { name: "Blacksmith" },
+          { name: "Armorer" },
+          { name: "Goldsmith" },
+          { name: "Leatherworker" },
+          { name: "Weaver" },
+          { name: "Alchemist" },
+          { name: "Culinarian" },
+          { name: "Miner" },
+          { name: "Botanist" },
+          { name: "Fisher" }
         ],
         [
-          { name: "Carpenter", isRole: false },
-          { name: "Blacksmith", isRole: false },
-          { name: "Armorer", isRole: false },
-          { name: "Goldsmith", isRole: false },
-          { name: "Leatherworker", isRole: false },
-          { name: "Weaver", isRole: false },
-          { name: "Alchemist", isRole: false },
-          { name: "Culinarian", isRole: false },
-          { name: "Miner", isRole: false },
-          { name: "Botanist", isRole: false },
-          { name: "Fisher", isRole: false }
-        ],
-        [
-          { name: "Shield", isRole: false },
-          { name: "Head", isRole: true },
-          { name: "Body", isRole: true },
-          { name: "Hands", isRole: true },
-          { name: "Waist", isRole: false },
-          { name: "Legs", isRole: true },
-          { name: "Feet", isRole: true },
-          { name: "Earrings", isRole: false },
-          { name: "Necklace", isRole: false },
-          { name: "Bracelets", isRole: false },
-          { name: "Ring", isRole: false }
+          { name: "Shield" },
+          { name: "Head" },
+          { name: "Body" },
+          { name: "Hands" },
+          { name: "Waist" },
+          { name: "Legs" },
+          { name: "Feet" },
+          { name: "Earrings" },
+          { name: "Necklace" },
+          { name: "Bracelets" },
+          { name: "Ring" }
         ]
       ],
-      stages: [{ name: "Raw" }, { name: "End" }, { name: "Middle" }],
-      roles: [
-        { name: "Tank" },
-        { name: "Mele" },
-        { name: "Range" },
-        { name: "Caster" },
-        { name: "Heler" },
-        { name: "Other" }
+      materialtype: [
+        { name: "Ingredient" },
+        { name: "Seafood" },
+        { name: "Stone" },
+        { name: "Metal" },
+        { name: "Lumber" },
+        { name: "Cloth" },
+        { name: "Leather" },
+        { name: "Bone" },
+        { name: "Reagent" },
+        { name: "Part" },
+        { name: "GuildCraft" }
       ],
       selectgroup: 0,
       selectsubducument: 0,
       selectname: 0,
       selecttype: 0,
-      selectrole: 0,
+      MaterialNumber: 0,
       imagefile: ""
     };
   },
@@ -154,28 +135,13 @@ export default {
     selectTypes() {
       return this.types[this.selectgroup];
     },
-    selectStages() {
-      return this.selectGroups.isSubDocument === true ? this.stages : [];
-    },
-    selectRoles() {
-      return this.selectTypes[this.selecttype].isRole === true
-        ? this.roles
-        : [];
+    selectMaterialTypes() {
+      return this.selectGroups.isChildType === true ? this.materialtype : [];
     },
     createStoragePath() {
       const group = this.selectGroups.name;
       const type = this.selectTypes[this.selecttype].name;
-      //Groupの中で、サブドキュメントが存在している場合Pathに加える
-      const stage =
-        this.selectGroups.isSubDocument === true
-          ? `${this.selectStages[this.selectsubducument].name}/`
-          : "";
-      //防具を選択し、尚且アクセサリ以外の部位を選択している場合のみ
-      const role =
-        this.selectTypes[this.selecttype].isRole === true
-          ? `${this.roles[this.selectrole].name}/`
-          : "";
-      return `${group}/${stage}${type}/${role}`;
+      return `${group}/${type}`;
     }
   },
   methods: {
