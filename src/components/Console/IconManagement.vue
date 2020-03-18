@@ -37,8 +37,6 @@
         <label :for="MaterialType.name">{{ MaterialType.name }}</label>
       </div>
     </div>
-    <label>名前</label>
-    <input type="text" />
     <input type="file" @change="e => setUploadFile(e.target.files[0])" />
     <img :src="imagefile" />
     <button>追加</button>
