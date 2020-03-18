@@ -16,7 +16,11 @@
       <label for="Armor">防具</label>
     </div>
     <div class="RadioList">
-      <div v-for="(Type, index) in selectTypes" :key="index">
+      <div
+        v-for="(Type, index) in selectTypes"
+        :key="index"
+        class="ConsoleInput"
+      >
         <input
           type="radio"
           :id="Type.name"
@@ -27,7 +31,11 @@
       </div>
     </div>
     <div class="RadioList">
-      <div v-for="(MaterialType, index) in selectMaterialTypes" :key="index">
+      <div
+        v-for="(MaterialType, index) in selectMaterialTypes"
+        :key="index"
+        class="ConsoleInput"
+      >
         <input
           type="radio"
           :id="MaterialType.name"
@@ -231,9 +239,14 @@ export default {
 .RadioList {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   flex-wrap: wrap;
   width: 50%;
   margin: 0 auto;
+}
+
+.ConsoleInput {
+  width: 120px;
+  display: flex;
+  margin: 2px;
 }
 </style>
