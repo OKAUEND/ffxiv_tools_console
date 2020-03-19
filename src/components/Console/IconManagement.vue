@@ -6,18 +6,13 @@
       <button @click="isUpadateMode = !isUpadateMode">新規追加モードへ</button>
     </div>
     <div>
-      <input
-        type="radio"
-        id="Material"
-        value="0"
-        v-model.number="selectgroup"
-      />
+      <input type="radio" id="Material" value="0" v-model.number="groupindex" />
       <label for="Material">素材</label>
-      <input type="radio" id="Weapon" value="1" v-model.number="selectgroup" />
+      <input type="radio" id="Weapon" value="1" v-model.number="groupindex" />
       <label for="Weapon">武器</label>
-      <input type="radio" id="Tools" value="2" v-model.number="selectgroup" />
+      <input type="radio" id="Tools" value="2" v-model.number="groupindex" />
       <label for="Tools">道具</label>
-      <input type="radio" id="Armor" value="3" v-model.number="selectgroup" />
+      <input type="radio" id="Armor" value="3" v-model.number="groupindex" />
       <label for="Armor">防具</label>
     </div>
     <div class="RadioList">
@@ -30,7 +25,7 @@
           type="radio"
           :id="Type.name"
           :value="index"
-          v-model.number="selecttype"
+          v-model.number="typeindex"
         />
         <label :for="Type.name">{{ Type.name }}</label>
       </div>
@@ -45,17 +40,17 @@
           type="radio"
           :id="MaterialType.name"
           :value="index"
-          v-model.number="MaterialNumber"
+          v-model.number="materialindex"
         />
         <label :for="MaterialType.name">{{ MaterialType.name }}</label>
       </div>
     </div>
     <input type="file" @change="e => setUploadFile(e.target.files[0])" />
-    <img class="icon" :src="imagefile" />
+    <img class="icon" :src="renderimagefile" />
     <button @click="updateStorageAndFirestore()">全体更新/追加</button>
     <ul>
-      <li v-for="(Icon, ID) in iconpath" :key="ID">
-        <img :src="Icon.url" />
+      <li v-for="(Icon, ID) in icons" :key="ID">
+        <button><img :src="Icon.URL" /></button>
       </li>
     </ul>
     <button @click="fetchIconAllList()">アイコン取得</button>
@@ -138,23 +133,22 @@ export default {
         { name: "Part" },
         { name: "GuildCraft" }
       ],
-      selectgroup: 0,
-      selectsubducument: 0,
-      selectname: 0,
-      selecttype: 0,
-      MaterialNumber: 0,
-      imagefile: "",
-      iconpath: [],
+      groupindex: 0,
+      typeindex: 0,
+      materialindex: 0,
+      renderimagefile: "",
+      icons: [],
       file: {},
-      isUpadateMode: false
+      isUpadateMode: false,
+      storedocumentID: 0
     };
   },
   computed: {
     selectGroups() {
-      return this.groups[this.selectgroup];
+      return this.groups[this.groupindex];
     },
     selectTypes() {
-      return this.types[this.selectgroup];
+      return this.types[this.groupindex];
     },
     selectMaterialTypes() {
       return this.selectGroups.isMaterialTypeInfo === true
@@ -163,7 +157,7 @@ export default {
     },
     createStoragePath() {
       const group = this.selectGroups.name;
-      const type = this.selectTypes[this.selecttype].name;
+      const type = this.selectTypes[this.typeindex].name;
       return `${group}/${type}`;
     }
   },
@@ -187,7 +181,7 @@ export default {
     renderImageFile(file) {
       const render = new FileReader();
       render.onload = e => {
-        this.imagefile = e.target.result;
+        this.renderimagefile = e.target.result;
       };
       render.readAsDataURL(file);
     },
@@ -202,7 +196,7 @@ export default {
       const ZeroPaddingNumber = `"00000${id}`.slice(-5);
 
       //Type名と0埋め番号文字列を結合し、ドキュメント名を作成する
-      const typename = this.selectTypes[this.selecttype].name;
+      const typename = this.selectTypes[this.typeindex].name;
       const documentName = `${typename}${ZeroPaddingNumber}`;
 
       //Storageのfullパスは、group名/type名/ドキュメント名.拡張子 で作成する
@@ -241,10 +235,10 @@ export default {
     */
     async createFirestoreDocument(DocumentName, DocumentID, fullpath) {
       const GroupName = this.selectGroups.name;
-      const TypeName = this.selectTypes[this.selecttype].name;
+      const TypeName = this.selectTypes[this.typeindex].name;
       const MaterialTypeName =
         this.selectGroups.isMaterialTypeInfo === true
-          ? this.selectMaterialTypes[this.MaterialNumber].name
+          ? this.selectMaterialTypes[this.materialindex].name
           : "";
 
       const GCP_fullurl = `${process.env.VUE_APP_GCP_URL}${fullpath}`;
@@ -261,7 +255,7 @@ export default {
         .firestore()
         .collection("Image")
         .doc(this.selectGroups.name)
-        .collection(this.selectTypes[this.selecttype].name)
+        .collection(this.selectTypes[this.typeindex].name)
         .doc(DocumentName)
         .set(storeDocument);
     },
@@ -274,7 +268,7 @@ export default {
         .firestore()
         .collection("Image")
         .doc(this.selectGroups.name)
-        .collection(this.selectTypes[this.selecttype].name);
+        .collection(this.selectTypes[this.typeindex].name);
 
       const lastdocument = documentRef.orderBy("ID", "desc").limit(1);
 
@@ -297,21 +291,21 @@ export default {
           .firestore()
           .collection("Image")
           .doc(this.selectGroups.name)
-          .collection(this.selectTypes[this.selecttype].name)
+          .collection(this.selectTypes[this.typeindex].name)
           .where("Type", "==", MaterialName);
       } else {
         return firebase
           .firestore()
           .collection("Image")
           .doc(this.selectGroups.name)
-          .collection(this.selectTypes[this.selecttype].name);
+          .collection(this.selectTypes[this.typeindex].name);
       }
     },
     fetchIconAllList() {
-      this.iconpath.length = 0;
+      this.icons.length = 0;
       const ImageRef = this.createDocumentRef();
       ImageRef.get().then(querySnapshot => {
-        this.iconpath = querySnapshot.docs
+        this.icons = querySnapshot.docs
           .map(doc => doc.data())
           .map(Doc => {
             return {
@@ -325,13 +319,13 @@ export default {
       });
     },
     fetchIcons() {
-      this.iconpath.length = 0;
+      this.icons.length = 0;
       const ImageRef = this.createDocumentRef(
         this.selectGroups.isMaterialTypeInfo,
-        this.selectMaterialTypes[this.MaterialNumber].name
+        this.selectMaterialTypes[this.materialindex].name
       );
       ImageRef.get().then(querySnapshot => {
-        this.iconpath = querySnapshot.docs
+        this.icons = querySnapshot.docs
           .map(doc => doc.data())
           .map(Doc => {
             return {
