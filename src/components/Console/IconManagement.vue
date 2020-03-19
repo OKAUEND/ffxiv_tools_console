@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div class="IconManagement">
+    <div>
+      <div v-if="isUpadateMode">更新モード</div>
+      <div v-else-if="!isUpadateMode">新規追加モード</div>
+      <button @click="isUpadateMode = !isUpadateMode">新規追加モードへ</button>
+    </div>
     <div>
       <input
         type="radio"
@@ -140,7 +145,8 @@ export default {
       MaterialNumber: 0,
       imagefile: "",
       iconpath: [],
-      file: {}
+      file: {},
+      isUpadateMode: false
     };
   },
   computed: {
