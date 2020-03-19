@@ -180,6 +180,25 @@ export default {
       render.readAsDataURL(file);
     },
     /* 
+        @return {Number}                - Firestoreに存在する最後のIDか、なかった場合は1を返す
+    */
+    async fetchLastID() {
+      const documentRef = firebase
+        .firestore()
+        .collection("Image")
+        .doc(this.selectGroups.name)
+        .collection(this.selectTypes[this.selecttype].name);
+
+      const lastdocument = documentRef.orderBy("ID", "desc").limit(1);
+
+      return await lastdocument.get().then(function(querySnapshot) {
+        const lastid = querySnapshot.docs.map(doc => doc.data().ID)[0];
+        //取得した数値が0もしくは存在しない場合には、1を返すようにして初期値を生成する
+        return lastid > 0 ? lastid : 1;
+      });
+    },
+
+    /* 
         @param  {Boolean}  isMaterialTypeInfo  - 素材の情報を扱うかどうか
         @param  {string}   MaterialName        - 素材名
         @return {FirebaseQuery}                - FirestoreQueryを返す
