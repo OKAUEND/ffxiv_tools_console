@@ -195,7 +195,7 @@ export default {
     async updateStorageAndFirestore() {
       //Firestoreのドキュメントで最後のIDから1つ先に追加したいので最後のIDを取得する
       const id = await this.fetchLastID().then(value => {
-        return value;
+        return this.isUpadateMode ? value : value + 1;
       });
 
       //ドキュメント名を、Type+5桁0埋めのIDで作成するために0埋め番号文字列を作成する
