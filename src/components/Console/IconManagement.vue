@@ -168,6 +168,9 @@ export default {
     }
   },
   methods: {
+    /*
+        @param   {file}    file  - 画像ファイル
+    */
     setUploadFile(file) {
       if (!file) {
         //何も無い時はインスタンスも初期化し、何も表示しないようにしておく
@@ -177,6 +180,10 @@ export default {
       this.renderImageFile(file);
       this.file = file;
     },
+
+    /*
+        @param   {file}    file  - 画像ファイル
+    */
     renderImageFile(file) {
       const render = new FileReader();
       render.onload = e => {
@@ -273,7 +280,7 @@ export default {
       return id > 0 ? id : 1;
     },
 
-    /* 
+    /*
         @param  {Boolean}  isMaterialTypeInfo  - 素材の情報を扱うかどうか
         @param  {string}   MaterialName        - 素材名
         @return {FirebaseQuery}                - FirestoreQueryを返す
