@@ -316,7 +316,10 @@ export default {
           .map(Doc => {
             return {
               ID: Doc.ID,
-              url: Doc.URL
+              Group: Doc.Group,
+              Type: Doc.Type,
+              MaterialType: Doc.MaterialType,
+              URL: Doc.URL
             };
           });
       });
@@ -333,7 +336,10 @@ export default {
           .map(Doc => {
             return {
               ID: Doc.ID,
-              url: Doc.URL
+              Group: Doc.Group,
+              Type: Doc.Type,
+              MaterialType: Doc.MaterialType,
+              URL: Doc.URL
             };
           });
       });
