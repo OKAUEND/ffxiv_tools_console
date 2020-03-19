@@ -240,16 +240,20 @@ export default {
         @param   {string}    fullpath      - storageの階層フルパス
     */
     async createFirestoreDocument(DocumentName, DocumentID, fullpath) {
-      const Type =
+      const GroupName = this.selectGroups.name;
+      const TypeName = this.selectTypes[this.selecttype].name;
+      const MaterialTypeName =
         this.selectGroups.isMaterialTypeInfo === true
           ? this.selectMaterialTypes[this.MaterialNumber].name
-          : this.selectTypes[this.selecttype].name;
+          : "";
 
       const GCP_fullurl = `${process.env.VUE_APP_GCP_URL}${fullpath}`;
 
       const storeDocument = {
         ID: DocumentID,
-        Type: Type,
+        Group: GroupName,
+        Type: TypeName,
+        MaterialType: MaterialTypeName,
         URL: GCP_fullurl
       };
 
