@@ -332,6 +332,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.IconManagement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  & .icon {
+    height: 128px;
+    width: 128px;
+  }
+}
+
 .RadioList {
   display: flex;
   flex-direction: row;
