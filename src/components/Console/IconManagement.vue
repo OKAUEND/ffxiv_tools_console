@@ -47,7 +47,7 @@
     </div>
     <input type="file" @change="e => setUploadFile(e.target.files[0])" />
     <img :src="imagefile" />
-    <button>追加</button>
+    <button @click="uploadFirestorage">追加</button>
     <ul>
       <li v-for="(Icon, ID) in iconpath" :key="ID">
         <img :src="Icon.url" />
@@ -183,7 +183,7 @@ export default {
       const baseRef = firebase.storage().ref();
 
       //Firestoreのドキュメントで最後のIDから1つ先に追加したいので最後のIDを取得する
-      const id = await this.fetchNextID().then(value => {
+      const id = await this.fetchLastID().then(value => {
         return value;
       });
       const ZeroPaddingNumber = `"00000${id}`.slice(-5);
@@ -198,7 +198,7 @@ export default {
     /*
         @return {Number}                - Firestoreに存在する最後のIDか、なかった場合は1を返す
     */
-    async fetchNextID() {
+    async fetchLastID() {
       const documentRef = firebase
         .firestore()
         .collection("Image")
