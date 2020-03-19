@@ -139,7 +139,8 @@ export default {
       selecttype: 0,
       MaterialNumber: 0,
       imagefile: "",
-      iconpath: []
+      iconpath: [],
+      file: {}
     };
   },
   computed: {
@@ -168,9 +169,7 @@ export default {
         return;
       }
       this.renderImageFile(file);
-      const storageRef = firebase.storage().ref();
-      const mountainImageRef = storageRef.child(this.createStoragePath);
-      console.log(mountainImageRef);
+      this.file = file;
     },
     renderImageFile(file) {
       const render = new FileReader();
@@ -179,10 +178,27 @@ export default {
       };
       render.readAsDataURL(file);
     },
-    /* 
+
+    async uploadFirestorage() {
+      const baseRef = firebase.storage().ref();
+
+      //Firestoreのドキュメントで最後のIDから1つ先に追加したいので最後のIDを取得する
+      const id = await this.fetchNextID().then(value => {
+        return value;
+      });
+      const ZeroPaddingNumber = `"00000${id}`.slice(-5);
+      const filename = this.selectTypes[this.selecttype].name;
+      const fullpath = `${this.createStoragePath}/${filename}${ZeroPaddingNumber}.png`;
+      const storageRef = baseRef.child(fullpath);
+      storageRef.put(this.file).then(() => {
+        console.log("Success!");
+      });
+    },
+
+    /*
         @return {Number}                - Firestoreに存在する最後のIDか、なかった場合は1を返す
     */
-    async fetchLastID() {
+    async fetchNextID() {
       const documentRef = firebase
         .firestore()
         .collection("Image")
@@ -191,11 +207,10 @@ export default {
 
       const lastdocument = documentRef.orderBy("ID", "desc").limit(1);
 
-      return await lastdocument.get().then(function(querySnapshot) {
-        const lastid = querySnapshot.docs.map(doc => doc.data().ID)[0];
-        //取得した数値が0もしくは存在しない場合には、1を返すようにして初期値を生成する
-        return lastid > 0 ? lastid : 1;
-      });
+      const querySnapshot = await lastdocument.get();
+      const id = querySnapshot.docs.map(doc => doc.data().ID)[0];
+      //取得した数値が0もしくは存在しない場合には、1を返すようにして初期値を生成する
+      return id > 0 ? id + 1 : 1;
     },
 
     /* 
