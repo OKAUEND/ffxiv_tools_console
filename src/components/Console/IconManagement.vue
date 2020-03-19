@@ -46,8 +46,8 @@
       </div>
     </div>
     <input type="file" @change="e => setUploadFile(e.target.files[0])" />
-    <img :src="imagefile" />
-    <button @click="uploadFirestorage">追加</button>
+    <img class="icon" :src="imagefile" />
+    <button @click="updateStorageAndFirestore()">全体更新/追加</button>
     <ul>
       <li v-for="(Icon, ID) in iconpath" :key="ID">
         <img :src="Icon.url" />
@@ -179,20 +179,74 @@ export default {
       render.readAsDataURL(file);
     },
 
-    async uploadFirestorage() {
-      const baseRef = firebase.storage().ref();
-
+    async updateStorageAndFirestore() {
       //Firestoreのドキュメントで最後のIDから1つ先に追加したいので最後のIDを取得する
       const id = await this.fetchLastID().then(value => {
         return value;
       });
+
+      //ドキュメント名を、Type+5桁0埋めのIDで作成するために0埋め番号文字列を作成する
       const ZeroPaddingNumber = `"00000${id}`.slice(-5);
-      const filename = this.selectTypes[this.selecttype].name;
-      const fullpath = `${this.createStoragePath}/${filename}${ZeroPaddingNumber}.png`;
+
+      //Type名と0埋め番号文字列を結合し、ドキュメント名を作成する
+      const typename = this.selectTypes[this.selecttype].name;
+      const documentName = `${typename}${ZeroPaddingNumber}`;
+
+      //Storageのfullパスは、group名/type名/ドキュメント名.拡張子 で作成する
+      const fullpath = `${this.createStoragePath}/${documentName}.png`;
+
+      //アップロード処理を開始する
+      //先にstorageへアップロードを試み、成功したらFirestoreへアップロードしたファイルの情報を保存する
+      this.uploadFirestorage(fullpath)
+        .then(() => {
+          console.log("Storage Upload Success");
+          return this.createFirestoreDocument(documentName, id, fullpath);
+        })
+        .then(() => {
+          console.log("Firestore Update Success");
+        })
+        //エラー処理は上側で行う
+        .catch(error => {
+          console.error({ error });
+        });
+    },
+
+    /*
+        @param   {string}    fullpath  - storageの階層フルパス
+    */
+    async uploadFirestorage(fullpath) {
+      const baseRef = firebase.storage().ref();
       const storageRef = baseRef.child(fullpath);
-      storageRef.put(this.file).then(() => {
-        console.log("Success!");
-      });
+
+      return await storageRef.put(this.file);
+    },
+
+    /*
+        @param   {string}    DocumentName  - 登録するドキュメント名
+        @param   {Number}    DocumentID    - 登録するID番号
+        @param   {string}    fullpath      - storageの階層フルパス
+    */
+    async createFirestoreDocument(DocumentName, DocumentID, fullpath) {
+      const Type =
+        this.selectGroups.isMaterialTypeInfo === true
+          ? this.selectMaterialTypes[this.MaterialNumber].name
+          : this.selectTypes[this.selecttype].name;
+
+      const GCP_fullurl = `${process.env.VUE_APP_GCP_URL}${fullpath}`;
+
+      const storeDocument = {
+        ID: DocumentID,
+        Type: Type,
+        URL: GCP_fullurl
+      };
+
+      return await firebase
+        .firestore()
+        .collection("Image")
+        .doc(this.selectGroups.name)
+        .collection(this.selectTypes[this.selecttype].name)
+        .doc(DocumentName)
+        .set(storeDocument);
     },
 
     /*
@@ -210,7 +264,7 @@ export default {
       const querySnapshot = await lastdocument.get();
       const id = querySnapshot.docs.map(doc => doc.data().ID)[0];
       //取得した数値が0もしくは存在しない場合には、1を返すようにして初期値を生成する
-      return id > 0 ? id + 1 : 1;
+      return id > 0 ? id : 1;
     },
 
     /* 
