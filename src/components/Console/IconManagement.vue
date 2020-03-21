@@ -136,7 +136,7 @@ export default {
       groupindex: 0,
       typeindex: 0,
       materialindex: 0,
-      renderimagefile: "",
+      imagefile: "",
       icons: [],
       file: {},
       isUpadateMode: false,
@@ -181,7 +181,7 @@ export default {
     renderImageFile(file) {
       const render = new FileReader();
       render.onload = e => {
-        this.renderimagefile = e.target.result;
+        this.imagefile = e.target.result;
       };
       render.readAsDataURL(file);
     },
