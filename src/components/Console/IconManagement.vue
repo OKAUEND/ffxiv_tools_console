@@ -50,7 +50,7 @@
     <button @click="updateStorageAndFirestore()">全体更新/追加</button>
     <ul>
       <li v-for="(Icon, ID) in icons" :key="ID">
-        <button><img :src="Icon.URL" /></button>
+        <button @click="applyVueData(Icon)"><img :src="Icon.URL" /></button>
       </li>
     </ul>
     <button @click="fetchIconAllList()">アイコン取得</button>
@@ -140,6 +140,7 @@ export default {
       icons: [],
       file: {},
       isUpadateMode: false,
+      isUpdateStoreOnly: false,
       storedocumentID: 0
     };
   },
@@ -337,6 +338,21 @@ export default {
             };
           });
       });
+    },
+    applyVueData(storeData) {
+      this.isUpdateStoreOnly = true;
+      this.isUpadateMode = true;
+      console.log({ storeData });
+      this.groupindex = this.groups.findIndex(
+        group => group.name === storeData.Group
+      );
+      this.typeindex = this.types[this.groupindex].findIndex(
+        type => type.name === storeData.Type
+      );
+      this.materialindex = this.materialtype.findIndex(
+        material => material.name === storeData.MaterialType
+      );
+      this.imagefile = storeData.URL;
     }
   }
 };
