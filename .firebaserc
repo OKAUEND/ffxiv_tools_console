@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "ffxivcrafttools"
+  },
+  "targets": {
+    "ffxivcrafttools": {
+      "hosting": {
+        "ffxivtoolsconsole": [
+          "ffxivtoolsconsole"
+        ],
+        "ffxivconsole": [
+          "ffxivtoolsconsole"
+        ]
+      }
+    }
+  }
+}

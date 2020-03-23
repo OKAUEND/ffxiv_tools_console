@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Image",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ID",
+          "order": "DESCENDING"
+        },
+        {
+          "fieldPath": "Type",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
