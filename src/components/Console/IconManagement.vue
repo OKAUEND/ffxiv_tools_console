@@ -230,7 +230,8 @@ export default {
       this.uploadFirestorage(fullpath)
         .then(() => {
           console.log("Storage Upload Success");
-          return this.createFirestoreDocument(documentName, id, fullpath);
+          const GCP_FULLURL = `${process.env.VUE_APP_GCP_URL}${fullpath}`;
+          return this.createFirestoreDocument(documentName, id, GCP_FULLURL);
         })
         .then(() => {
           console.log("Firestore Update Success");
@@ -268,7 +269,7 @@ export default {
         @param   {Number}    DocumentID    - 登録するID番号
         @param   {string}    fullpath      - storageの階層フルパス
     */
-    async createFirestoreDocument(DocumentName, DocumentID, fullpath) {
+    async createFirestoreDocument(DocumentName, DocumentID, GCP_URL) {
       const GroupName = this.selectGroups.name;
       const TypeName = this.selectTypes[this.typeindex].name;
       const MaterialTypeName =
@@ -276,14 +277,12 @@ export default {
           ? this.selectMaterialTypes[this.materialindex].name
           : "";
 
-      const GCP_fullurl = `${process.env.VUE_APP_GCP_URL}${fullpath}`;
-
       const storeDocument = {
         ID: DocumentID,
         Group: GroupName,
         Type: TypeName,
         MaterialType: MaterialTypeName,
-        URL: GCP_fullurl
+        URL: GCP_URL
       };
 
       return await firebase
