@@ -257,6 +257,14 @@ export default {
         this.imagefile
       ).then(() => {
         console.log("Firestore Update Success");
+        //更新作業が終わったので初期化する
+        this.storedocumentID = 0;
+        this.isUpdateStoreOnly = false;
+        this.isUpadateMode = false;
+        this.groupindex = 0;
+        this.typeindex = 0;
+        this.materialindex = 0;
+        this.imagefile = "";
       });
     },
 
