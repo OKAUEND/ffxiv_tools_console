@@ -1,9 +1,17 @@
 <template>
   <div class="IconManagement">
     <div>
-      <div v-if="isUpadateMode">更新モード</div>
-      <div v-else-if="!isUpadateMode">新規追加モード</div>
-      <button @click="isUpadateMode = !isUpadateMode">新規追加モードへ</button>
+      <div v-if="!isUpadateMode">新規追加モード</div>
+      <div v-else-if="isUpadateMode && !isUpdateStoreOnly">全体更新モード</div>
+      <div v-else-if="isUpadateMode && isUpdateStoreOnly">
+        Storeのみ更新モード
+      </div>
+      <button @click="isUpadateMode = !isUpadateMode">
+        モード切り替え
+      </button>
+      <button @click="isUpdateStoreOnly = !isUpdateStoreOnly">
+        更新範囲の切り替え
+      </button>
     </div>
     <div>
       <input type="radio" id="Material" value="0" v-model.number="groupindex" />
@@ -46,8 +54,22 @@
       </div>
     </div>
     <input type="file" @change="e => setUploadFile(e.target.files[0])" />
-    <img class="icon" :src="renderimagefile" />
-    <button @click="updateStorageAndFirestore()">全体更新/追加</button>
+    <img class="icon" :src="imagefile" />
+    <button v-if="!isUpadateMode" @click="updateStorageAndFirestore()">
+      新規追加
+    </button>
+    <button
+      v-if="isUpadateMode && !isUpdateStoreOnly"
+      @click="updateStorageAndFirestore()"
+    >
+      更新
+    </button>
+    <button
+      v-else-if="isUpadateMode && isUpdateStoreOnly"
+      @click="updateFirestore()"
+    >
+      Storeのみ更新
+    </button>
     <ul>
       <li v-for="(Icon, ID) in icons" :key="ID">
         <button @click="applyVueData(Icon)"><img :src="Icon.URL" /></button>
@@ -219,14 +241,10 @@ export default {
         });
     },
 
-    /*
-        @param   {string}    fullpath  - storageの階層フルパス
-    */
-    async uploadFirestorage(fullpath) {
-      const baseRef = firebase.storage().ref();
-      const storageRef = baseRef.child(fullpath);
+    async updateFirestore() {
 
-      return await storageRef.put(this.file);
+
+      //先に関数だけを作成
     },
 
     /*
