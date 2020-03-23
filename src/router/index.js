@@ -18,6 +18,7 @@ const routes = [
     path: "/Console",
     name: "Console",
     component: Console,
+    meta: { requiresAuth: true },
     children: [
       {
         path: "/",
@@ -35,6 +36,15 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(recode => recode.meta.requiresAuth);
+  if (requiresAuth) {
+    next({ path: "/", query: { redirect: to.fullPath } });
+  } else {
+    next();
+  }
 });
 
 export default router;
