@@ -251,14 +251,10 @@ export default {
       const typename = this.selectTypes[this.typeindex].name;
       const documentName = `${typename}${ZeroPaddingNumber}`;
 
-      //Storageのfullパスは、group名/type名/ドキュメント名.拡張子 で作成する
-      const fullpath = `${this.createStoragePath}/${documentName}.png`;
-      const GCP_FULLURL = `${process.env.VUE_APP_GCP_URL}${fullpath}`;
-
       this.createFirestoreDocument(
         documentName,
         this.storedocumentID,
-        GCP_FULLURL
+        this.imagefile
       ).then(() => {
         console.log("Firestore Update Success");
       });
