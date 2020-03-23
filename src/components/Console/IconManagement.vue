@@ -372,10 +372,19 @@ export default {
           });
       });
     },
+
+    /*
+        @param  {Object}   storeData        - Firestoreから取得したオブジェクト
+    */
     applyVueData(storeData) {
       this.isUpdateStoreOnly = true;
       this.isUpadateMode = true;
       console.log({ storeData });
+
+      //取得したIDを保持する
+      this.storedocumentID = storeData.ID;
+
+      //取得した文字列を元に、配列のインデックスを取得しそれを変数へ反映
       this.groupindex = this.groups.findIndex(
         group => group.name === storeData.Group
       );
