@@ -2,8 +2,10 @@ html,
 body {
   margin: 0;
   padding: 0;
-  //スクロールバー分を最初から除外しておく
-  max-width: calc(100vw - 30px);
+  @media screen and (min-width: 780px) {
+    //スクロールバー分を最初から除外しておく
+    max-width: calc(100vw - 30px);
+  }
 }
 
 h1,
@@ -27,4 +29,13 @@ h6 {
 a {
   -webkit-tap-highlight-color: #00000000;
   tap-highlight-color: #00000000;
+}
+
+li {
+  list-style-type: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
 }

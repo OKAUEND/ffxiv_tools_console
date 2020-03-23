@@ -70,9 +70,11 @@
     >
       Storeのみ更新
     </button>
-    <ul>
+    <ul class="IconManagement__Icons">
       <li v-for="(Icon, ID) in icons" :key="ID">
-        <button @click="applyVueData(Icon)"><img :src="Icon.URL" /></button>
+        <button @click="applyVueData(Icon)">
+          <img class="MediumSize" :src="Icon.URL" />
+        </button>
       </li>
     </ul>
     <button @click="fetchIconAllList()">アイコン取得</button>
@@ -422,6 +424,17 @@ export default {
   & .icon {
     height: 128px;
     width: 128px;
+  }
+
+  & .MediumSize {
+    height: 90px;
+    width: 90px;
+  }
+
+  &__Icons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
 

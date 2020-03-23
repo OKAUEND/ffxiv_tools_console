@@ -18,7 +18,7 @@ export default {
 
 <style lang="scss">
 .Console {
-  width: 60%;
+  width: 90%;
   margin: 0 auto;
 
   @media screen and (min-width: 780px) {
