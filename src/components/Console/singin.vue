@@ -31,10 +31,11 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          this.$router.push("/Console/LogRegister");
+          console.log("Success");
+          this.$router.push("/Console");
         })
         .catch(error => {
-          console.error(error);
+          console.error({ error });
           this.$router.push("/");
         });
     }
