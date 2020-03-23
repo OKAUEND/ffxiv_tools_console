@@ -242,6 +242,16 @@ export default {
         });
     },
 
+    /*
+        @param   {string}    fullpath      - Storageの階層を示した文字列
+        @return  {storage Reference}       - storage Referenceの結果を返す
+    */
+    async uploadFirestorage(fullpath) {
+      const baseRef = firebase.storage().ref();
+      const storageRef = baseRef.child(fullpath);
+      return await storageRef.put(this.file);
+    },
+
     async updateFirestore() {
       //Storeにすでに存在するデータを上書きするため、取得したIDを使用する
       //ドキュメント名を、Type+5桁0埋めのIDで作成するために0埋め番号文字列を作成する
