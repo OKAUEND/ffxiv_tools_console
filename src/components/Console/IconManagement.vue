@@ -242,9 +242,25 @@ export default {
     },
 
     async updateFirestore() {
+      //Storeにすでに存在するデータを上書きするため、取得したIDを使用する
+      //ドキュメント名を、Type+5桁0埋めのIDで作成するために0埋め番号文字列を作成する
+      const ZeroPaddingNumber = `"00000${this.storedocumentID}`.slice(-5);
 
+      //Type名と0埋め番号文字列を結合し、ドキュメント名を作成する
+      const typename = this.selectTypes[this.typeindex].name;
+      const documentName = `${typename}${ZeroPaddingNumber}`;
 
-      //先に関数だけを作成
+      //Storageのfullパスは、group名/type名/ドキュメント名.拡張子 で作成する
+      const fullpath = `${this.createStoragePath}/${documentName}.png`;
+      const GCP_FULLURL = `${process.env.VUE_APP_GCP_URL}${fullpath}`;
+
+      this.createFirestoreDocument(
+        documentName,
+        this.storedocumentID,
+        GCP_FULLURL
+      ).then(() => {
+        console.log("Firestore Update Success");
+      });
     },
 
     /*
