@@ -267,7 +267,7 @@ export default {
     /*
         @param   {string}    DocumentName  - 登録するドキュメント名
         @param   {Number}    DocumentID    - 登録するID番号
-        @param   {string}    fullpath      - storageの階層フルパス
+        @param   {string}    fullpath      - GCP Storageにある対象ファイルのURL
     */
     async createFirestoreDocument(DocumentName, DocumentID, GCP_URL) {
       const GroupName = this.selectGroups.name;
