@@ -333,7 +333,11 @@ export default {
         @param  {string}   MaterialName        - 素材名
         @return {FirebaseQuery}                - FirestoreQueryを返す
     */
-    createDocumentRef(isMaterialTypeInfo = false, MaterialName = "") {
+    createDocumentRef(
+      isMaterialTypeInfo = false,
+      TypeName = "",
+      MaterialName = ""
+    ) {
       //材料のアイコンであった場合、種類で条件検索を行いたいため、
       //FirestoreQueryの作成方法を分ける
       if (isMaterialTypeInfo) {
@@ -342,7 +346,8 @@ export default {
           .collection("Image")
           .doc(this.selectGroups.name)
           .collection(this.selectTypes[this.typeindex].name)
-          .where("Type", "==", MaterialName);
+          .where("Type", "==", TypeName)
+          .where("MaterialType", "==", MaterialName);
       } else {
         return firebase
           .firestore()
@@ -372,6 +377,7 @@ export default {
       this.icons.length = 0;
       const ImageRef = this.createDocumentRef(
         this.selectGroups.isMaterialTypeInfo,
+        this.selectTypes[this.typeindex].name,
         this.selectMaterialTypes[this.materialindex].name
       );
       ImageRef.get().then(querySnapshot => {
