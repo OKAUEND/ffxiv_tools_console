@@ -96,7 +96,7 @@ export default {
         { name: "House", isMaterialTypeInfo: false }
       ],
       types: [
-        [{ name: "Raw" }, { name: "End" }, { name: "Middle" }],
+        [{ name: "Raw" }, { name: "Middle" }],
         [
           { name: "Gladiator" },
           { name: "Marauder" },
