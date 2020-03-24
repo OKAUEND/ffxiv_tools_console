@@ -324,8 +324,8 @@ export default {
 
       const querySnapshot = await lastdocument.get();
       const id = querySnapshot.docs.map(doc => doc.data().ID)[0];
-      //取得した数値が0もしくは存在しない場合には、1を返すようにして初期値を生成する
-      return id > 0 ? id : 1;
+      //取得した数値が0もしくは存在しない場合には、0を返すようにして初期値を生成する
+      return id > 0 ? id : 0;
     },
 
     /*
