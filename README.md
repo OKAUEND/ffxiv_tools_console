@@ -1,34 +1,13 @@
-# ffxivconsole
+# FFXIV CtaftTools Console
+## About
+FFXIV CraftToolsで使用するデータを管理するための管理者用アプリケーションです。
 
-## Project setup
+## 環境構築手順
+**yarnを使用します**
 ```
+# install dependencies
 yarn install
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Run your unit tests
-```
-yarn test:unit
-```
-
-### Run your end-to-end tests
-```
-yarn test:e2e
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+**環境変数にFirebaseの情報を記載します**
+`.env`か`.env.local`にFirebaseのAPI情報を記載してください
