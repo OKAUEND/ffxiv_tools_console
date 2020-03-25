@@ -211,8 +211,6 @@ export default {
       this.imagefile = "";
       this.file = {};
       if (!file) {
-        //何も無い時はインスタンスも初期化し、何も表示しないようにしておく
-        this.imagefile = "";
         return;
       }
       this.renderImageFile(file);
