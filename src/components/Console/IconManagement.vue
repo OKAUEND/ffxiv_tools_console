@@ -206,6 +206,10 @@ export default {
     setUploadFile(file) {
       //ステータスを準備中を示す0にする
       this.progressstatus = 0;
+
+      //先に初期化を行い、選択されなかったときでもリセットがかかるようにする
+      this.imagefile = "";
+      this.file = {};
       if (!file) {
         //何も無い時はインスタンスも初期化し、何も表示しないようにしておく
         this.imagefile = "";
