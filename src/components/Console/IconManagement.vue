@@ -55,6 +55,7 @@
     </div>
     <input type="file" @change="e => setUploadFile(e.target.files[0])" />
     <img class="icon" :src="imagefile" />
+    <div class="IconManagement__Status">{{ ProcessingStatusComment }}</div>
     <button v-if="!isUpadateMode" @click="updateStorageAndFirestore()">
       新規追加
     </button>
@@ -157,6 +158,7 @@ export default {
         { name: "Part" },
         { name: "GuildCraft" }
       ],
+      statusComments: ["準備中", "登録中", "登録完了"],
       groupindex: 0,
       typeindex: 0,
       materialindex: 0,
@@ -165,7 +167,8 @@ export default {
       file: {},
       isUpadateMode: false,
       isUpdateStoreOnly: false,
-      storedocumentID: 0
+      storedocumentID: 0,
+      progressstatus: 0
     };
   },
   computed: {
@@ -184,6 +187,9 @@ export default {
       const group = this.selectGroups.name;
       const type = this.selectTypes[this.typeindex].name;
       return `${group}/${type}`;
+    },
+    ProcessingStatusComment() {
+      return this.statusComments[this.progressstatus];
     }
   },
   methods: {
@@ -191,6 +197,8 @@ export default {
         @param   {file}    file  - 画像ファイル
     */
     setUploadFile(file) {
+      //ステータスを準備中を示す0にする
+      this.progressstatus = 0;
       if (!file) {
         //何も無い時はインスタンスも初期化し、何も表示しないようにしておく
         this.imagefile = "";
@@ -227,6 +235,8 @@ export default {
       //Storageのfullパスは、group名/type名/ドキュメント名.拡張子 で作成する
       const fullpath = `${this.createStoragePath}/${documentName}.png`;
 
+      //statusを進行中を示す1にする
+      this.progressstatus = 1;
       //アップロード処理を開始する
       //先にstorageへアップロードを試み、成功したらFirestoreへアップロードしたファイルの情報を保存する
       this.uploadFirestorage(fullpath)
@@ -236,6 +246,7 @@ export default {
           return this.createFirestoreDocument(documentName, id, GCP_FULLURL);
         })
         .then(() => {
+          this.progressstatus = 2;
           console.log("Firestore Update Success");
         })
         //エラー処理は上側で行う
@@ -263,12 +274,16 @@ export default {
       const typename = this.selectTypes[this.typeindex].name;
       const documentName = `${typename}${ZeroPaddingNumber}`;
 
+      //statusを進行中を示す1にする
+      this.progressstatus = 1;
+
       this.createFirestoreDocument(
         documentName,
         this.storedocumentID,
         this.imagefile
       ).then(() => {
         console.log("Firestore Update Success");
+        this.progressstatus = 2;
         //更新作業が終わったので初期化する
         this.storedocumentID = 0;
         this.isUpdateStoreOnly = false;
