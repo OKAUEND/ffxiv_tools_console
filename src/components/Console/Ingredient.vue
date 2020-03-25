@@ -23,7 +23,7 @@
     <button @click="fetchDocument">取得</button>
     <div>
       現在の選択中<br />
-      <img class="minisize" :src="ImgUrl" /><br />
+      <img class="minisize" :src="ImgURL" /><br />
       {{ Name }}
     </div>
   </div>
@@ -37,7 +37,7 @@ export default {
     return {
       isEnable: false,
       ReqValue: 0,
-      ImgUrl: "none",
+      imageurl: "",
       Name: "",
       ChildDocumentID: 0,
       CandidateData: {}
@@ -58,6 +58,13 @@ export default {
       return {
         isDisabled: !this.isEnable
       };
+    },
+    ImgURL() {
+      if (this.imageurl === "") {
+        return "static/none.png";
+      } else {
+        return this.imageurl;
+      }
     }
   },
   watch: {

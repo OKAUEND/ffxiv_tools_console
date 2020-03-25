@@ -54,7 +54,7 @@
       </div>
     </div>
     <input type="file" @change="e => setUploadFile(e.target.files[0])" />
-    <img class="icon" :src="imagefile" />
+    <img class="icon" :src="ImgFile" />
     <div class="IconManagement__Status">{{ ProcessingStatusComment }}</div>
     <button v-if="!isUpadateMode" @click="updateStorageAndFirestore()">
       新規追加
@@ -190,6 +190,13 @@ export default {
     },
     ProcessingStatusComment() {
       return this.statusComments[this.progressstatus];
+    },
+    ImgFile() {
+      if (this.imagefile === "") {
+        return "static/none.png";
+      } else {
+        return this.imagefile;
+      }
     }
   },
   methods: {
