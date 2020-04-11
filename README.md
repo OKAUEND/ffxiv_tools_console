@@ -1,13 +1,26 @@
 # FFXIV CtaftTools Console
-## About
-FFXIV CraftToolsで使用するデータを管理するための管理者用アプリケーションです。
+## Description
+FFXIV CraftToolsで使用するデータを管理するための管理者用Webアプリケーション。
 
-## 環境構築手順
-**yarnを使用します**
+## Install
+### Step.1
 ```
-# install dependencies
 yarn install
 ```
+### Step.2
+FirebaseよりAPI 情報を取得してください。  
 
-**環境変数にFirebaseの情報を記載します**
-`.env`か`.env.local`にFirebaseのAPI情報を記載してください
+### Step.3
+`.env`を作成し、`Step.2`で発行したAPI Keyで環境変数を作成します。
+```
+VUE_APP_apikey=" You API Key "
+```
+## Local Preview
+```
+yarn serve
+```
+
+## Project Build
+```
+yarn Build
+```
