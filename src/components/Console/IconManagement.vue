@@ -306,11 +306,7 @@ export default {
     },
     fetchIcons() {
       this.icons.length = 0;
-      const ImageRef = this.createDocumentRef(
-        this.selectGroups.isMaterialTypeInfo,
-        this.selectTypes[this.typeindex].name,
-        this.selectMaterialTypes[this.materialindex].name
-      );
+      const ImageRef = this.createDocumentRef();
       ImageRef.get().then(querySnapshot => {
         this.icons = querySnapshot.docs
           .map(doc => doc.data())
