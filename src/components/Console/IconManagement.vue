@@ -40,7 +40,7 @@
     </div>
     <div class="RadioList">
       <div
-        v-for="(MaterialType, index) in selectMaterialTypes"
+        v-for="(MaterialType, index) in GroupMaterialTypes"
         :key="index"
         class="ConsoleInput"
       >
@@ -85,79 +85,11 @@
 
 <script>
 import firebase from "../../firebase.js";
+import Group from "@/IconGroup.js";
 export default {
   name: "IconManagement",
   data() {
     return {
-      groups: [
-        { name: "Material", isMaterialTypeInfo: true },
-        { name: "Weapon", isMaterialTypeInfo: false },
-        { name: "Tools", isMaterialTypeInfo: false },
-        { name: "Armor", isMaterialTypeInfo: false },
-        { name: "House", isMaterialTypeInfo: false }
-      ],
-      types: [
-        [{ name: "Raw" }, { name: "Middle" }],
-        [
-          { name: "Gladiator" },
-          { name: "Marauder" },
-          { name: "DarkKnight" },
-          { name: "Gunbreaker" },
-          { name: "Lancer" },
-          { name: "Pugilist" },
-          { name: "Samurai" },
-          { name: "Rogue" },
-          { name: "Archer" },
-          { name: "Machinist" },
-          { name: "Dancer" },
-          { name: "Thaumaturge" },
-          { name: "Arcanist" },
-          { name: "RedMage" },
-          { name: "BlueMage" },
-          { name: "Conjurer" },
-          { name: "Scholar" },
-          { name: "Astrologian" }
-        ],
-        [
-          { name: "Carpenter" },
-          { name: "Blacksmith" },
-          { name: "Armorer" },
-          { name: "Goldsmith" },
-          { name: "Leatherworker" },
-          { name: "Weaver" },
-          { name: "Alchemist" },
-          { name: "Culinarian" },
-          { name: "Miner" },
-          { name: "Botanist" },
-          { name: "Fisher" }
-        ],
-        [
-          { name: "Shield" },
-          { name: "Head" },
-          { name: "Body" },
-          { name: "Hands" },
-          { name: "Waist" },
-          { name: "Legs" },
-          { name: "Feet" },
-          { name: "Earrings" },
-          { name: "Necklace" },
-          { name: "Bracelets" },
-          { name: "Ring" }
-        ]
-      ],
-      materialtype: [
-        { name: "Ingredient" },
-        { name: "Seafood" },
-        { name: "Stone" },
-        { name: "Metal" },
-        { name: "Lumber" },
-        { name: "Cloth" },
-        { name: "Leather" },
-        { name: "Bone" },
-        { name: "Reagent" },
-        { name: "Part" },
-        { name: "GuildCraft" }
-      ],
       statusComments: ["準備中", "登録中", "登録完了"],
       groupindex: 0,
       typeindex: 0,
@@ -173,15 +105,18 @@ export default {
   },
   computed: {
     selectGroups() {
-      return this.groups[this.groupindex];
+      return Group.groups[this.groupindex];
     },
     selectTypes() {
-      return this.types[this.groupindex];
+      return Group.types[this.groupindex];
     },
-    selectMaterialTypes() {
+    selectMaterialType() {
       return this.selectGroups.isMaterialTypeInfo === true
-        ? this.materialtype
-        : [];
+        ? Group.materialtype[this.materialindex]
+        : { name: "none" };
+    },
+    GroupMaterialTypes() {
+      return Group.materialtype;
     },
     createStoragePath() {
       const group = this.selectGroups.name;
@@ -312,10 +247,7 @@ export default {
     async createFirestoreDocument(DocumentName, DocumentID, GCP_URL) {
       const GroupName = this.selectGroups.name;
       const TypeName = this.selectTypes[this.typeindex].name;
-      const MaterialTypeName =
-        this.selectGroups.isMaterialTypeInfo === true
-          ? this.selectMaterialTypes[this.materialindex].name
-          : "";
+      const MaterialTypeName = this.selectMaterialType.name;
 
       const storeDocument = {
         ID: DocumentID,
