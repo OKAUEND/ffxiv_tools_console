@@ -289,45 +289,20 @@ export default {
         @param  {string}   MaterialName        - 素材名
         @return {FirebaseQuery}                - FirestoreQueryを返す
     */
-    createDocumentRef(
-      isMaterialTypeInfo = false,
-      TypeName = "",
-      MaterialName = ""
-    ) {
+    createDocumentRef() {
       //材料のアイコンであった場合、種類で条件検索を行いたいため、
       //FirestoreQueryの作成方法を分ける
-      if (isMaterialTypeInfo) {
-        return firebase
-          .firestore()
-          .collection("Image")
-          .doc(this.selectGroups.name)
-          .collection(this.selectTypes[this.typeindex].name)
-          .where("Type", "==", TypeName)
-          .where("MaterialType", "==", MaterialName);
-      } else {
-        return firebase
-          .firestore()
-          .collection("Image")
-          .doc(this.selectGroups.name)
-          .collection(this.selectTypes[this.typeindex].name);
-      }
-    },
-    fetchIconAllList() {
-      this.icons.length = 0;
-      const ImageRef = this.createDocumentRef();
-      ImageRef.get().then(querySnapshot => {
-        this.icons = querySnapshot.docs
-          .map(doc => doc.data())
-          .map(Doc => {
-            return {
-              ID: Doc.ID,
-              Group: Doc.Group,
-              Type: Doc.Type,
-              MaterialType: Doc.MaterialType,
-              URL: Doc.URL
-            };
-          });
-      });
+      return firebase
+        .firestore()
+        .collection("Image")
+        .doc(this.selectGroups.name)
+        .collection(this.selectTypes[this.typeindex].name)
+        .where("Type", "==", this.selectTypes[this.typeindex].name)
+        .where(
+          "MaterialType",
+          "==",
+          this.selectMaterialType[this.materialindex].name
+        );
     },
     fetchIcons() {
       this.icons.length = 0;
