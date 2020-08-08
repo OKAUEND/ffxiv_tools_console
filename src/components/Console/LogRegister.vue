@@ -94,20 +94,6 @@
       </div>
     </div>
     <button @click="writeInterface()">追加/更新</button>
-    <input type="text" placeholder="下限レベル" />
-    <input type="text" placeholder="上限レベル" />
-    <button @click="fetchCraftLogs()">取得</button>
-    <ul>
-      <li v-for="(Log, ID) in Logs" :key="ID">
-        <button @click="bindLog(Log)">{{ Log.Name }}</button>
-      </li>
-    </ul>
-    <ul>
-      <li v-for="(Icon, ID) in iconpath" :key="ID">
-        <img :src="Icon.url" />
-      </li>
-    </ul>
-    <button @click="fetchIconsList()">アイコン取得</button>
   </div>
 </template>
 
@@ -164,23 +150,6 @@ export default {
     }
   },
   methods: {
-    async fetchCraftLogs() {
-      const docRef = firebase
-        .firestore()
-        .collection("CraftLog")
-        .orderBy("ID");
-      const storeLogs = await docRef
-        .get()
-        .then(querySnapshot => {
-          const docs = querySnapshot.docs.map(doc => doc.data());
-          alert("First Getting Document");
-          return docs;
-        })
-        .catch(error => {
-          console.error("Firest Error getting document", error);
-        });
-      this.Logs = storeLogs;
-    },
     writeInterface() {
       if (this.CraftingLog.name === "") {
         alert("名前が入力されていません");
