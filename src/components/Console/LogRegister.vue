@@ -113,11 +113,14 @@
 <script>
 import firebase from "@/firebase.js";
 import Ingredient from "@/components/Console/Ingredient.vue";
+import StoreList from "@/components/Console/StoreList.vue";
 import divisions from "../../assets/category.json";
+
 export default {
   name: "LogRegister",
   components: {
-    Ingredient
+    Ingredient,
+    StoreList
   },
   data() {
     return {
