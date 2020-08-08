@@ -144,76 +144,19 @@ export default {
     };
   },
   computed: {
-    IngredientSlot0: {
-      set(val) {
-        this.slot0 = val;
-      },
-      get() {
-        return this.CraftingLog.Ingredients.slot0;
-      }
-    },
-    IngredientSlot1: {
-      set(val) {
-        this.slot1 = val;
-      },
-      get() {
-        return this.CraftingLog.Ingredients.slot1;
-      }
-    },
-    IngredientSlot2: {
-      set(val) {
-        this.slot2 = val;
-      },
-      get() {
-        return this.CraftingLog.Ingredients.slot2;
-      }
-    },
-    IngredientSlot3: {
-      set(val) {
-        this.slot3 = val;
-      },
-      get() {
-        return this.CraftingLog.Ingredients.slot3;
-      }
-    },
-    IngredientSlot4: {
-      set(val) {
-        this.slot4 = val;
-      },
-      get() {
-        return this.CraftingLog.Ingredients.slot4;
-      }
-    },
-    IngredientSlot5: {
-      set(val) {
-        this.slot5 = val;
-      },
-      get() {
-        return this.CraftingLog.Ingredients.slot5;
-      }
-    },
     UpdateScheduleData() {
       return {
-        Name: this.Name,
-        ImgUrl: this.ImgUrl,
-        Type: this.crafttype,
-        Job: this.job,
-        CraftGroup: this.craftgroup,
-        Equipped: this.loggroup,
-        UpperLevel: this.CraftingLog.UpperLevel,
-        BottomLevel: this.CraftingLog.BottomLevel,
-        ItemLevel: this.CraftingLog.ItemLevel
+        // Name: this.Name,
+        // ImgUrl: this.ImgUrl,
+        // Type: this.rank,
+        // Job: this.job,
+        // CraftGroup: this.craftgroup,
+        // Equipped: this.loggroup,
+        // ItemLevel: this.CraftingLog.ItemLevel
       };
     },
-    Ingredients() {
-      return {
-        slot0: this.slot0,
-        slot1: this.slot1,
-        slot2: this.slot2,
-        slot3: this.slot3,
-        slot4: this.slot4,
-        slot5: this.slot5
-      };
+    DivisionInfo() {
+      return divisions;
     }
   },
   methods: {
