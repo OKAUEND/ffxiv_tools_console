@@ -218,15 +218,6 @@ export default {
         return querySnapshot.docs.map(doc => doc.data().ID)[0];
       });
     },
-    bindLog(Log) {
-      this.CraftingLog = Log;
-      this.Name = Log.Name;
-      this.ImgUrl = Log.ImgUrl;
-      this.isUpadateMode = true;
-    },
-    resetData() {
-      Object.assign(this.$data, this.$options.data());
-    },
     fetchIcon() {
       if (this.Image === "") {
         return "";
@@ -264,6 +255,32 @@ export default {
         });
         this.iconpath = URLs;
       });
+    },
+    setCraftData(Data) {
+      //編集前に戻す用のために、取得したデータをバックアップする
+      //でもこのページから移動したら消したいのでComponent内のみで保持する
+      this.BackUpData = Data;
+
+      //編集用データとして変数へ代入する
+      //アイテム名とアイコンのパス
+      this.name = Data.Name;
+      this.imgurl = Data.ImgUrl;
+
+      //レベル情報
+      this.level = Data.level;
+      this.itemlevel = Data.ItemLevel;
+
+      //製作可能ジョブと製作段階の情報とマイスターが必須かどうか
+      this.rank = Data.Type;
+      this.rank = Data.rank;
+      this.isMaster = Data.isMaster;
+
+      //必要な素材の情報
+      this.childrenlogs = Data.Ingredients;
+
+      //更新モードをオンにし、FireStoreへ書き込み時に同じドキュメントへ書き込むようにする
+      this.isUpadateMode = true;
+    },
     }
   }
 };
