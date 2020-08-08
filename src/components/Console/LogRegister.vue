@@ -121,40 +121,21 @@ export default {
   },
   data() {
     return {
-      CraftingLog: {
-        Ingredients: {
-          slot0: {},
-          slot1: {},
-          slot2: {},
-          slot3: {},
-          slot4: {},
-          slot5: {}
-        }
-      },
-      Name: "",
-      Icon: "",
-      Image: "",
-      ImgUrl: "",
-      level: 0,
-      rank: 0,
-      itemlevel: 0,
-      expertlevel: 0,
-      job: 0,
-      crafttype: 0,
-      loggroup: 0,
-      craftgroup: 0,
-      master: 0,
-      contentversion: 0,
+      backupdata: {},
 
-      slot0: { isEnable: false, IngredientID: 0 },
-      slot1: { isEnable: false, IngredientID: 0 },
-      slot2: { isEnable: false, IngredientID: 0 },
-      slot3: { isEnable: false, IngredientID: 0 },
-      slot4: { isEnable: false, IngredientID: 0 },
-      slot5: { isEnable: false, IngredientID: 0 },
-      Logs: [],
+      name: "",
+      imgurl: "",
+      level: 0,
+      itemlevel: 0,
+      category: "",
+      job: "",
+      rank: 0,
+      other: "",
+      isMeister: false,
+      patchversion: 0,
+      childrenlogs: [],
+
       isUpadateMode: true,
-      iconpath: [],
       Paths: [
         { url: "Material/Raw/" },
         { url: "Material/End/" },
