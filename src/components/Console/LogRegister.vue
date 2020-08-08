@@ -13,135 +13,74 @@
       </div>
       <section>
         <h2>情報</h2>
-        <div>
+        <ul>
           段階:
-          <input type="radio" id="Raw" value="0" v-model.number="crafttype" />
-          <label for="Raw">原材</label>
-          <input type="radio" id="End" value="1" v-model.number="crafttype" />
-          <label for="End">末端</label>
-          <input
-            type="radio"
-            id="Middle"
-            value="2"
-            v-model.number="crafttype"
-          />
-          <label for="Middle">中間</label>
-          <input
-            type="radio"
-            id="Complete"
-            value="3"
-            v-model.number="crafttype"
-          />
-          <label for="Complete">完成</label>
-        </div>
-        <div>
+          <li v-for="(value, key) in DivisionInfo.rank" :key="key">
+            <input
+              type="radio"
+              :id="value.rank"
+              :value="value.rank"
+              v-model="rank"
+            />
+            <label :for="value">{{ value.name }}</label>
+          </li>
+        </ul>
+        <ul>
           種別:
-          <input type="radio" id="Battle" value="0" v-model.number="loggroup" />
-          <label for="Battle">戦闘</label>
-          <input
-            type="radio"
-            id="NoBattle"
-            value="1"
-            v-model.number="loggroup"
-          />
-          <label for="NoBattle">非戦闘</label>
-          <input
-            type="radio"
-            id="Fashionable"
-            value="2"
-            v-model.number="loggroup"
-          />
-          <label for="Fashionable">おしゃれ</label>
-          <input
-            type="radio"
-            id="Furniture"
-            value="3"
-            v-model.number="loggroup"
-          />
-          <label for="Furniture">家具</label>
-          <input
-            type="radio"
-            id="GardenTools"
-            value="4"
-            v-model.number="loggroup"
-          />
-          <label for="GardenTools">庭具</label>
-        </div>
-        <div>
-          作成ジョブ:
-          <input type="radio" id="Carpenter" value="0" v-model.number="job" />
-          <label for="Carpenter">木工</label>
-          <input type="radio" id="Blacksmith" value="1" v-model.number="job" />
-          <label for="Blacksmith">鍛冶</label>
-          <input type="radio" id="Armorer" value="2" v-model.number="job" />
-          <label for="Armorer">甲冑</label>
-          <input type="radio" id="Goldsmith" value="3" v-model.number="job" />
-          <label for="Goldsmith">彫金</label>
-          <input
-            type="radio"
-            id="Leatherworker"
-            value="4"
-            v-model.number="job"
-          />
-          <label for="Leatherworker">革細工</label>
-          <input type="radio" id="Weaver" value="5" v-model.number="job" />
-          <label for="Weaver">裁縫</label>
-          <input type="radio" id="Alchemist" value="6" v-model.number="job" />
-          <label for="Alchemist">錬金</label>
-          <input type="radio" id="Culinarian" value="7" v-model.number="job" />
-          <label for="Culinarian">調理</label>
-        </div>
+          <li v-for="(value, key) in DivisionInfo.category" :key="key">
+            <input
+              type="radio"
+              :id="value.category"
+              :value="value.category"
+              v-model="category"
+            />
+            <label :for="value">{{ value.name }}</label>
+          </li>
+        </ul>
+        <ul>
+          ジョブ:
+          <li v-for="(value, key) in DivisionInfo.job" :key="key">
+            <input
+              type="radio"
+              :id="value.job"
+              :value="value.job"
+              v-model="job"
+            />
+            <label :for="value">{{ value.name }}</label>
+          </li>
+        </ul>
       </section>
       <section>
         <h2>グループ</h2>
         <div>
-          製作種別:
-          <input
-            type="radio"
-            id="Nomal"
-            value="0"
-            v-model.number="craftgroup"
-          />
-          <label for="Nomal">通常</label>
-          <input
-            type="radio"
-            id="Master"
-            value="1"
-            v-model.number="craftgroup"
-          />
-          <label for="Master">秘伝書</label>
-          <input
-            type="radio"
-            id="IshgardianRestoration"
-            value="2"
-            v-model.number="craftgroup"
-          />
-          <label for="IshgardianRestoration">イシュガルド復興</label>
+          <ul>
+            製作種別:
+            <li v-for="(value, key) in DivisionInfo.other" :key="key">
+              <input
+                type="radio"
+                :id="value.type"
+                :value="value.type"
+                v-model="other"
+              />
+              <label :for="value">{{ value.name }}</label>
+            </li>
+          </ul>
         </div>
-        <template v-if="craftgroup === 0">
-          <div>製作レベル:<input type="text" v-model.number="level" /></div>
-          <div>
-            アイテムレベル:<input type="text" v-model.number="itemlevel" />
-          </div>
-          <div>ランク<input type="text" v-model.number="rank" /></div
+        <template v-if="other === 'default'">
+          <div>製作レベル:<input type="text" /></div>
+          <div>アイテムレベル:<input type="text" /></div>
+          <div>ランク<input type="text" /></div
         ></template>
-        <template v-if="craftgroup === 1">
-          <div>秘伝書番号:<input type="text" v-model.number="master" /></div>
-          <div>製作レベル:<input type="text" v-model.number="level" /></div>
-          <div>ランク<input type="text" v-model.number="rank" /></div>
+        <template v-if="other === 'Master'">
+          <div>秘伝書番号:<input type="text" /></div>
+          <div>製作レベル:<input type="text" /></div>
+          <div>ランク<input type="text" /></div>
         </template>
-        <template v-if="craftgroup === 2">
-          <div>
-            イシュガルド復興段階:<input
-              type="text"
-              v-model.number="contentversion"
-            />
-          </div>
-          <div>製作レベル:<input type="text" v-model.number="level" /></div>
-          <div>ランク<input type="text" v-model.number="rank" /></div>
-          <div>
-            高難易度ランク<input type="text" v-model.number="expertlevel" />
-          </div>
+        <template v-if="other === 'Ishgard'">
+          <div>イシュガルド復興段階:<input type="text" /></div>
+          <div>製作レベル:<input type="text" /></div>
+          <div>ランク<input type="text" /></div>
+          <div>高難易度ランク<input type="text" /></div>
         </template>
       </section>
       <div class="LogRegister__Ingredients">
@@ -174,6 +113,7 @@
 <script>
 import firebase from "@/firebase.js";
 import Ingredient from "@/components/Console/Ingredient.vue";
+import divisions from "../../assets/category.json";
 export default {
   name: "LogRegister",
   components: {
