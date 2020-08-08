@@ -84,12 +84,12 @@
         </template>
       </section>
       <div class="LogRegister__Ingredients">
-        <ingredient v-model="IngredientSlot0" :SortID="1" />
-        <ingredient v-model="IngredientSlot1" :SortID="2" />
-        <ingredient v-model="IngredientSlot2" :SortID="3" />
-        <ingredient v-model="IngredientSlot3" :SortID="4" />
-        <ingredient v-model="IngredientSlot4" :SortID="5" />
-        <ingredient v-model="IngredientSlot5" :SortID="6" />
+        <ingredient
+          v-for="(Log, ID) in childrenlogs"
+          :key="ID"
+          :value="Log"
+          @change="Test"
+        ></ingredient>
       </div>
     </div>
     <button @click="writeInterface()">追加/更新</button>
