@@ -13,6 +13,7 @@
     "core-js": "^3.6.4",
     "firebase": "^7.11.0",
     "firebase-tools": "^7.15.0",
+    "micromodal": "^0.4.6",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
     "vuex": "^3.1.3"
