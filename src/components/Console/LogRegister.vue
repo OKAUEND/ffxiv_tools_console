@@ -14,42 +14,15 @@
       </div>
       <section>
         <h2>情報</h2>
-        <ul>
-          段階:
-          <li v-for="(value, key) in DivisionInfo.rank" :key="key">
-            <input
-              type="radio"
-              :id="value.rank"
-              :value="value.rank"
-              v-model="rank"
-            />
-            <label :for="value">{{ value.name }}</label>
-          </li>
-        </ul>
-        <ul>
-          種別:
-          <li v-for="(value, key) in DivisionInfo.category" :key="key">
-            <input
-              type="radio"
-              :id="value.category"
-              :value="value.category"
-              v-model="category"
-            />
-            <label :for="value">{{ value.name }}</label>
-          </li>
-        </ul>
-        <ul>
-          ジョブ:
-          <li v-for="(value, key) in DivisionInfo.job" :key="key">
-            <input
-              type="radio"
-              :id="value.job"
-              :value="value.job"
-              v-model="job"
-            />
-            <label :for="value">{{ value.name }}</label>
-          </li>
-        </ul>
+        <category-list :Category="DivisionInfo.rank" v-model="rank"
+          >段階</category-list
+        >
+        <category-list :Category="DivisionInfo.category" v-model="category"
+          >種別</category-list
+        >
+        <category-list :Category="DivisionInfo.job" v-model="job"
+          >ジョブ</category-list
+        >
       </section>
       <section>
         <h2>グループ</h2>
@@ -100,14 +73,16 @@
 <script>
 import firebase from "@/firebase.js";
 import Ingredient from "@/components/Console/Ingredient.vue";
-import StoreList from "@/components/Console/StoreList.vue";
+// import StoreList from "@/components/Console/StoreList.vue";
+import CategoryList from "@/components/Console/CategoryList.vue";
 import divisions from "../../assets/category.json";
 
 export default {
   name: "LogRegister",
   components: {
     Ingredient,
-    StoreList
+    // StoreList,
+    CategoryList
   },
   data() {
     return {
@@ -119,7 +94,7 @@ export default {
       itemlevel: 0,
       category: "",
       job: "",
-      rank: 0,
+      rank: "",
       other: "",
       isMeister: false,
       patchversion: 0,

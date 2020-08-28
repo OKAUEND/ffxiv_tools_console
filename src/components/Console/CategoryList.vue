@@ -1,9 +1,14 @@
 <template>
   <ul>
     <slot />:
-    <li v-for="(value, key) in Categories" :key="key">
-      <input type="radio" :id="value.type" :value="value.type" v-model="type" />
-      <label :for="value">{{ value.name }}</label>
+    <li v-for="(data, key) in Categories" :key="key">
+      <input
+        type="radio"
+        :id="data.type"
+        :value="data.type"
+        v-model="selected"
+      />
+      <label :for="data.type">{{ data.name }}</label>
     </li>
   </ul>
 </template>
@@ -13,13 +18,25 @@ export default {
   name: "CategoryList",
   props: {
     Category: {
-      type: Object,
+      type: Array,
+      required: true
+    },
+    value: {
+      type: String,
       required: true
     }
   },
   computed: {
     Categories() {
       return this.Category;
+    },
+    selected: {
+      get() {
+        return this.value;
+      },
+      set(value) {
+        return this.$emit("input", value);
+      }
     }
   }
 };
