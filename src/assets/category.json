@@ -1,27 +1,27 @@
 {
   "rank": [
-    { "rank": "Raw", "name": "末端" },
-    { "rank": "Middle", "name": "中間" },
-    { "rank": "End", "name": "完成" }
+    { "type": "Raw", "name": "末端" },
+    { "type": "Middle", "name": "中間" },
+    { "type": "End", "name": "完成" }
   ],
   "category": [
-    { "category": "Battle", "name": "戦闘" },
-    { "category": "NoBattle", "name": "非戦闘" },
-    { "category": "Fashion", "name": "おしゃれ" },
-    { "category": "Furniture", "name": "家具" },
-    { "category": "GardenTools", "name": "庭具" },
-    { "category": "Quest", "name": "クエスト" },
-    { "category": "Other", "name": "その他" }
+    { "type": "Battle", "name": "戦闘" },
+    { "type": "NoBattle", "name": "非戦闘" },
+    { "type": "Fashion", "name": "おしゃれ" },
+    { "type": "Furniture", "name": "家具" },
+    { "type": "GardenTools", "name": "庭具" },
+    { "type": "Quest", "name": "クエスト" },
+    { "type": "Other", "name": "その他" }
   ],
   "job": [
-    { "job": "Carpenter", "name": "木工" },
-    { "job": "Blacksmith", "name": "鍛冶" },
-    { "job": "Armorer", "name": "甲冑" },
-    { "job": "Goldsmith", "name": "彫金" },
-    { "job": "Leatherworker", "name": "革細工" },
-    { "job": "Weaver", "name": "裁縫" },
-    { "job": "Alchemist", "name": "錬金" },
-    { "job": "Culinarian", "name": "調理" }
+    { "type": "Carpenter", "name": "木工" },
+    { "type": "Blacksmith", "name": "鍛冶" },
+    { "type": "Armorer", "name": "甲冑" },
+    { "type": "Goldsmith", "name": "彫金" },
+    { "type": "Leatherworker", "name": "革細工" },
+    { "type": "Weaver", "name": "裁縫" },
+    { "type": "Alchemist", "name": "錬金" },
+    { "type": "Culinarian", "name": "調理" }
   ],
   "other": [
     { "type": "default", "name": "標準" },
