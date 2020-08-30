@@ -1,10 +1,16 @@
 <template>
   <div>
-    <button @click="writeInterface()">追加/更新</button>
-    調整したいIL帯を選択してください
-    <input type="text" placeholder="上限IL" />
-    <input type="text" placeholder="下限IL" />
-    <button @click="onFetchStoreLogs()">取得</button>
+    <div>
+      取得したいIL帯を入力してください
+      <label>上限IL</label
+      ><input
+        type="text"
+        placeholder="上限IL"
+        v-model.number="upperItemlevel"
+      />
+      <label>下限IL</label>
+      <input type="text" placeholder="下限IL" v-model.number="lowerItemlevel" />
+    </div>
     <ul>
       <li v-for="(Log, ID) in StoreLogs" :key="ID">
         <button @click="selectProps(Log)">{{ Log.Name }}</button>
