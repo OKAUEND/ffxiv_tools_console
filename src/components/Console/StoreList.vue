@@ -1,6 +1,11 @@
 <template>
   <div>
     <div>
+      <category-list :Category="CrafterCategory" v-model="job"
+        >クラフターを選択してください</category-list
+      >
+    </div>
+    <div>
       取得したいIL帯を入力してください
       <label>上限IL</label
       ><input
@@ -20,11 +25,19 @@
 </template>
 
 <script>
+import divisions from "../../assets/category.json";
+import CategoryList from "@/components/Console/CategoryList.vue";
 import firebase from "@/firebase.js";
 export default {
   name: "StoreList",
+  components: {
+    CategoryList
+  },
   data() {
     return {
+      job: "",
+      lowerItemlevel: 0,
+      upperItemlevel: 0,
       StoreLogs: []
     };
   },
