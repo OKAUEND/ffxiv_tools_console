@@ -41,6 +41,11 @@ export default {
       StoreLogs: []
     };
   },
+  computed: {
+    CrafterCategory() {
+      return divisions.job;
+    }
+  },
   methods: {
     onFetchStoreLogs() {
       //選択したレベル帯に該当するログを取得する
