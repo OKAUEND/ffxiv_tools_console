@@ -2,29 +2,16 @@
   <div class="Ingredient" :class="DisabledBorderColor">
     必須素材
     <div>有効化<input type="checkbox" v-model="isEnable" /></div>
+    <modal
+      ><template v-slot:ButtonText>検索</template
+      ><template v-slot:content><search-form @click="setChildData"/></template
+    ></modal>
+    <div class="Ingredient__Child">素材名:{{ this.name }}</div>
+    <div class="Ingredient__Child">ENG:{{ this.engname }}</div>
+    <div><img class="minisize" :src="ImgURL" /></div>
     <div class="Ingredient__Child">
-      <label>必要個数</label>
-      <input
-        type="text"
-        :disabled="!isEnable"
-        v-model.number="ReqValue"
-        @input="EventEmit"
-      />
-    </div>
-    <div class="Ingredient__Child">
-      素材のID
-      <input
-        type="text"
-        :disabled="!isEnable"
-        v-model.number="ChildDocumentID"
-        @input="EventEmit"
-      />
-    </div>
-    <button @click="fetchDocument">取得</button>
-    <div>
-      現在の選択中<br />
-      <img class="minisize" :src="ImgURL" /><br />
-      {{ Name }}
+      <label>個数</label>
+      <input type="text" :disabled="!isEnable" v-model.number="ReqValue" />
     </div>
   </div>
 </template>
@@ -36,9 +23,10 @@ export default {
   data() {
     return {
       isEnable: false,
-      ReqValue: 0,
+      value: 1,
       imageurl: "",
-      Name: "",
+      name: "",
+      engname: "",
       ChildDocumentID: 0,
       CandidateData: {}
     };
@@ -64,6 +52,17 @@ export default {
         return "static/none.png";
       } else {
         return this.imageurl;
+      }
+    },
+    ReqValue: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        //必要個数が0はありえないので、0の場合は1を代入させて0にするのを防ぐ
+        console.log(val);
+        this.value = val > 0 ? val : 1;
+        this.$forceUpdate();
       }
     }
   },
