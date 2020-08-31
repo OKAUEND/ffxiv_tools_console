@@ -38,12 +38,8 @@ export default {
     };
   },
   props: {
-    value: {
+    childlog: {
       type: Object,
-      required: true
-    },
-    SortID: {
-      type: Number,
       required: true
     }
   },
@@ -73,12 +69,12 @@ export default {
     }
   },
   watch: {
-    value: function(LogData) {
-      this.isEnable = LogData.isEnable;
-      this.ReqValue = LogData.Value ? LogData.Value : 0;
-      this.IconName = LogData.image;
-      this.ChildDocumentID = LogData.IngredientID ? LogData.IngredientID : 0;
-      this.ImgUrl = LogData.Imgurl;
+    childlog: function(props) {
+      this.isEnable = props.isDisabled;
+      this.ReqValue = props.Value;
+      this.imageurl = props.image;
+      this.ChildDocumentID = props.IngredientID ? props.IngredientID : 0;
+      this.ImgUrl = props.Image;
     }
   },
   methods: {
