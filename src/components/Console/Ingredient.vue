@@ -17,9 +17,15 @@
 </template>
 
 <script>
+import Modal from "@/components/Console/modal/Modal.vue";
+import SearchForm from "@/components/Console/StoreList.vue";
 import firebase from "@/firebase.js";
 export default {
   name: "Ingredient",
+  components: {
+    Modal,
+    SearchForm
+  },
   data() {
     return {
       isEnable: false,
