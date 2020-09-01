@@ -1,7 +1,10 @@
 <template>
   <div>
     <div>
-      <category-list :Category="CrafterCategory" v-model="job"
+      <category-list
+        :Category="CrafterCategory"
+        v-model="job"
+        :radiotype="'modal'"
         >クラフターを選択してください</category-list
       >
     </div>
