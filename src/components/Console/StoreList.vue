@@ -22,7 +22,7 @@
     <button @click="fetchStoredata()">検索</button>
     <ul>
       <li v-for="(Log, ID) in StoreLogs" :key="ID">
-        <button @click="selectProps(Log)">{{ Log.name }}</button>
+        <button @click="selectedCraftLog(Log)">{{ Log.name }}</button>
       </li>
     </ul>
   </div>
@@ -78,8 +78,8 @@ export default {
           console.error("Firest Error getting document", error);
         });
     },
-    selectProps(Data) {
-      this.$props("click", Data);
+    selectedCraftLog(Data) {
+      this.$emit("click", Data);
     }
   }
 };
