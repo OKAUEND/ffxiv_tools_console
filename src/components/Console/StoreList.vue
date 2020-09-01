@@ -19,13 +19,12 @@
       <label>下限IL</label>
       <input type="text" placeholder="下限IL" v-model.number="lowerItemlevel" />
     </div>
-    <button @click="fetchStoredata()">取得</button>
+    <button @click="fetchStoredata()">検索</button>
     <ul>
       <li v-for="(Log, ID) in StoreLogs" :key="ID">
         <button @click="selectProps(Log)">{{ Log.name }}</button>
       </li>
     </ul>
-    <button>選択</button>
   </div>
 </template>
 
