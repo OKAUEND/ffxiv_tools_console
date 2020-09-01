@@ -71,8 +71,7 @@ export default {
       return await queryRef
         .get()
         .then(querySnapshot => {
-          const docs = querySnapshot.docs.map(doc => doc.data());
-          return docs;
+          return querySnapshot.docs.map(doc => doc.data());
         })
         .catch(error => {
           console.error("Firest Error getting document", error);
