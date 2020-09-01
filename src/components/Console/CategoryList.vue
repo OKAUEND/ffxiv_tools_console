@@ -4,11 +4,11 @@
     <li v-for="(data, key) in Categories" :key="key">
       <input
         type="radio"
-        :id="data.type"
+        :id="createradiotype(data.type)"
         :value="data.type"
         v-model="selected"
       />
-      <label :for="data.type">{{ data.name }}</label>
+      <label :for="createradiotype(data.type)">{{ data.name }}</label>
     </li>
   </ul>
 </template>
@@ -24,6 +24,10 @@ export default {
     value: {
       type: String,
       required: true
+    },
+    radiotype: {
+      type: String,
+      default: ""
     }
   },
   computed: {
@@ -37,6 +41,11 @@ export default {
       set(value) {
         return this.$emit("input", value);
       }
+    }
+  },
+  methods: {
+    createradiotype(type) {
+      return `${this.radiotype}${type}`;
     }
   }
 };
