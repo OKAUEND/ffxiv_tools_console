@@ -22,7 +22,7 @@
     <button @click="fetchStoredata()">検索</button>
     <ul>
       <li v-for="(Log, ID) in StoreLogs" :key="ID">
-        <button @click="selectedCraftLog(Log)">{{ Log.name }}</button>
+        <button @click="selectedCraftLog(Log)">{{ Log.name.name }}</button>
       </li>
     </ul>
   </div>
@@ -65,8 +65,8 @@ export default {
       //すべてを取得するのは負荷がかかるため、選択したクラフターと同じもので、IL帯で絞り込みを行えるようにする
       const queryRef = docRef
         .where("job", "==", this.job)
-        .where("itemlevel", "<=", this.upperItemlevel)
-        .where("itemlevel", ">=", this.lowerItemlevel);
+        .where("level.itemlevel", "<=", this.upperItemlevel)
+        .where("level.itemlevel", ">=", this.lowerItemlevel);
       //DBへ問い合わせる
       return await queryRef
         .get()
