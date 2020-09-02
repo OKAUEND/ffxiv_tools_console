@@ -2,7 +2,8 @@
   "rank": [
     { "type": "Raw", "name": "末端", "priority": 1 },
     { "type": "Middle", "name": "中間", "priority": 2 },
-    { "type": "End", "name": "完成", "priority": 3 }
+    { "type": "Middle", "name": "中間", "priority": 3 },
+    { "type": "End", "name": "完成", "priority": 4 }
   ],
   "category": [
     { "type": "Battle", "name": "戦闘" },
