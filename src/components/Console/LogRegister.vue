@@ -121,8 +121,12 @@ export default {
       this.childrenlogs.push(child);
     }
   },
+  computed: {
     DivisionInfo() {
       return divisions;
+    },
+    checkedMeister() {
+      return this.other === "Meister";
     }
   },
   methods: {
