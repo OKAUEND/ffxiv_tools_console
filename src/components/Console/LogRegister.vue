@@ -77,7 +77,7 @@
 import firebase from "@/firebase.js";
 import Ingredient from "@/components/Console/Ingredient.vue";
 // import StoreList from "@/components/Console/StoreList.vue";
-import CategoryList from "@/components/Console/CategoryList.vue";
+import CategoryList from "@/components/Console/BaseRadioButtonList.vue";
 import divisions from "../../assets/category.json";
 
 export default {

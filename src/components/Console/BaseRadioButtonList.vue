@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "CategoryList",
+  name: "BaseRadioButtonList",
   props: {
     Category: {
       type: Array,
