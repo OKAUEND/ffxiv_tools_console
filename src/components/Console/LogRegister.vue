@@ -202,13 +202,6 @@ export default {
           console.error("Firestore Error", error);
         });
     },
-    async fetchLastID() {
-      const LogCollection = firebase.firestore().collection("CraftLog");
-      const LastLog = LogCollection.orderBy("ID", "desc").limit(1);
-      return await LastLog.get().then(function(querySnapshot) {
-        return querySnapshot.docs.map(doc => doc.data().ID)[0];
-      });
-    },
     fetchIcon() {
       if (this.Image === "") {
         return "";
