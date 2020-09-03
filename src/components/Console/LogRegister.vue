@@ -108,18 +108,13 @@ export default {
       ]
     };
   },
-  computed: {
-    UpdateScheduleData() {
-      return {
-        // Name: this.Name,
-        // ImgUrl: this.ImgUrl,
-        // Type: this.rank,
-        // Job: this.job,
-        // CraftGroup: this.craftgroup,
-        // Equipped: this.loggroup,
-        // ItemLevel: this.CraftingLog.ItemLevel
-      };
-    },
+  created() {
+    //必要アイテムの配列を初期化し、最初から配列の中身を作っておく
+    for (let step = 0; step < 6; step++) {
+      let child = { isDisable: true, order: step };
+      this.childrenlogs.push(child);
+    }
+  },
     DivisionInfo() {
       return divisions;
     }
