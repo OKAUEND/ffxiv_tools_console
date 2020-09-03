@@ -126,25 +126,63 @@ export default {
   },
   methods: {
     writeInterface() {
-      if (this.CraftingLog.name === "") {
+      if (this.name === "" && this.engname === "") {
         alert("名前が入力されていません");
         return;
       }
 
-      this.fetchLastID().then(ID => {
-        const LastID = ID > 0 ? ID : 1;
-        const nextNumber =
-          this.isUpadateMode === true ? this.CraftingLog.ID : LastID + 1;
-        const UpdateScheduleLogdata = {
-          ...this.UpdateScheduleData,
-          Ingredients: this.Ingredients,
-          ID: nextNumber
-        };
-        const ZeroPadding = `"0000000${nextNumber}`.slice(-7);
-        const DocumentID = `Log${ZeroPadding}`;
-        return this.writeStoreLog(DocumentID, UpdateScheduleLogdata);
+      //選択した[段階]のオブジェクト情報がほしいため検索する
+      const rank = this.DivisionInfo.rank.find(rank => {
+        return rank.type === this.rank;
       });
-      // this.writeStoreLog(NewLogDataNoID);
+
+      //選択した[秘伝書]のオブジェクト情報がほしいため検索する
+      const MeisterBookRank = this.DivisionInfo.MeisterBook.find(
+        MeisterBook => {
+          return MeisterBook.type === this.MeisterBookNumber;
+        }
+      );
+
+      const UpdateLog = {
+        //アイテム名
+        text: {
+          name: this.name,
+          engname: this.engname
+        },
+        //製作レベルとアイテムレベル
+        level: {
+          level: this.level,
+          itemlevel: this.itemlevel
+        },
+
+        imageurl: this.imageurl,
+
+        type: {
+          craftcontent: this.other,
+          job: this.job,
+          category: this.category,
+          MeisterBookrank: MeisterBookRank
+        },
+
+        //制作段階
+        rank: rank.stagename,
+
+        //表示優先度
+        priority: rank.priority,
+
+        //星マークの数
+        starmark: this.starmark,
+
+        //高難易度レシピかどうか
+        ishighlevel: this.ishighlevel,
+
+        patchversion: this.patchversion,
+        childrenlogs: this.childrenlogs,
+
+        createTime: "",
+        updateTime: ""
+      };
+
     },
     async writeStoreLog(DocumentID, LogData) {
       return await firebase

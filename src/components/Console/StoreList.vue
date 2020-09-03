@@ -22,7 +22,7 @@
     <button @click="fetchStoredata()">検索</button>
     <ul>
       <li v-for="(Log, ID) in StoreLogs" :key="ID">
-        <button @click="selectedCraftLog(Log)">{{ Log.name.name }}</button>
+        <button @click="selectedCraftLog(Log)">{{ Log.text.name }}</button>
       </li>
     </ul>
   </div>
