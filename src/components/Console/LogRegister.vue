@@ -59,11 +59,13 @@
       </section>
       <div class="LogRegister__Ingredients">
         <ingredient
-          v-for="(Log, ID) in childrenlogs"
-          :key="ID"
-          :value="Log"
-          @change="Test"
-        ></ingredient>
+          v-for="(Log, order) in childrenlogs"
+          :key="order"
+          :childlog="Log"
+          :order="order"
+          @change="updateChildrenLogs"
+        >
+        </ingredient>
       </div>
     </div>
     <button @click="writeInterface()">追加/更新</button>
@@ -265,7 +267,19 @@ export default {
       //更新モードをオンにし、FireStoreへ書き込み時に同じドキュメントへ書き込むようにする
       this.isUpadateMode = true;
     },
-    }
+    /**
+     * 入力した内容へ配列を更新する
+     *
+     */
+    updateChildrenLogs(value) {
+      // 同インデックスの場所を更新したいので、配列のどこにあるかインデックスを取得する
+      const updateIndex = this.childrenlogs
+        .map(Log => Log.order)
+        .indexOf(value.order);
+
+      // //配列の中身を更新したいオブジェクトで置換する
+      this.childrenlogs.splice(updateIndex, 1, value);
+    },
   }
 };
 </script>
