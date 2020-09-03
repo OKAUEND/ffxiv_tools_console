@@ -1,9 +1,19 @@
 {
   "rank": [
-    { "type": "Raw", "name": "末端", "priority": 1 },
-    { "type": "Middle", "name": "中間", "priority": 2 },
-    { "type": "Middle", "name": "中間", "priority": 3 },
-    { "type": "End", "name": "完成", "priority": 4 }
+    { "type": "Raw", "name": "末端", "priority": 1, "stagename": "Raw" },
+    {
+      "type": "FirstMid",
+      "name": "中間",
+      "priority": 2,
+      "stagename": "Middle"
+    },
+    {
+      "type": "SecondMid",
+      "name": "中間",
+      "priority": 3,
+      "stagename": "Middle"
+    },
+    { "type": "End", "name": "完成", "priority": 4, "stagename": "End" }
   ],
   "category": [
     { "type": "Battle", "name": "戦闘" },
@@ -26,7 +36,21 @@
   ],
   "other": [
     { "type": "default", "name": "標準" },
-    { "type": "Master", "name": "秘伝書" },
+    { "type": "Meister", "name": "秘伝書" },
     { "type": "Ishgard", "name": "イシュガルド復興" }
+  ],
+  "MeisterBook": [
+    { "type": "Book1", "name": "秘伝書:1", "rank": 1 },
+    { "type": "Book2", "name": "秘伝書:2", "rank": 2 },
+    { "type": "Book3", "name": "秘伝書:3", "rank": 3 },
+    { "type": "Book4", "name": "秘伝書:4", "rank": 4 },
+    { "type": "Book5", "name": "秘伝書:5", "rank": 5 },
+    { "type": "Book6", "name": "秘伝書:6", "rank": 6 },
+    { "type": "Book7", "name": "秘伝書:7", "rank": 7 },
+    { "type": "Book8", "name": "秘伝書:8", "rank": 8 },
+    { "type": "Book9", "name": "秘伝書:9", "rank": 9 },
+    { "type": "Book10", "name": "秘伝書:10", "rank": 10 },
+    { "type": "Book11", "name": "秘伝書:11", "rank": 11 },
+    { "type": "Book12", "name": "秘伝書:12", "rank": 12 }
   ]
 }
