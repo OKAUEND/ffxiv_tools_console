@@ -252,7 +252,7 @@ export default {
 
       //レベル情報
       this.level = Data.level;
-      this.itemlevel = Data.ItemLevel;
+      this.itemlevel = Data.itemlevel;
 
       //製作可能ジョブと製作段階の情報とマイスターが必須かどうか
       this.rank = Data.Type;
