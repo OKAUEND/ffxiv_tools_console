@@ -10,7 +10,7 @@
       <div>
         画像パス:<input type="text" v-model="Image" /><br />
         <button @click="fetchIcon()">取得</button><br />
-        <img :src="ImgUrl" />
+        <img :src="imageurl" />
       </div>
       <section>
         <h2>情報</h2>
@@ -25,20 +25,18 @@
         >
       </section>
       <section>
-        <h2>グループ</h2>
-        <div>
-          <ul>
-            製作種別:
-            <li v-for="(value, key) in DivisionInfo.other" :key="key">
-              <input
-                type="radio"
-                :id="value.type"
-                :value="value.type"
-                v-model="other"
-              />
-              <label :for="value">{{ value.name }}</label>
-            </li>
-          </ul>
+        <h2>分類</h2>
+        <category-list :Category="DivisionInfo.other" v-model="other"
+          >製作種別</category-list
+        >
+        <div>高難易<input type="checkbox" v-model="ishighlevel" /></div>
+        <div>星<input type="text" v-model.number="starmark" /></div>
+        <div v-show="checkedMeister">
+          <category-list
+            :Category="DivisionInfo.MeisterBook"
+            v-model="MeisterBookNumber"
+            >秘伝書番号</category-list
+          >
         </div>
         <template v-if="other === 'default'">
           <div>製作レベル:<input type="text" /></div>
