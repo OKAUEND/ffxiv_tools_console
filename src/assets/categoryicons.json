@@ -1,0 +1,55 @@
+{
+  "groups": [
+    { "type": "Material", "name": "素材", "isMaterialTypeInfo": true },
+    { "type": "Weapon", "name": "武器", "isMaterialTypeInfo": false },
+    { "type": "Tools", "name": "道具", "isMaterialTypeInfo": false },
+    { "type": "Armor", "name": "防具", "isMaterialTypeInfo": false },
+    { "type": "House", "name": "ハウジング", "isMaterialTypeInfo": false }
+  ],
+  "battlejob": [
+    { "type": "Gladiator", "name": "ナイト" },
+    { "type": "Marauder", "name": "戦士" },
+    { "type": "DarkKnight", "name": "暗黒騎士" },
+    { "type": "Gunbreaker", "name": "癌ブレイカー" },
+    { "type": "Lancer", "name": "竜騎士" },
+    { "type": "Pugilist", "name": "モンク" },
+    { "type": "Samurai", "name": "侍" },
+    { "type": "Rogue", "name": "忍者" },
+    { "type": "Archer", "name": "吟遊詩人" },
+    { "type": "Machinist", "name": "機工士" },
+    { "type": "Dancer", "name": "踊り子" },
+    { "type": "Thaumaturge", "name": "黒魔道士" },
+    { "type": "Arcanist", "name": "召喚士" },
+    { "type": "RedMage", "name": "赤魔道士" },
+    { "type": "BlueMage", "name": "青魔道士" },
+    { "type": "Conjurer", "name": "白魔道士" },
+    { "type": "Scholar", "name": "学者" },
+    { "type": "Astrologian", "name": "占星術師" }
+  ],
+  "crafter": [
+    { "type": "Carpenter", "name": "木工" },
+    { "type": "Blacksmith", "name": "鍛冶" },
+    { "type": "Armorer", "name": "甲冑" },
+    { "type": "Goldsmith", "name": "彫金" },
+    { "type": "Leatherworker", "name": "革細工" },
+    { "type": "Weaver", "name": "裁縫" },
+    { "type": "Alchemist", "name": "錬金" },
+    { "type": "Culinarian", "name": "調理" },
+    { "type": "Miner", "name": "採掘" },
+    { "type": "Botanist", "name": "園芸" },
+    { "type": "Fisher", "name": "漁師" }
+  ],
+  "material": [
+    { "type": "Ingredient", "name": "食材" },
+    { "type": "Seafood", "name": "水産物" },
+    { "type": "Stone", "name": "石材" },
+    { "type": "Metal", "name": "鉄材" },
+    { "type": "Lumber", "name": "木材" },
+    { "type": "Cloth", "name": "布材" },
+    { "type": "Leather", "name": "革材" },
+    { "type": "Bone", "name": "骨材" },
+    { "type": "Reagent", "name": "薬材" },
+    { "type": "Part", "name": "その他" },
+    { "type": "GuildCraft", "name": "FCクラフト" }
+  ]
+}
