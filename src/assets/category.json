@@ -3,13 +3,13 @@
     { "type": "Raw", "name": "末端", "priority": 1, "stagename": "Raw" },
     {
       "type": "FirstMid",
-      "name": "中間",
+      "name": "中間(優先度2位)",
       "priority": 2,
       "stagename": "Middle"
     },
     {
       "type": "SecondMid",
-      "name": "中間",
+      "name": "中間(優先度3位)",
       "priority": 3,
       "stagename": "Middle"
     },
