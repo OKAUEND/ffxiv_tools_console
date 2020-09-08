@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Modal from "@/components/Console/modal/Modal.vue";
+import Modal from "@/components/Console/modal/BaseModal.vue";
 import SearchForm from "@/components/Console/StoreList.vue";
 import firebase from "@/firebase.js";
 export default {

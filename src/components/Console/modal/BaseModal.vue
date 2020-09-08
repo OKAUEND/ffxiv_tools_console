@@ -1,10 +1,13 @@
 <template>
   <div>
     <button @click="onActivate()"><slot name="ButtonText"></slot></button>
-    <div class="modal" v-if="active">
-      <div class="modal__overlay" :class="isdark" @click="offActivate()" />
+    <div class="modal" v-show="active">
       <div class="modal__container">
+        <div class="modal__content">
+          <slot name="content"></slot>
+        </div>
       </div>
+      <div class="modal__overlay" :class="isdark" @click="offActivate()" />
     </div>
   </div>
 </template>
@@ -28,10 +31,6 @@ export default {
     }
   },
   methods: {
-    onclose() {
-      console.log(this.$scopedSlots.activtor);
-      this.$emit("click");
-    },
     onActivate() {
       this.active = true;
     },
@@ -51,6 +50,9 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal__overlay {
@@ -64,10 +66,10 @@ export default {
   justify-content: center;
   align-items: center;
   position: fixed;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top: 0;
-  pointer-events: none;
+
+  .modal__content {
+    background-color: #ffffff;
+    padding: 10px;
+  }
 }
 </style>
