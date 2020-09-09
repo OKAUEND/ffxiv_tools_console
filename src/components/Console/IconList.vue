@@ -50,9 +50,16 @@ export default {
   computed: {
     createButtonText() {
       return "アイコン検索";
-    },
+    }
   },
   methods: {
+    onClickIcon(value) {
+      //選択中のアイコンを表示させたいので、dataへ代入する
+      this.selecticon = value;
+
+      //選択したアイコン情報を親へ伝える
+      this.$emit("change", value);
+    },
     /**
      * Firestoreから条件にあったアイコンの一覧を取得する
      */
