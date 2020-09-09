@@ -1,16 +1,50 @@
 <template>
   <div>
+    <modal>
+      <template v-slot:ButtonText>{{ createButtonText }}</template>
+      <template v-slot:content>
+        <icon-list-query @change="fetchIconDetailes" />
+        <div>
+          <img
+            :src="selecticon.URL"
+            alt="Select Item Icon"
+            decoding="async"
+            width="100"
+            height="100"
+          />
+          <ul>
+            <li v-for="(icon, key) in icons" :key="key">
+              <button @click="onClickIcon(icon)">
+                <img
+                  :src="icon.URL"
+                  alt="Item Icon"
+                  decoding="async"
+                  width="60"
+                  height="60"
+                />
+              </button>
+            </li>
+          </ul>
+        </div>
+      </template>
+    </modal>
   </div>
 </template>
 
 <script>
+import IconListQuery from "@/components/Console/IconListQuery.vue";
+import modal from "@/components/Console/modal/BaseModal.vue";
 import firebase from "@/firebase.js";
 export default {
   name: "IconList",
+  components: {
+    IconListQuery,
+    modal
   },
   data() {
     return {
       icons: [],
+      selecticon: {}
     };
   },
   methods: {
