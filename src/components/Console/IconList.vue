@@ -47,6 +47,11 @@ export default {
       selecticon: {}
     };
   },
+  computed: {
+    createButtonText() {
+      return "アイコン検索";
+    },
+  },
   methods: {
     /**
      * Firestoreから条件にあったアイコンの一覧を取得する
