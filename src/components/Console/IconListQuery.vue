@@ -8,6 +8,7 @@
       >種類</category-list
     >
     <category-list :Category="icondetails" v-model="detail">詳細</category-list>
+    <button @click="onClick()">アイコン検索</button>
   </div>
 </template>
 
@@ -45,9 +46,16 @@ export default {
         default:
           return [];
       }
-    },
-    emit() {
-      return this.$emit("change");
+    }
+  },
+  methods: {
+    onClick() {
+      return this.$emit("change", {
+        document: this.group,
+        collection: this.rank,
+        typecriteria: this.rank,
+        materialtypecriteria: this.detail
+      });
     }
   }
 };
