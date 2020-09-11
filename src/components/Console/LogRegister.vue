@@ -89,6 +89,8 @@ export default {
       patchversion: 0,
       childrenlogs: [],
 
+      lodestone: "",
+      eriones: "",
       isUpadateMode: true,
       Paths: [
         { url: "Material/Raw/" },
