@@ -57,8 +57,8 @@ export default {
       //選択中のアイコンを表示させたいので、dataへ代入する
       this.selecticon = value;
 
-      //選択したアイコン情報を親へ伝える
-      this.$emit("change", value);
+      //画像のパスだけが必要なので、パスの情報だけを親へ渡す
+      this.$emit("change", value.URL);
     },
     /**
      * Firestoreから条件にあったアイコンの一覧を取得する
