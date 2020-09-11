@@ -39,22 +39,6 @@
             >秘伝書番号</category-list
           >
         </div>
-        <template v-if="other === 'default'">
-          <div>製作レベル:<input type="text" /></div>
-          <div>アイテムレベル:<input type="text" /></div>
-          <div>ランク<input type="text" /></div
-        ></template>
-        <template v-if="other === 'Master'">
-          <div>秘伝書番号:<input type="text" /></div>
-          <div>製作レベル:<input type="text" /></div>
-          <div>ランク<input type="text" /></div>
-        </template>
-        <template v-if="other === 'Ishgard'">
-          <div>イシュガルド復興段階:<input type="text" /></div>
-          <div>製作レベル:<input type="text" /></div>
-          <div>ランク<input type="text" /></div>
-          <div>高難易度ランク<input type="text" /></div>
-        </template>
       </section>
       <div class="LogRegister__Ingredients">
         <ingredient
