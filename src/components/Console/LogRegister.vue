@@ -91,6 +91,11 @@ export default {
 
       lodestone: "",
       eriones: "",
+
+      collectionareaname: "",
+      areaXpoint: "",
+      areaYpoint: "",
+
       isUpadateMode: true,
       Paths: [
         { url: "Material/Raw/" },
