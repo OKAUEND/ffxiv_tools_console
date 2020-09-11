@@ -11,9 +11,7 @@
       <div>製作レベル:<input type="text" /></div>
       <div>アイテムレベル:<input type="text" /></div>
       <div>
-        画像パス:<input type="text" v-model="Image" /><br />
-        <button @click="fetchIcon()">取得</button><br />
-        <img :src="imageurl" />
+        <icon-list @click="imageurl = $event.target.value"></icon-list>
       </div>
       <section>
         <h2>情報</h2>
