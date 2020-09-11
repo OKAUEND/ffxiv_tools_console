@@ -59,6 +59,7 @@
 import firebase from "@/firebase.js";
 import Ingredient from "@/components/Console/Ingredient.vue";
 // import StoreList from "@/components/Console/StoreList.vue";
+import IconList from "@/components/Console/IconList.vue";
 import CategoryList from "@/components/Console/BaseRadioButtonList.vue";
 import divisions from "../../assets/category.json";
 
@@ -66,7 +67,7 @@ export default {
   name: "LogRegister",
   components: {
     Ingredient,
-    // StoreList,
+    IconList,
     CategoryList
   },
   data() {
