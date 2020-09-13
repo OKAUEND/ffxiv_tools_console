@@ -123,12 +123,39 @@ export default {
     }
   },
   methods: {
-    writeInterface() {
+    async executeCraftLog() {
       if (this.name === "" && this.engname === "") {
         alert("名前が入力されていません");
         return;
       }
 
+      if (this.level === 0 && this.itemlevel === 0) {
+        alert("レベルが入力されていません");
+        return;
+      }
+
+      if (this.imageurl === "") {
+        alert("画像が選択されていません");
+        return;
+      }
+
+      const updatelog = this.createUpdateLog();
+
+      //FirestoreのドキュメントIDは名前にIDを意味のあるユニークIDにしたいためアイテムの英語名を使用する
+      // なので英語名がない場合は拒否する
+      await firebase
+        .firestore()
+        .collection("CraftLog")
+        .doc(this.engname)
+        .set(updatelog)
+        .then(() => {
+          alert("登録が完了しました");
+        })
+        .catch(error => {
+          console.error("Firestore Error", error);
+          alert("登録に失敗しました");
+        });
+    },
       //選択した[段階]のオブジェクト情報がほしいため検索する
       const rank = this.DivisionInfo.rank.find(rank => {
         return rank.type === this.rank;
