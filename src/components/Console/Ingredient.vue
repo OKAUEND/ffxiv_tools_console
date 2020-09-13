@@ -89,34 +89,23 @@ export default {
       this.engname = data.engname;
       this.imageurl = data.imageurl;
     },
+    /**
+     * 親へ編集内容を伝える
+     * @
+     */
     EventEmit() {
-      if (!this.isEnable) {
-        return this.$emit("input", {
-          isEnable: false,
-          IngredientID: 0
-        });
-      }
-
-      if (this.value <= 0) {
-        return;
-      }
-
-      if (this.ChildDocumentID === 0 || this.ChildDocumentID === "") {
-        return;
-      }
-
-      const ZeroPadding = `"0000000${this.ChildDocumentID}`.slice(-7);
-      const DocumentID = `Log${ZeroPadding}`;
-      const DocumentPath = `CraftLog/${DocumentID}`;
+      //ドキュメントIDからドキュメントのパスを生成する
+      const DocumentPath = `CraftLog/${this.ChildDocumentID}`;
       const DocRef = firebase.firestore().doc(DocumentPath);
 
-      return this.$emit("input", {
+      return this.$emit("change", {
         isEnable: true,
-        Value: this.ReqValue,
-        Imgurl: this.ImgUrl,
-        LogPath: DocRef,
-        IngredientID: this.ChildDocumentID,
-        SortID: this.SortID
+        name: this.name,
+        engname: this.engname,
+        value: this.ReqValue,
+        imageurl: this.imageurl,
+        childrenDocumentRef: DocRef,
+        order: this.order
       });
     }
   }
