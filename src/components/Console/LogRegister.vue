@@ -13,6 +13,10 @@
       <div>
         <icon-list @click="imageurl = $event.target.value"></icon-list>
       </div>
+      <img :src="itemicon" />
+      <div>
+        <icon-list @change="onModalIconClick"></icon-list>
+      </div>
       <section>
         <h2>情報</h2>
         <category-list :Category="DivisionInfo.rank" v-model="rank"
@@ -120,6 +124,13 @@ export default {
     },
     checkedMeister() {
       return this.other === "Meister";
+    },
+    itemicon() {
+      if (this.imageurl === "") {
+        return "static/none.png";
+      } else {
+        return this.imageurl;
+      }
     }
   },
   methods: {
@@ -270,6 +281,12 @@ export default {
       // //配列の中身を更新したいオブジェクトで置換する
       this.childrenlogs.splice(updateIndex, 1, value);
     },
+    /**
+     * URLを代入する
+     */
+    onModalIconClick(url) {
+      this.imageurl = url;
+    }
   }
 };
 </script>
