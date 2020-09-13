@@ -34,8 +34,7 @@ export default {
       imageurl: "",
       name: "",
       engname: "",
-      ChildDocumentID: 0,
-      CandidateData: {}
+      ChildDocumentRef: {}
     };
   },
   props: {
@@ -71,11 +70,12 @@ export default {
   },
   watch: {
     childlog: function(props) {
-      this.isEnable = props.isDisabled;
-      this.ReqValue = props.Value;
-      this.imageurl = props.image;
-      this.ChildDocumentID = props.IngredientID ? props.IngredientID : 0;
-      this.ImgUrl = props.Image;
+      this.isEnable = props.isEnable;
+      this.name = props.name;
+      this.engname = props.engname;
+      this.ReqValue = props.value;
+      this.imageurl = props.imageurl;
+      this.ChildDocumentRef = props.ChildDocumentRef;
     }
   },
   methods: {
