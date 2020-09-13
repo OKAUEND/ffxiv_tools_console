@@ -41,6 +41,10 @@ export default {
     childlog: {
       type: Object,
       required: true
+    },
+    order: {
+      type: Number,
+      required: true
     }
   },
   computed: {
