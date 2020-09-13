@@ -99,7 +99,7 @@ export default {
       areaXpoint: "",
       areaYpoint: "",
 
-      isUpadateMode: true,
+      isUpadateMode: false,
       Paths: [
         { url: "Material/Raw/" },
         { url: "Material/End/" },
