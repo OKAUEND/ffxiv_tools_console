@@ -13,6 +13,7 @@
       <label>個数</label>
       <input type="text" :disabled="!isEnable" v-model.number="ReqValue" />
     </div>
+    <button @click="EventEmit()">セット</button>
   </div>
 </template>
 
