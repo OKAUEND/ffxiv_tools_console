@@ -95,7 +95,7 @@ export default {
       lodestone: "",
       eriones: "",
 
-      collectionareaname: "",
+      collectionarea: "",
       areaXpoint: "",
       areaYpoint: "",
 
