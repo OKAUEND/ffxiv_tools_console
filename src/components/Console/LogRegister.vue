@@ -4,7 +4,10 @@
     <div v-if="isUpadateMode">更新モード</div>
     <div v-else-if="!isUpadateMode">新規追加モード</div>
     <button @click="isUpadateMode = !isUpadateMode">新規追加モードへ</button>
-    <button @click="resetData">リセット</button>
+    <base-modal>
+      <template v-slot:ButtonText>検索</template>
+      <template v-slot:content><store-list /></template>
+    </base-modal>
     <div class="LogRegister__Body">
       <div>名前:<input type="text" v-model="name" /></div>
       <div>英名:<input type="text" v-model.trim="engname" /></div>
