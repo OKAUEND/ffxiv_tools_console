@@ -15,7 +15,12 @@ const config = {
 };
 
 firebase.initializeApp(config);
+firebase.firestore();
 
+//Firebaseに自作メソッドを追加し、処理を統一する。
+/**
+ * ユーザーがログイン中かを確認する。
+ */
 firebase.getCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const unsubscribe = firebase.auth().onAuthStateChanged(user => {
