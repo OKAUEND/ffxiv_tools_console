@@ -51,7 +51,7 @@
         </ingredient>
       </div>
     </div>
-    <button @click="writeInterface()">追加/更新</button>
+    <button @click="executeCraftLog()">追加/更新</button>
   </div>
 </template>
 
