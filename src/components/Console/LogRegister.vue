@@ -57,10 +57,11 @@
 
 <script>
 import firebase from "@/firebase.js";
+import BaseModal from "@/components/Console/modal/BaseModal.vue";
 import Ingredient from "@/components/Console/Ingredient.vue";
-// import StoreList from "@/components/Console/StoreList.vue";
 import IconList from "@/components/Console/IconList.vue";
 import CategoryList from "@/components/Console/BaseRadioButtonList.vue";
+import StoreList from "@/components/Console/StoreList.vue";
 import divisions from "../../assets/category.json";
 
 export default {
@@ -68,7 +69,9 @@ export default {
   components: {
     Ingredient,
     IconList,
-    CategoryList
+    BaseModal,
+    CategoryList,
+    StoreList
   },
   data() {
     return {
