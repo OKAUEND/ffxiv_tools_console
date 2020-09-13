@@ -78,23 +78,16 @@ export default {
     }
   },
   methods: {
-    fetchDocument() {
-      if (this.ChildDocumentID === 0) {
-        return;
-      }
-
-      const ZeroPadding = `"0000000${this.ChildDocumentID}`.slice(-7);
-      // const DocumentPath = `CraftLog/Log${ZeroPadding}`;
-      const DocRef = firebase
-        .firestore()
-        .collection("CraftLog")
-        .doc(`Log${ZeroPadding}`);
-      DocRef.get().then(doc => {
-        const DocData = doc.data();
-        this.ImgUrl = DocData.ImgUrl;
-        this.Name = DocData.Name;
-        this.EventEmit();
-      });
+    /**
+     * Firestoreから取得した値をセットする
+     * @
+     */
+    setChildData(data) {
+      this.isEnable = true;
+      this.ReqValue = 1;
+      this.name = data.name;
+      this.engname = data.engname;
+      this.imageurl = data.imageurl;
     },
     EventEmit() {
       if (!this.isEnable) {
