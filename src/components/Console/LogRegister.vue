@@ -8,10 +8,10 @@
     <div class="LogRegister__Body">
       <div>名前:<input type="text" v-model="name" /></div>
       <div>英名:<input type="text" v-model.trim="engname" /></div>
-      <div>製作レベル:<input type="text" /></div>
-      <div>アイテムレベル:<input type="text" /></div>
+      <div>製作レベル:<input type="text" v-model.number="level" /></div>
+      <div>アイテムレベル:<input type="text" v-model.number="itemlevel" /></div>
       <div>
-        <icon-list @click="imageurl = $event.target.value"></icon-list>
+        パッチバージョン:<input type="text" v-model.number="patchversion" />
       </div>
       <img :src="itemicon" />
       <div>
