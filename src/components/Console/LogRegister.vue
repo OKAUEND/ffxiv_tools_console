@@ -156,19 +156,32 @@ export default {
           alert("登録に失敗しました");
         });
     },
+    /**
+     * Firestoreに書き込みを行うオブジェクトを作成する
+     */
+    createUpdateLog() {
       //選択した[段階]のオブジェクト情報がほしいため検索する
       const rank = this.DivisionInfo.rank.find(rank => {
         return rank.type === this.rank;
       });
 
       //選択した[秘伝書]のオブジェクト情報がほしいため検索する
-      const MeisterBookRank = this.DivisionInfo.MeisterBook.find(
-        MeisterBook => {
-          return MeisterBook.type === this.MeisterBookNumber;
-        }
-      );
+      const MeisterBookRank =
+        this.MeisterBookNumber === ""
+          ? 0
+          : this.DivisionInfo.MeisterBook.find(MeisterBook => {
+              return MeisterBook.type === this.MeisterBookNumber;
+            });
 
-      const UpdateLog = {
+      //初期作成時間とアップデート時間を記録しておきたいので、Firestoreのサーバータイムを取得する
+      const servertime = firebase.firestore.FieldValue.serverTimestamp();
+
+      // console.log(servertime);
+
+      // 更新モードの時は初期作成時間を上書きしたくないため、元々あるのをつかう
+      const createtime = this.isUpadateMode ? this.createtime : servertime;
+
+      return {
         //アイテム名
         text: {
           name: this.name,
@@ -204,61 +217,20 @@ export default {
         patchversion: this.patchversion,
         childrenlogs: this.childrenlogs,
 
-        createTime: "",
-        updateTime: ""
+        createTime: createtime,
+        updateTime: servertime,
+
+        gathering: {
+          collectionarea: "",
+          Xpoint: "",
+          Zpoint: ""
+        },
+
+        website: {
+          lodestone: "",
+          eriones: ""
+        }
       };
-
-    },
-    async writeStoreLog(DocumentID, LogData) {
-      return await firebase
-        .firestore()
-        .collection("CraftLog")
-        .doc(DocumentID)
-        .set(LogData)
-        .then(() => {
-          alert("Success!");
-        })
-        .catch(error => {
-          console.error("Firestore Error", error);
-        });
-    },
-    fetchIcon() {
-      if (this.Image === "") {
-        return "";
-      }
-      const Path = this.Paths[this.crafttype].url;
-      const GCP_URL =
-        "https://storage.googleapis.com/ffxivcrafttools.appspot.com/";
-      this.ImgUrl = `${GCP_URL}${Path}${this.Image}.png`;
-    },
-    fetchIconsList() {
-      this.iconpath.length = 0;
-      const ImageRef = firebase
-        .firestore()
-        .collection("Image")
-        .doc("Material")
-        .collection("End")
-        .where("ProductionStageLevel", "==", 1)
-        .where("type", "==", 1);
-      ImageRef.get().then(querySnapshot => {
-        const List = querySnapshot.docs.map(doc => doc.data());
-        const URLs = List.map(Doc => {
-          const Image = {
-            sortID: Doc.ID,
-            url: ""
-          };
-
-          firebase
-            .storage()
-            .ref(Doc.path)
-            .getDownloadURL()
-            .then(url => {
-              Image.url = url;
-            });
-          return Image;
-        });
-        this.iconpath = URLs;
-      });
     },
     setCraftData(Data) {
       //編集前に戻す用のために、取得したデータをバックアップする
