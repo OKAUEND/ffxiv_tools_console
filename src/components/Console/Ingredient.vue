@@ -8,7 +8,7 @@
     ></modal>
     <div class="Ingredient__Child">素材名:{{ this.name }}</div>
     <div class="Ingredient__Child">ENG:{{ this.engname }}</div>
-    <div><img class="minisize" :src="ImgURL" /></div>
+    <div><img class="minisize" :src="imageurl" /></div>
     <div class="Ingredient__Child">
       <label>個数</label>
       <input type="text" :disabled="!isEnable" v-model.number="ReqValue" />
