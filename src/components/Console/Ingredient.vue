@@ -53,13 +53,6 @@ export default {
         isDisabled: !this.isEnable
       };
     },
-    ImgURL() {
-      if (this.imageurl === "") {
-        return "static/none.png";
-      } else {
-        return this.imageurl;
-      }
-    },
     ReqValue: {
       get() {
         return this.value;
