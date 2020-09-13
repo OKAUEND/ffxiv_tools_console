@@ -16,6 +16,7 @@
     { "type": "End", "name": "完成", "priority": 4, "stagename": "End" }
   ],
   "category": [
+    { "type": "Material", "name": "素材" },
     { "type": "Battle", "name": "戦闘" },
     { "type": "NoBattle", "name": "非戦闘" },
     { "type": "Fashion", "name": "おしゃれ" },
