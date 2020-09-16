@@ -35,6 +35,9 @@
 import IconListQuery from "@/components/Console/IconListQuery.vue";
 import modal from "@/components/Console/modal/BaseModal.vue";
 import firebase from "@/firebase.js";
+import mergeiconlist from "@/util/mergeiconlist.js";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "IconList",
   components: {
@@ -50,7 +53,13 @@ export default {
   computed: {
     createButtonText() {
       return "アイコン検索";
-    }
+    },
+    ...mapGetters("icon", {
+      getCacheicons: "getCacheicons"
+    }),
+    ...mapActions("icon", {
+      cachelistAcquiredfromDB: "cachelistAcquiredfromDB"
+    })
   },
   methods: {
     onClickIcon(value) {
