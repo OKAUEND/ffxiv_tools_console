@@ -2,30 +2,30 @@ const state = () => ({
   icons: []
 });
 
-const mutations = () => ({
+const mutations = {
   /**
    * @param {Vuex}  state - Vuex state
-   * @param {Array} value - 更新をするデータ
+   * @param {Array} payload - 更新をするデータ
    */
-  cacheiconlistAcquiredfromdb(state, value) {
-    state.icons = value;
+  cachelistAcquiredfromDB(state, payload) {
+    state.icons = payload;
   }
-});
+};
 
-const actions = () => ({
+const actions = {
   /**
    * @param {Vuex}  state - Vuex state
    * @param {Array} cache - Firestoreより取得したデータ
    */
-  cacheiconlistAcquiredfromdb(cache) {
-    this.commit("cacheiconlistAcquiredfromdb", cache);
+  cachelistAcquiredfromDB({ commit }, cache) {
+    commit("cachelistAcquiredfromDB", cache);
   }
-});
-const getters = () => ({
+};
+const getters = {
   getCacheicons: state => {
-    return state.icons;
+    return state.icons.length === 0 ? [] : state.icons;
   }
-});
+};
 
 export default {
   namespaced: true,
