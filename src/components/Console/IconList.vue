@@ -79,8 +79,8 @@ export default {
         .collection("Image")
         .doc(value.document)
         .collection(value.collection)
-        .where("Type", "==", value.typecriteria)
-        .where("MaterialType", "==", value.materialtypecriteria);
+        .where("Type", "==", value.rank)
+        .where("MaterialType", "==", value.detail);
 
       //0から再描画させたいのでIconsを初期化する
       this.icons.length = 0;

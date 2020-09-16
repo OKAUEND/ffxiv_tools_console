@@ -53,8 +53,9 @@ export default {
       return this.$emit("change", {
         document: this.group,
         collection: this.rank,
-        typecriteria: this.rank,
-        materialtypecriteria: this.detail
+        rank: this.rank,
+        detail: this.detail,
+        crafter: this.crafter
       });
     }
   }
