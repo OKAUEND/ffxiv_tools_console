@@ -5,6 +5,13 @@ export default mergeiconlist;
  * @param {Array} target - マージしたい配列
  */
 function mergeiconlist(parent, target) {
+  const selected = parent.filter(icon => {
+    return (
+      target.document === icon.document &&
+      target.collection === icon.collection &&
+      target.crafter === icon.crafter
+    );
+  });
 }
 
 /**
