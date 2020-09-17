@@ -13,4 +13,8 @@ function mergeiconlist(parent, target) {
  * @param {Array} target - 重複データを除外する配列
  */
 function filtersamedata(parent, target) {
+  return target.list.filter(item => {
+    return !parent.includes(item.ID) && !parent.includes(item.MaterialType);
+  });
+}
 }
