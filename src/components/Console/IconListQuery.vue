@@ -7,6 +7,9 @@
     <category-list :Category="iconcategory.groups" v-model="group"
       >種類</category-list
     >
+    <category-list :Category="crafterdetail" v-model="crafter">
+      クラフター</category-list
+    >
     <category-list :Category="icondetails" v-model="detail">詳細</category-list>
     <button @click="onClick()">アイコン検索</button>
   </div>
@@ -43,6 +46,17 @@ export default {
           return this.iconcategory.material;
         case "Weapon":
           return this.iconcategory.battlejob;
+        default:
+          return [];
+      }
+    },
+    crafterdetail() {
+      switch (this.group) {
+        case "Weapon":
+        case "Tools":
+        case "Armor":
+        case "House":
+          return this.iconcategory.crafter;
         default:
           return [];
       }
