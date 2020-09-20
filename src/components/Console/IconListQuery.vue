@@ -1,8 +1,5 @@
 <template>
   <div>
-    <category-list :Category="iconcategory.crafter" v-model="crafter">
-      クラフター</category-list
-    >
     <category-list :Category="category.rank" v-model="rank">段階</category-list>
     <category-list :Category="iconcategory.groups" v-model="group"
       >種類</category-list
