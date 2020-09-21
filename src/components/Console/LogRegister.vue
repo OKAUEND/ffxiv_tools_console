@@ -19,6 +19,7 @@
       <img :src="itemicon" />
       <div>
         <icon-list
+          :icons="icons"
           @select="onModalIconClick"
           @change="fetchIconlist"
         ></icon-list>
@@ -114,7 +115,9 @@ export default {
         { url: "Material/Raw/" },
         { url: "Material/End/" },
         { url: "Material/Middle/" }
-      ]
+      ],
+
+      icons: []
     };
   },
   created() {
@@ -173,7 +176,11 @@ export default {
           alert("登録に失敗しました");
         });
     },
-    fetchIconlist(key) {
+    /**
+     * Firestoreに書き込みを行うオブジェクトを作成する
+     * @param {Object}  key - FirestoreにつかうQueryキー
+     */
+    async fetchIconlist(key) {
       // //選択した内容から、Firestoreへ通信を行うdocumentを作成する
       const documentRef = firebase
         .firestore()
@@ -183,7 +190,14 @@ export default {
         .where("Type", "==", key.rank)
         .where("MaterialType", "==", key.detail);
 
-      console.log(documentRef);
+      this.icons = await documentRef
+        .get()
+        .then(querySnapshot => {
+          return querySnapshot.docs.map(doc => doc.data());
+        })
+        .catch(error => {
+          console.error("Firest Error getting document", error);
+        });
     },
 
     /**
