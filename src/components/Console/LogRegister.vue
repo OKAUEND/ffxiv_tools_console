@@ -18,7 +18,10 @@
       </div>
       <img :src="itemicon" />
       <div>
-        <icon-list @change="onModalIconClick"></icon-list>
+        <icon-list
+          @select="onModalIconClick"
+          @change="fetchIconlist"
+        ></icon-list>
       </div>
       <section>
         <h2>情報</h2>
@@ -170,6 +173,19 @@ export default {
           alert("登録に失敗しました");
         });
     },
+    fetchIconlist(key) {
+      // //選択した内容から、Firestoreへ通信を行うdocumentを作成する
+      const documentRef = firebase
+        .firestore()
+        .collection("Image")
+        .doc(key.document)
+        .collection(key.collection)
+        .where("Type", "==", key.rank)
+        .where("MaterialType", "==", key.detail);
+
+      console.log(documentRef);
+    },
+
     /**
      * Firestoreに書き込みを行うオブジェクトを作成する
      */

@@ -1,14 +1,20 @@
 <template>
   <div>
-    <category-list :Category="category.rank" v-model="rank">段階</category-list>
-    <category-list :Category="iconcategory.groups" v-model="group"
+    <category-list :Category="category.rank" v-model="rank" @input="onClick"
+      >段階</category-list
+    >
+    <category-list
+      :Category="iconcategory.groups"
+      v-model="group"
+      @input="onClick"
       >種類</category-list
     >
-    <category-list :Category="crafterdetail" v-model="crafter">
+    <category-list :Category="crafterdetail" v-model="crafter" @input="onClick">
       クラフター</category-list
     >
-    <category-list :Category="icondetails" v-model="detail">詳細</category-list>
-    <button @click="onClick()">アイコン検索</button>
+    <category-list :Category="icondetails" v-model="detail" @input="onClick"
+      >詳細</category-list
+    >
   </div>
 </template>
 

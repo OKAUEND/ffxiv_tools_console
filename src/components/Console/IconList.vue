@@ -3,10 +3,11 @@
     <modal>
       <template v-slot:ButtonText>{{ createButtonText }}</template>
       <template v-slot:content>
-        <icon-list-query @change="fetchIconDetailes" />
+        <icon-list-query @change="selectedQueries" />
+        <button @click="emitEvent()">アイコン検索</button>
         <div>
           <img
-            :src="selecticon.URL"
+            :src="selection.URL"
             alt="Select Item Icon"
             decoding="async"
             width="100"
@@ -34,9 +35,6 @@
 <script>
 import IconListQuery from "@/components/Console/IconListQuery.vue";
 import modal from "@/components/Console/modal/BaseModal.vue";
-import firebase from "@/firebase.js";
-import mergeiconlist from "@/util/mergeiconlist.js";
-import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "IconList",
@@ -46,20 +44,14 @@ export default {
   },
   data() {
     return {
-      icons: [],
-      selecticon: {}
+      queries: {},
+      selection: {}
     };
   },
   computed: {
     createButtonText() {
       return "アイコン検索";
-    },
-    ...mapGetters("icon", {
-      getCacheicons: "getCacheicons"
-    }),
-    ...mapActions("icon", {
-      cachelistAcquiredfromDB: "cachelistAcquiredfromDB"
-    })
+    }
   },
   methods: {
     onClickIcon(value) {
@@ -67,31 +59,17 @@ export default {
       this.selecticon = value;
 
       //画像のパスだけが必要なので、パスの情報だけを親へ渡す
-      this.$emit("change", value.URL);
+      this.$emit("select", value.URL);
+    },
+    selectedQueries(queries) {
+      this.queries = queries;
     },
     /**
      * Firestoreから条件にあったアイコンの一覧を取得する
      */
-    async fetchIconDetailes(value) {
-      //選択した内容から、Firestoreへ通信を行うdocumentを作成する
-      const documentRef = firebase
-        .firestore()
-        .collection("Image")
-        .doc(value.document)
-        .collection(value.collection)
-        .where("Type", "==", value.rank)
-        .where("MaterialType", "==", value.detail);
-
-      //0から再描画させたいのでIconsを初期化する
-      this.icons.length = 0;
-
-      const querysnapshot = documentRef.get();
-
-      this.icons = await querysnapshot.then(querySnapshot => {
-        return querySnapshot.docs.map(doc => {
-          return doc.data();
-        });
-      });
+    emitEvent() {
+      //親でAPI通信を担いたいので、親で条件キーを伝える
+      this.$emit("change", this.queries);
     }
   }
 };
