@@ -181,7 +181,19 @@ export default {
      * @param {Object}  key - FirestoreにつかうQueryキー
      */
     async fetchIconlist(key) {
-      // //選択した内容から、Firestoreへ通信を行うdocumentを作成する
+      //一時キャッシュ内に該当データが無いかを検索して、あったらキャッシュデータを使い通信量を節約する
+      const tempicon = await this.$store
+        .dispatch("icon/searchStateTempData", key)
+        .then(value => {
+          return value;
+        });
+
+      if (tempicon.length === 1) {
+        this.icons = tempicon;
+        return;
+      }
+
+      // 選択した内容から、Firestoreへ通信を行うdocumentを作成する
       const documentRef = firebase
         .firestore()
         .collection("Image")
