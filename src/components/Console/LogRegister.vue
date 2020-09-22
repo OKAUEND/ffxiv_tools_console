@@ -177,7 +177,7 @@ export default {
         });
     },
     /**
-     * Firestoreに書き込みを行うオブジェクトを作成する
+     * Firestoreよりアイコン画像を取得する
      * @param {Object}  key - FirestoreにつかうQueryキー
      */
     async fetchIconlist(key) {
