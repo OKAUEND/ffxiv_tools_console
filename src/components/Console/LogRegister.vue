@@ -188,8 +188,9 @@ export default {
           return value;
         });
 
-      if (tempicon.length === 1) {
-        this.icons = tempicon;
+      //オブジェクトの中身があるかを確認し、あるならキャッシュしていると考えてそっちを使う
+      if (Object.keys(tempicon).length != 0) {
+        this.icons = tempicon.list;
         return;
       }
 
@@ -202,7 +203,7 @@ export default {
         .where("Type", "==", key.rank)
         .where("MaterialType", "==", key.detail);
 
-      this.icons = await documentRef
+      const storeicons = await documentRef
         .get()
         .then(querySnapshot => {
           return querySnapshot.docs.map(doc => doc.data());
@@ -210,6 +211,16 @@ export default {
         .catch(error => {
           console.error("Firest Error getting document", error);
         });
+
+      this.icons = storeicons;
+
+      const list = { list: storeicons };
+
+      //Vuexに一時キャッシュを行い、次回以降再度利用できるようにする
+      this.$store.dispatch("icon/cachelistAcquiredfromDB", {
+        ...key,
+        ...list
+      });
     },
 
     /**
