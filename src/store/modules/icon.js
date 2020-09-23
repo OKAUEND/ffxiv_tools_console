@@ -67,6 +67,7 @@ const filtersStoreIcons = (state, payload) => {
   //取得した配列の長さを見ることで、中身があるかどうかを確認しundefinedを発生しないようにする
   return icon.length === 0 ? {} : icon[0];
 };
+
 export default {
   namespaced: true,
   state,
