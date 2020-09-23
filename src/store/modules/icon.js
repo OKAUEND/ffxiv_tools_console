@@ -42,21 +42,11 @@ const actions = {
     /* eslint-disable */
 
     //選択されたのと同じ内容のを探す
-    return state.icons.filter(temp => {
-      return (
-        temp.document === targetkeys.document &&
-        temp.collection === targetkeys.collection &&
-        temp.crafter === targetkeys.crafter &&
-        temp.detail === targetkeys.detail
-      );
-    });
+    return filtersStoreIcons(state, targetkeys);
   }
 };
-const getters = {
-  getCacheicons: state => {
-    return state.icons.length === 0 ? [] : state.icons;
-  }
-};
+
+const getters = {};
 
 /**
  * 一時キャッシュから同じ内容をデータを取得する
