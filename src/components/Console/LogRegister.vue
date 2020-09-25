@@ -6,7 +6,9 @@
     <button @click="isUpadateMode = !isUpadateMode">新規追加モードへ</button>
     <base-modal>
       <template v-slot:ButtonText>検索</template>
-      <template v-slot:content><store-list @select="fetchlogs"/></template>
+      <template v-slot:content
+        ><store-list @select="fetchlogs" :logs="logs"
+      /></template>
     </base-modal>
     <div class="LogRegister__Body">
       <div>名前:<input type="text" v-model="name" /></div>
@@ -117,6 +119,7 @@ export default {
         { url: "Material/Middle/" }
       ],
 
+      logs: [],
       icons: []
     };
   },
@@ -182,6 +185,25 @@ export default {
      * @param {Object}  query - FirestoreにつかうQueryキー
      */
     async fetchlogs(query) {
+      //Firestoreからデータを取り出すクエリを作成する
+      const docRef = firebase.firestore().collection("CraftLog");
+      //すべてを取得するのは負荷がかかるため、選択したクラフターと同じもので、IL帯で絞り込みを行えるようにする
+      const queryRef = docRef
+        .where("type.job", "==", query.job)
+        .where("level.itemlevel", "<=", query.upperItemlevel)
+        .where("level.itemlevel", ">=", query.lowerItemlevel);
+
+      //DBへ問い合わせるlog
+      const storelogs = await queryRef
+        .get()
+        .then(querySnapshot => {
+          return querySnapshot.docs.map(doc => doc.data());
+        })
+        .catch(error => {
+          console.error("Firest Error getting document", error);
+        });
+
+      this.logs = storelogs;
     },
     /**
      * Firestoreよりアイコン画像を取得する

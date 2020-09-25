@@ -19,9 +19,9 @@
       <label>下限IL</label>
       <input type="text" placeholder="下限IL" v-model.number="lowerItemlevel" />
     </div>
-    <button @click="fetchStoredata()">検索</button>
+    <button @click="emitEvent">検索</button>
     <ul>
-      <li v-for="(Log, ID) in StoreLogs" :key="ID">
+      <li v-for="(Log, ID) in loglist" :key="ID">
         <button @click="selectedCraftLog(Log)">{{ Log.text.name }}</button>
       </li>
     </ul>
@@ -37,6 +37,12 @@ export default {
   components: {
     CategoryList
   },
+  props: {
+    logs: {
+      requier: true,
+      type: Array
+    }
+  },
   data() {
     return {
       job: "",
@@ -48,6 +54,9 @@ export default {
   computed: {
     CrafterCategory() {
       return divisions.job;
+    },
+    loglist() {
+      return this.logs;
     }
   },
   methods: {
