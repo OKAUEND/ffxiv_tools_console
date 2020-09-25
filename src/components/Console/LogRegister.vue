@@ -217,6 +217,12 @@ export default {
         });
 
       this.logs = storelogs;
+
+      //Vuexに一時キャッシュを行い、次回以降再度利用できるようにする
+      this.$store.dispatch("log/cachelistAcquiredfromDB", {
+        crafter: query.job,
+        logs: storelogs
+      });
     },
     /**
      * Firestoreよりアイコン画像を取得する
