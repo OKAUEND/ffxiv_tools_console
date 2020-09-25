@@ -48,6 +48,12 @@ export default {
       selection: {}
     };
   },
+  props: {
+    icons: {
+      require: true,
+      type: Array
+    }
+  },
   computed: {
     createButtonText() {
       return "アイコン検索";
@@ -56,7 +62,7 @@ export default {
   methods: {
     onClickIcon(value) {
       //選択中のアイコンを表示させたいので、dataへ代入する
-      this.selecticon = value;
+      this.selection = value;
 
       //画像のパスだけが必要なので、パスの情報だけを親へ渡す
       this.$emit("select", value.URL);
