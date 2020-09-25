@@ -51,32 +51,15 @@ export default {
     }
   },
   methods: {
-    fetchStoredata() {
-      //選択したレベル帯に該当するログを取得する
-      this.fetchCraftLogs().then(Logs => {
-        console.log(Logs);
-        this.StoreLogs = Logs;
+    emitEvent() {
+      //親へ選択したキーを伝える
+      this.$emit("select", {
+        job: this.job,
+        upperItemlevel: this.upperItemlevel,
+        lowerItemlevel: this.lowerItemlevel
       });
     },
 
-    async fetchCraftLogs() {
-      //Firestoreからデータを取り出すクエリを作成する
-      const docRef = firebase.firestore().collectionGroup("CraftLog");
-      //すべてを取得するのは負荷がかかるため、選択したクラフターと同じもので、IL帯で絞り込みを行えるようにする
-      const queryRef = docRef
-        .where("job", "==", this.job)
-        .where("level.itemlevel", "<=", this.upperItemlevel)
-        .where("level.itemlevel", ">=", this.lowerItemlevel);
-      //DBへ問い合わせる
-      return await queryRef
-        .get()
-        .then(querySnapshot => {
-          return querySnapshot.docs.map(doc => doc.data());
-        })
-        .catch(error => {
-          console.error("Firest Error getting document", error);
-        });
-    },
     selectedCraftLog(Data) {
       this.$emit("click", Data);
     }
