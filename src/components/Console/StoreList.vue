@@ -31,7 +31,6 @@
 <script>
 import divisions from "../../assets/category.json";
 import CategoryList from "@/components/Console/BaseRadioButtonList.vue";
-import firebase from "@/firebase.js";
 export default {
   name: "StoreList",
   components: {
