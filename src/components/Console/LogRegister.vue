@@ -6,7 +6,7 @@
     <button @click="isUpadateMode = !isUpadateMode">新規追加モードへ</button>
     <base-modal>
       <template v-slot:ButtonText>検索</template>
-      <template v-slot:content><store-list /></template>
+      <template v-slot:content><store-list @select="fetchlogs"/></template>
     </base-modal>
     <div class="LogRegister__Body">
       <div>名前:<input type="text" v-model="name" /></div>
@@ -175,6 +175,13 @@ export default {
           console.error("Firestore Error", error);
           alert("登録に失敗しました");
         });
+    },
+
+    /**
+     * Firestoreより製作レシピを取得する
+     * @param {Object}  query - FirestoreにつかうQueryキー
+     */
+    async fetchlogs(query) {
     },
     /**
      * Firestoreよりアイコン画像を取得する
