@@ -185,6 +185,19 @@ export default {
      * @param {Object}  query - FirestoreにつかうQueryキー
      */
     async fetchlogs(query) {
+      //一時キャッシュ内に該当データが無いかを検索して、あったらキャッシュデータを使い通信量を節約する
+      const templogs = await this.$store
+        .dispatch("log/searchStateTempData", query)
+        .then(value => {
+          return value;
+        });
+
+      //オブジェクトの中身があるかを確認し、あるならキャッシュしていると考えてそっちを使う
+      if (templogs.logs.length != 0) {
+        this.icons = templogs.list;
+        return;
+      }
+
       //Firestoreからデータを取り出すクエリを作成する
       const docRef = firebase.firestore().collection("CraftLog");
       //すべてを取得するのは負荷がかかるため、選択したクラフターと同じもので、IL帯で絞り込みを行えるようにする
