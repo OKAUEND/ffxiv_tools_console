@@ -83,6 +83,13 @@ const filtersStoreLogs = (state, payload) => {
   return logs.length === 0 ? { logs: [] } : logs[0];
 };
 
+/**
+ * キャッシュしている製作レシピのレベル帯を取得する
+ * @param {Array} cachelogs - キャッシュしているレベル帯を調べる対象
+ * @return {Object} - レベル帯
+ */
+const loadCachelevelband = state => {};
+
 export default {
   namespaced: true,
   state,

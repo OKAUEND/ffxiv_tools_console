@@ -192,6 +192,8 @@ export default {
           return value;
         });
 
+      //キャッシュされているデータの最大Lvと最小Lvを取得し、実際にどのLvから取得スべきかの判断材料としたい
+
       //オブジェクトの中身があるかを確認し、あるならキャッシュしていると考えてそっちを使う
       if (templogs.logs.length != 0) {
         this.icons = templogs.list;
