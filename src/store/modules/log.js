@@ -88,7 +88,17 @@ const filtersStoreLogs = (state, payload) => {
  * @param {Array} cachelogs - キャッシュしているレベル帯を調べる対象
  * @return {Object} - レベル帯
  */
-const loadCachelevelband = state => {};
+const loadCachelevelband = state => {
+  const minlevel = state.logs.reduce((accumulator, currentvalue) =>
+    accumulator < currentvalue ? accumulator : currentvalue
+  );
+
+  const maxlevel = state.logs.reduce((accumulator, currentvalue) =>
+    accumulator > currentvalue ? accumulator : currentvalue
+  );
+
+  
+};
 
 export default {
   namespaced: true,
