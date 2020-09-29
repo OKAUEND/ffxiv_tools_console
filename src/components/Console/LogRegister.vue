@@ -178,6 +178,12 @@ export default {
           console.error("Firestore Error", error);
           alert("登録に失敗しました");
         });
+
+      //Vuexに一時キャッシュを行い、次回以降再度利用できるようにする
+      this.$store.dispatch("log/cacheAdditionalData", {
+        crafter: this.job,
+        logs: [updatelog]
+      });
     },
 
     /**

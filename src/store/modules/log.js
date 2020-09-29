@@ -8,7 +8,7 @@ const mutations = {
    * @param {Array} payload - 更新をするデータ
    */
   cachelistAcquiredfromDB(state, payload) {
-    state.logs.push(payload);
+    state.logs = payload;
   }
 };
 
@@ -63,6 +63,51 @@ const actions = {
 
     //選択されたのと同じ内容のを探す
     return filtersStoreLogs(state, payload);
+  },
+  /**
+   * Firestoreへ追加したデータをキャッシュする
+   * @param {Array} payload - Firestoreより取得したデータ
+   */
+  /* eslint-disable */
+  cacheAdditionalData({ commit, state }, payload) {
+    /* eslint-disable */
+
+    //元をいじりたくないので新しいインスタンスを作りそちらを編集するようにしたい
+    const temp = state != undefined ? state.logs.concat() : [];
+
+    //選択されたのと同じ内容のを探す
+    const selectedlogs = filtersStoreLogs(state, payload);
+
+    //選択されたデータの添字を探す
+    const index = temp.findIndex(log => log.crafter === payload.crafter);
+
+    /**
+     * 取得したデータ/一時キャッシュデータの順でSetオブジェクトを使い重複削除処理を行う
+     * 新規追加であれ更新であれ、Firestoreへアップロードしようとしたデータが最新となるので
+     * もし同じデータがあったとしても、追加しようとした側を優先する
+     */
+    const templist = Array.from(
+      new Set([...payload.logs, ...selectedlogs.logs])
+    );
+
+    //キャッシュするデータ構造を作る
+    const data = {
+      crafter: payload.crafter,
+      logs: templist
+    };
+
+    /**
+     * インデックスが-1以上の場合は重複させたくないので置換してキャッシュする
+     * -1の場合はデータがないので単純に追加する
+     */
+    if (index > -1) {
+      temp.splice(index, 1, data);
+    } else {
+      temp.push(data);
+    }
+
+    //キャッシュする
+    commit("cachelistAcquiredfromDB", temp);
   }
 };
 
