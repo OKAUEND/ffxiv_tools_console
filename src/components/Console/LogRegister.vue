@@ -12,7 +12,7 @@
     </base-modal>
     <div class="LogRegister__Body">
       <div>名前:<input type="text" v-model="name" /></div>
-      <div>英名:<input type="text" v-model.trim="engname" /></div>
+      <div>英名:<input type="text" v-model.lazy="engnameRegex" /></div>
       <div>製作レベル:<input type="text" v-model.number="level" /></div>
       <div>アイテムレベル:<input type="text" v-model.number="itemlevel" /></div>
       <div>
@@ -142,6 +142,14 @@ export default {
         return "static/none.png";
       } else {
         return this.imageurl;
+      }
+    },
+    engnameRegex: {
+      set(engname) {
+        this.engname = engname.replace(/\s/g, "");
+      },
+      get() {
+        return this.engname;
       }
     }
   },
@@ -308,7 +316,7 @@ export default {
         //アイテム名
         text: {
           name: this.name,
-          engname: this.engname
+          engname: this.engnameRegex
         },
         //製作レベルとアイテムレベル
         level: {
