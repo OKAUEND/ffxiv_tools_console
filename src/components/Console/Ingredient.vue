@@ -66,9 +66,7 @@ export default {
       },
       set(val) {
         //必要個数が0はありえないので、0の場合は1を代入させて0にするのを防ぐ
-        console.log(val);
         this.value = val > 0 ? val : 1;
-        this.$forceUpdate();
       }
     },
     ImageAltText() {
