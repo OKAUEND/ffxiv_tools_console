@@ -8,7 +8,14 @@
     ></modal>
     <div class="Ingredient__Child">素材名:{{ this.name }}</div>
     <div class="Ingredient__Child">ENG:{{ this.engname }}</div>
-    <div><img class="minisize" :src="imageurl" /></div>
+    <div>
+      <img
+        class="minisize"
+        :src="imageurl"
+        :alt="ImageAltText"
+        v-if="isImageShow"
+      />
+    </div>
     <div class="Ingredient__Child">
       <label>個数</label>
       <input type="text" :disabled="!isEnable" v-model.number="ReqValue" />
@@ -63,6 +70,12 @@ export default {
         this.value = val > 0 ? val : 1;
         this.$forceUpdate();
       }
+    },
+    ImageAltText() {
+      return `${this.name}のアイコンです`;
+    },
+    isImageShow() {
+      return this.imageurl != "";
     }
   },
   watch: {
