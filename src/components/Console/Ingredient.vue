@@ -82,10 +82,12 @@ export default {
     childlog: function(props) {
       this.isEnable = props.isEnable;
       this.name = props.name;
-      this.engname = props.engname;
-      this.ReqValue = props.value;
-      this.imageurl = props.imageurl;
-      this.ChildDocumentRef = props.ChildDocumentRef;
+      this.engname = props.engname ? props.engname : "";
+      this.ReqValue = props.value ? props.value : 0;
+      this.imageurl = props.imageurl ? props.imageurl : "";
+      this.ChildDocumentRef = props.ChildDocumentRef
+        ? props.ChildDocumentRef
+        : {};
     }
   },
   methods: {
