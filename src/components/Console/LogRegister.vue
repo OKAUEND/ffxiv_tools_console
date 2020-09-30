@@ -16,7 +16,11 @@
       <div>製作レベル:<input type="text" v-model.number="level" /></div>
       <div>アイテムレベル:<input type="text" v-model.number="itemlevel" /></div>
       <div>
-        パッチバージョン:<input type="text" v-model.number="patchversion" />
+        <category-list
+          :Category="DivisionInfo.patchversion"
+          v-model="patchversion"
+          >実装パッチ</category-list
+        >
       </div>
       <img :src="itemicon" />
       <div>
