@@ -206,16 +206,13 @@ export default {
       //一時キャッシュ内に該当データが無いかを検索して、あったらキャッシュデータを使い通信量を節約する
       const templogs = await this.$store
         .dispatch("log/searchStateTempData", query)
-        .then(value => {
-          return value;
-        });
+        .then(value => value);
 
       //キャッシュされているデータの最大Lvと最小Lvを取得し、実際にどのLvから取得スべきかの判断材料としたい
 
       //オブジェクトの中身があるかを確認し、あるならキャッシュしていると考えてそっちを使う
-      if (templogs.logs.length != 0) {
-        this.icons = templogs.list;
-        return;
+      if (Object.keys(templogs).length != 0) {
+        return (this.icons = templogs.list);
       }
 
       //Firestoreからデータを取り出すクエリを作成する
