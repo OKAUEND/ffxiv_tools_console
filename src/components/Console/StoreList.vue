@@ -61,8 +61,8 @@ export default {
   methods: {
     emitEvent() {
       //親へ選択したキーを伝える
-      this.$emit("select", {
-        job: this.job,
+      this.$emit("query", {
+        crafter: this.job,
         upperItemlevel: this.upperItemlevel,
         lowerItemlevel: this.lowerItemlevel
       });

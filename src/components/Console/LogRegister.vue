@@ -7,7 +7,7 @@
     <base-modal>
       <template v-slot:ButtonText>検索</template>
       <template v-slot:content
-        ><store-list @select="fetchlogs" :logs="logs"
+        ><store-list @query="fetchlogs" @select="setCraftLog" :logs="logs"
       /></template>
     </base-modal>
     <div class="LogRegister__Body">
@@ -219,7 +219,7 @@ export default {
       const docRef = firebase.firestore().collection("CraftLog");
       //すべてを取得するのは負荷がかかるため、選択したクラフターと同じもので、IL帯で絞り込みを行えるようにする
       const queryRef = docRef
-        .where("type.job", "==", query.job)
+        .where("type.job", "==", query.crafter)
         .where("level.itemlevel", "<=", query.upperItemlevel)
         .where("level.itemlevel", ">=", query.lowerItemlevel);
 
@@ -237,7 +237,7 @@ export default {
 
       //Vuexに一時キャッシュを行い、次回以降再度利用できるようにする
       this.$store.dispatch("log/cachelistAcquiredfromDB", {
-        crafter: query.job,
+        crafter: query.crafter,
         logs: storelogs
       });
     },
