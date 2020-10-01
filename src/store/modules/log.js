@@ -50,6 +50,7 @@ const actions = {
     commit("cachelistAcquiredfromDB", temp);
     // commit("cachelistAcquiredfromDB", [payload]);
   },
+
   /**
    * 一時キャッシュを検索する
    * @param {Array} payload - Firestoreより取得したデータ
@@ -61,6 +62,7 @@ const actions = {
     //選択されたのと同じ内容のを探す
     return findStoreLogs(state.logs, payload);
   },
+
   /**
    * Firestoreへ追加したデータをキャッシュする
    * @param {Array} payload - Firestoreより取得したデータ
