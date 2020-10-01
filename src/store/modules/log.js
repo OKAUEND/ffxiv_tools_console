@@ -62,7 +62,7 @@ const actions = {
     /* eslint-disable */
 
     //選択されたのと同じ内容のを探す
-    return filtersStoreLogs(state, payload);
+    return findStoreLogs(state.logs, payload);
   },
   /**
    * Firestoreへ追加したデータをキャッシュする
@@ -76,7 +76,7 @@ const actions = {
     const temp = state != undefined ? state.logs.concat() : [];
 
     //選択されたのと同じ内容のを探す
-    const selectedlogs = filtersStoreLogs(state, payload);
+    const selectedlogs = findStoreLogs(state, payload);
 
     //選択されたデータの添字を探す
     const index = temp.findIndex(log => log.crafter === payload.crafter);
@@ -117,15 +117,14 @@ const getters = {};
  * 一時キャッシュから同じ内容をデータを取得する
  * @param {Array} state - Vuex.state.logs
  * @param {Array} payload - keys object
- * @returns {Object} - キャッシュされたアイコン画像の情報群
+ * @returns {Object} - キャッシュされた製作レシピ
  */
-const filtersStoreLogs = (state, payload) => {
-  const logs = state.logs.filter(temp => {
+const findStoreLogs = async (state, payload) => {
+  const finditem = state.find(temp => {
     return temp.crafter === payload.crafter;
   });
 
-  //取得した配列の長さを見ることで、中身があるかどうかを確認しundefinedを発生しないようにする
-  return logs.length === 0 ? { logs: [] } : logs[0];
+  return finditem === undefined ? {} : finditem;
 };
 
 /**
