@@ -364,27 +364,41 @@ export default {
         }
       };
     },
-    setCraftData(Data) {
+    setCraftLog(Data) {
+      console.log(Data);
       //編集前に戻す用のために、取得したデータをバックアップする
       //でもこのページから移動したら消したいのでComponent内のみで保持する
       this.BackUpData = Data;
 
       //編集用データとして変数へ代入する
       //アイテム名とアイコンのパス
-      this.name = Data.Name;
-      this.imgurl = Data.ImgUrl;
+      this.name = Data.text.name;
+      this.engname = Data.text.engname;
 
       //レベル情報
-      this.level = Data.level;
-      this.itemlevel = Data.itemlevel;
+      this.level = Data.level.level;
+      this.itemlevel = Data.level.itemlevel;
+
+      this.imageurl = Data.imageurl;
 
       //製作可能ジョブと製作段階の情報とマイスターが必須かどうか
-      this.rank = Data.Type;
+      this.craftcontent = Data.type.craftcontent;
+      this.job = Data.type.job;
+      this.category = Data.type.category;
+
+      // const MeisterBook =
+      //   Data.type.MeisterBookrank === 0
+      //     ? ""
+      //     : this.DivisionInfo.MeisterBook.find(MeisterBook => {
+      //         return MeisterBook.rank === Data.type.MeisterBookrank;
+      //       });
+
+      // this.MeisterBookNumber = MeisterBook.type;
+
       this.rank = Data.rank;
-      this.isMaster = Data.isMaster;
 
       //必要な素材の情報
-      this.childrenlogs = Data.Ingredients;
+      this.childrenlogs = Data.childrenlogs;
 
       //更新モードをオンにし、FireStoreへ書き込み時に同じドキュメントへ書き込むようにする
       this.isUpadateMode = true;
