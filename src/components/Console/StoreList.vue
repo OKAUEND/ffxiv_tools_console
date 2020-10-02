@@ -69,7 +69,7 @@ export default {
     },
 
     selectedCraftLog(Data) {
-      this.$emit("click", Data);
+      this.$emit("select", Data);
     }
   }
 };
