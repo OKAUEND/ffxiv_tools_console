@@ -110,8 +110,12 @@ const findStoreLogs = async (state, payload) => {
  * @param {Array} cachelogs - キャッシュしているレベル帯を調べる対象
  * @return {Object} - レベル帯
  */
-const loadCachelevelband = state => {
-  const minlevel = state.logs.reduce((accumulator, currentvalue) =>
+  //最初にソートを行い、昇順でレベル数値を参照できるようにする
+  logs.sort((accumulator, currentvalue) => {
+    if (accumulator.level < currentvalue.level) return -1;
+    else if (accumulator.level > currentvalue.level) return 1;
+    else return 0;
+  });
     accumulator < currentvalue ? accumulator : currentvalue
   );
 
