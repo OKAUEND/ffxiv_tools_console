@@ -92,7 +92,7 @@ const actions = {
 const getters = {};
 
 /**
- * 一時キャッシュから同じ内容をデータを取得する
+ * 一時キャッシュから同じクラフターのデータを取得する
  * @param {Array} state - Vuex.state.logs
  * @param {Array} payload - keys object
  * @returns {Object} - キャッシュされた製作レシピ
