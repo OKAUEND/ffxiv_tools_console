@@ -106,24 +106,36 @@ const findStoreLogs = async (state, payload) => {
 };
 
 /**
- * キャッシュしている製作レシピのレベル帯を取得する
- * @param {Array} cachelogs - キャッシュしているレベル帯を調べる対象
+ * 選択されたキャッシュ中の製作レシピのレベル帯を取得する
+ * @param {Array} logs - キャッシュしているレベル帯を調べる対象
  * @return {Object} - レベル帯
  */
+const searchCachelevelband = payload => {
   //最初にソートを行い、昇順でレベル数値を参照できるようにする
-  logs.sort((accumulator, currentvalue) => {
-    if (accumulator.level < currentvalue.level) return -1;
-    else if (accumulator.level > currentvalue.level) return 1;
+  payload.sort((accumulator, currentvalue) => {
+    if (accumulator.level.itemlevel < currentvalue.level.itemlevel) return -1;
+    else if (accumulator.level.itemlevel > currentvalue.level.itemlevel)
+      return 1;
     else return 0;
   });
+
+  const temps = payload.map(log => {
+    return log.level.itemlevel;
+  });
+
+  const minlevel = temps.reduce((accumulator, currentvalue) =>
     accumulator < currentvalue ? accumulator : currentvalue
   );
 
-  const maxlevel = state.logs.reduce((accumulator, currentvalue) =>
+  const maxlevel = temps.reduce((accumulator, currentvalue) =>
     accumulator > currentvalue ? accumulator : currentvalue
   );
-};
 
+  return {
+    min: minlevel,
+    max: maxlevel
+  };
+};
 /**
  * 取得したデータとキャッシュしているデータを重複を排除しマージする
  * @param {Array} cache - キャッシュしている製作レシピ
