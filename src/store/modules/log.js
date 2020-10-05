@@ -110,30 +110,49 @@ const findStoreLogs = async (state, payload) => {
  * @param {Array} logs - キャッシュしているレベル帯を調べる対象
  * @return {Object} - レベル帯
  */
-const searchCachelevelband = payload => {
+const searchCachelevelband = (logs, query) => {
   //最初にソートを行い、昇順でレベル数値を参照できるようにする
-  payload.sort((accumulator, currentvalue) => {
+  logs.sort((accumulator, currentvalue) => {
     if (accumulator.level.itemlevel < currentvalue.level.itemlevel) return -1;
     else if (accumulator.level.itemlevel > currentvalue.level.itemlevel)
       return 1;
     else return 0;
   });
 
-  const temps = payload.map(log => {
+  //アイテムレベル順にすることで、厳密な順序とする
+  const temps = logs.map(log => {
     return log.level.itemlevel;
   });
 
-  const minlevel = temps.reduce((accumulator, currentvalue) =>
+  const min = temps.reduce((accumulator, currentvalue) =>
     accumulator < currentvalue ? accumulator : currentvalue
   );
 
-  const maxlevel = temps.reduce((accumulator, currentvalue) =>
+  const max = temps.reduce((accumulator, currentvalue) =>
     accumulator > currentvalue ? accumulator : currentvalue
   );
 
+  /**
+   * キャッシュされている最小数値が、入力数値の許容範囲内に存在するアイテムなのか
+   *  入力数値 + 1 までを許容範囲とする(+2だと次のLvのアイテムがひっかかるため)
+   * 存在したら最低レベルを入力数値のまま使う、そうでないならキャッシュ中で最小のを使う
+   */
+  const existsMinlevelInRange =
+    query.lowerItemlevel <= min && query.lowerItemlevel + 1 >= min;
+
+  const maxlevelAdjustedRange =
+    query.upperItemlevel % 10 === 0
+      ? query.upperItemlevel - 2
+      : query.upperItemlevel - 1;
+
+  const existsMaxlevelInRange =
+    query.upperItemlevel <= max && maxlevelAdjustedRange - 2 >= tmax;
+
   return {
-    min: minlevel,
-    max: maxlevel
+    existsMinlevelInRange: existsMinlevelInRange,
+    existsMaxlevelInRange: existsMaxlevelInRange,
+    min: min,
+    max: max
   };
 };
 /**
