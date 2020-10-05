@@ -208,12 +208,13 @@ export default {
         .dispatch("log/searchStateTempData", query)
         .then(value => value);
 
-      //キャッシュされているデータの最大Lvと最小Lvを取得し、実際にどのLvから取得スべきかの判断材料としたい
-
-      //オブジェクトの中身があるかを確認し、あるならキャッシュしていると考えてそっちを使う
-      if (Object.keys(templogs).length != 0) {
-        return (this.icons = templogs.list);
-      }
+      //配列の個数をチェックするようにし、0以上であり必要レベル帯にアイテムが存在している事
+      if (
+        templogs.logs.length != 0 &&
+        templogs.level.existsMinlevelInRange &&
+        templogs.level.existsMinlevelInRange
+      )
+        return (this.icons = templogs.logs);
 
       //Firestoreからデータを取り出すクエリを作成する
       const docRef = firebase.firestore().collection("CraftLog");
