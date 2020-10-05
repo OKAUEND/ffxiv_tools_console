@@ -208,7 +208,7 @@ export default {
         .dispatch("log/searchStateTempData", query)
         .then(value => value);
 
-      //キャッシュされているデータの最大Lvと最小Lvを取得し、実際にどのLvから取得スべきかの判断材料としたい
+      //キャッシュされているデータの最大Lvと最小Lvを取得し、再取得取得すべきかどうかの判断を行う
 
       //オブジェクトの中身があるかを確認し、あるならキャッシュしていると考えてそっちを使う
       if (Object.keys(templogs).length != 0) {
