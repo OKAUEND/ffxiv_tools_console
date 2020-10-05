@@ -60,7 +60,24 @@ const actions = {
     /* eslint-disable */
 
     //選択されたのと同じ内容のを探す
-    return findStoreLogs(state.logs, payload);
+    const temp = findStoreLogs(state.logs, payload);
+
+    //オブジェクトの中身があるかを確認し、ないなら次の処理は行わない
+    if (Object.keys(temp).length === 0) {
+      //ここで空の配列を作り戻値とすることで、undefindを返さないようにする
+      return {
+        logs: [],
+        level: {
+          existsMinlevelInRange: false,
+          existsMaxlevelInRange: false,
+          min: 0,
+          max: 0
+        }
+      };
+    }
+
+    temp.level = searchCachelevelband(temp.logs, payload);
+    return temp;
   },
 
   /**
