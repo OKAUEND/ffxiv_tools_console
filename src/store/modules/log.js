@@ -114,7 +114,7 @@ const getters = {};
  * @param {Array} payload - keys object
  * @returns {Object} - キャッシュされた製作レシピ
  */
-const findStoreLogs = async (state, payload) => {
+const findStoreLogs = (state, payload) => {
   const finditem = state.find(temp => {
     return temp.crafter === payload.crafter;
   });
