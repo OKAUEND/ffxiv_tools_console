@@ -13,46 +13,13 @@
         更新範囲の切り替え
       </button>
     </div>
-    <div>
-      <input type="radio" id="Material" value="0" v-model.number="groupindex" />
-      <label for="Material">素材</label>
-      <input type="radio" id="Weapon" value="1" v-model.number="groupindex" />
-      <label for="Weapon">武器</label>
-      <input type="radio" id="Tools" value="2" v-model.number="groupindex" />
-      <label for="Tools">道具</label>
-      <input type="radio" id="Armor" value="3" v-model.number="groupindex" />
-      <label for="Armor">防具</label>
-    </div>
-    <div class="RadioList">
-      <div
-        v-for="(Type, index) in selectTypes"
-        :key="index"
-        class="ConsoleInput"
-      >
-        <input
-          type="radio"
-          :id="Type.name"
-          :value="index"
-          v-model.number="typeindex"
-        />
-        <label :for="Type.name">{{ Type.name }}</label>
-      </div>
-    </div>
-    <div class="RadioList">
-      <div
-        v-for="(MaterialType, index) in GroupMaterialTypes"
-        :key="index"
-        class="ConsoleInput"
-      >
-        <input
-          type="radio"
-          :id="MaterialType.name"
-          :value="index"
-          v-model.number="materialindex"
-        />
-        <label :for="MaterialType.name">{{ MaterialType.name }}</label>
-      </div>
-    </div>
+
+    <article>
+      <base-category :Category="IconDetail.groups" v-model="category" />
+      <base-category :Category="BaseDetail.rank" v-model="rank" />
+      <base-category :Category="Jobs" v-model="job" />
+    </article>
+
     <input type="file" @change="e => setUploadFile(e.target.files[0])" />
     <img class="icon" :src="ImgFile" />
     <div class="IconManagement__Status">{{ ProcessingStatusComment }}</div>
@@ -86,11 +53,20 @@
 <script>
 import firebase from "../../firebase.js";
 import Group from "@/IconGroup.js";
+import iconjson from "../../assets/categoryicons.json";
+import basejson from "../../assets/category.json";
+import BaseCategory from "@/components/Console/BaseRadioButtonList.vue";
 export default {
   name: "IconManagement",
+  components: {
+    BaseCategory
+  },
   data() {
     return {
       statusComments: ["準備中", "登録中", "登録完了"],
+      category: "",
+      rank: "",
+      job: "",
       groupindex: 0,
       typeindex: 0,
       materialindex: 0,
@@ -104,6 +80,25 @@ export default {
     };
   },
   computed: {
+    IconDetail() {
+      return iconjson;
+    },
+    BaseDetail() {
+      return basejson;
+    },
+    Jobs() {
+      switch (this.category) {
+        case "Material":
+        case "Tools":
+        case "House":
+          return iconjson.crafter;
+        case "Weapon":
+        case "Armor":
+          return iconjson.battlejob;
+        default:
+          return [];
+      }
+    },
     selectGroups() {
       return Group.groups[this.groupindex];
     },
