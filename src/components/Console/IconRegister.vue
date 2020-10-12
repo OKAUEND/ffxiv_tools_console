@@ -1,42 +1,18 @@
 <template>
   <div class="IconManagement">
-    <div>
-      <div v-if="!isUpadateMode">新規追加モード</div>
-      <div v-else-if="isUpadateMode && !isUpdateStoreOnly">全体更新モード</div>
-      <div v-else-if="isUpadateMode && isUpdateStoreOnly">
-        Storeのみ更新モード
-      </div>
-      <button @click="isUpadateMode = !isUpadateMode">
-        モード切り替え
-      </button>
-      <button @click="isUpdateStoreOnly = !isUpdateStoreOnly">
-        更新範囲の切り替え
-      </button>
-    </div>
+    <h1>画像管理</h1>
 
     <article>
-      <base-category :Category="IconDetail.groups" v-model="category" />
-      <base-category :Category="BaseDetail.rank" v-model="rank" />
-      <base-category :Category="Jobs" v-model="job" />
+      <icon-list-query @change="onChildClick" />
     </article>
+
+    <input type="text" v-model="engnameRegex" placeholder="アイテム名(英語)" />
 
     <input type="file" @change="e => setUploadFile(e.target.files[0])" />
     <img class="icon" :src="ImgFile" />
     <div class="IconManagement__Status">{{ ProcessingStatusComment }}</div>
-    <button v-if="!isUpadateMode" @click="updateStorageAndFirestore()">
-      新規追加
-    </button>
-    <button
-      v-if="isUpadateMode && !isUpdateStoreOnly"
-      @click="updateStorageAndFirestore()"
-    >
-      更新
-    </button>
-    <button
-      v-else-if="isUpadateMode && isUpdateStoreOnly"
-      @click="updateFirestore()"
-    >
-      Storeのみ更新
+    <button @click="updateStorageAndFirestore()">
+      Store更新
     </button>
     <ul class="IconManagement__Icons">
       <li v-for="(Icon, ID) in icons" :key="ID">
