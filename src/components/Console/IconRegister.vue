@@ -72,6 +72,11 @@ export default {
     }
   },
   methods: {
+    onChildClick(value) {
+      this.category = value.document;
+      this.rank = value.rank;
+      this.detail = value.detail;
+    },
     /*
         @param   {file}    file  - 画像ファイル
     */
@@ -143,18 +148,20 @@ export default {
 
     /*
         @param   {string}    DocumentName  - 登録するドキュメント名
-        @param   {Number}    DocumentID    - 登録するID番号
         @param   {string}    fullpath      - GCP Storageにある対象ファイルのURL
     */
-    async createFirestoreDocument(DocumentName, DocumentID, GCP_URL) {
-      const GroupName = this.selectGroups.name;
-      const TypeName = this.selectTypes[this.typeindex].name;
-      const MaterialTypeName = this.selectMaterialType.name;
+    async createFirestoreDocument(DocumentName, GCP_URL) {
+      //アイテムカテゴリー
+      const GroupName = this.category;
+      //製作段階
+      const Rank = this.rank;
+      //素材の種類
+      const MaterialTypeName = this.detail;
 
       const storeDocument = {
-        ID: DocumentID,
         Group: GroupName,
-        Type: TypeName,
+        name: this.engnameRegex,
+        Rank: Rank,
         MaterialType: MaterialTypeName,
         URL: GCP_URL
       };
@@ -162,8 +169,8 @@ export default {
       return await firebase
         .firestore()
         .collection("Image")
-        .doc(this.selectGroups.name)
-        .collection(this.selectTypes[this.typeindex].name)
+        .doc(GroupName)
+        .collection(Rank)
         .doc(DocumentName)
         .set(storeDocument);
     },
@@ -179,30 +186,16 @@ export default {
       return firebase
         .firestore()
         .collection("Image")
-        .doc(this.selectGroups.name)
-        .collection(this.selectTypes[this.typeindex].name)
-        .where("Type", "==", this.selectTypes[this.typeindex].name)
-        .where(
-          "MaterialType",
-          "==",
-          this.selectMaterialType[this.materialindex].name
-        );
+        .doc(this.category)
+        .collection(this.rank)
+        .where("Rank", "==", this.rank)
+        .where("MaterialType", "==", this.detail);
     },
     fetchIcons() {
       this.icons.length = 0;
       const ImageRef = this.createDocumentRef();
       ImageRef.get().then(querySnapshot => {
-        this.icons = querySnapshot.docs
-          .map(doc => doc.data())
-          .map(Doc => {
-            return {
-              ID: Doc.ID,
-              Group: Doc.Group,
-              Type: Doc.Type,
-              MaterialType: Doc.MaterialType,
-              URL: Doc.URL
-            };
-          });
+        this.icons = querySnapshot.docs.map(doc => doc.data());
       });
     },
 
@@ -210,23 +203,13 @@ export default {
         @param  {Object}   storeData        - Firestoreから取得したオブジェクト
     */
     applyVueData(storeData) {
-      this.isUpdateStoreOnly = true;
-      this.isUpadateMode = true;
-      console.log({ storeData });
-
       //取得したIDを保持する
-      this.storedocumentID = storeData.ID;
+      this.engnameRegex = storeData.name;
 
       //取得した文字列を元に、配列のインデックスを取得しそれを変数へ反映
-      this.groupindex = this.groups.findIndex(
-        group => group.name === storeData.Group
-      );
-      this.typeindex = this.types[this.groupindex].findIndex(
-        type => type.name === storeData.Type
-      );
-      this.materialindex = this.materialtype.findIndex(
-        material => material.name === storeData.MaterialType
-      );
+      this.category = storeData.Group;
+      this.rank = storeData.Rank;
+      this.detail = storeData.MaterialType;
       this.imagefile = storeData.URL;
     }
   }
