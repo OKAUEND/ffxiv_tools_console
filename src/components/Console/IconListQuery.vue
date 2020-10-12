@@ -46,11 +46,10 @@ export default {
     icondetails() {
       switch (this.group) {
         case "Material":
+        case "House":
           return this.iconcategory.material;
-        case "Weapon":
-          return this.iconcategory.battlejob;
         default:
-          return [];
+          return this.iconcategory.role;
       }
     },
     crafterdetail() {
