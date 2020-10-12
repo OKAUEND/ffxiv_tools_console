@@ -146,36 +146,6 @@ export default {
       return await storageRef.put(this.file);
     },
 
-    async updateFirestore() {
-      //Storeにすでに存在するデータを上書きするため、取得したIDを使用する
-      //ドキュメント名を、Type+5桁0埋めのIDで作成するために0埋め番号文字列を作成する
-      const ZeroPaddingNumber = `"00000${this.storedocumentID}`.slice(-5);
-
-      //Type名と0埋め番号文字列を結合し、ドキュメント名を作成する
-      const typename = this.selectTypes[this.typeindex].name;
-      const documentName = `${typename}${ZeroPaddingNumber}`;
-
-      //statusを進行中を示す1にする
-      this.progressstatus = 1;
-
-      this.createFirestoreDocument(
-        documentName,
-        this.storedocumentID,
-        this.imagefile
-      ).then(() => {
-        console.log("Firestore Update Success");
-        this.progressstatus = 2;
-        //更新作業が終わったので初期化する
-        this.storedocumentID = 0;
-        this.isUpdateStoreOnly = false;
-        this.isUpadateMode = false;
-        this.groupindex = 0;
-        this.typeindex = 0;
-        this.materialindex = 0;
-        this.imagefile = "";
-      });
-    },
-
     /*
         @param   {string}    DocumentName  - 登録するドキュメント名
         @param   {Number}    DocumentID    - 登録するID番号
@@ -201,24 +171,6 @@ export default {
         .collection(this.selectTypes[this.typeindex].name)
         .doc(DocumentName)
         .set(storeDocument);
-    },
-
-    /*
-        @return {Number}                - Firestoreに存在する最後のIDか、なかった場合は1を返す
-    */
-    async fetchLastID() {
-      const documentRef = firebase
-        .firestore()
-        .collection("Image")
-        .doc(this.selectGroups.name)
-        .collection(this.selectTypes[this.typeindex].name);
-
-      const lastdocument = documentRef.orderBy("ID", "desc").limit(1);
-
-      const querySnapshot = await lastdocument.get();
-      const id = querySnapshot.docs.map(doc => doc.data().ID)[0];
-      //取得した数値が0もしくは存在しない場合には、0を返すようにして初期値を生成する
-      return id > 0 ? id : 0;
     },
 
     /*
