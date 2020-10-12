@@ -39,6 +39,15 @@
     { "type": "Botanist", "name": "園芸" },
     { "type": "Fisher", "name": "漁師" }
   ],
+  "role": [
+    { "type": "Tank", "name": "タンク" },
+    { "type": "Melee", "name": "近接" },
+    { "type": "Range", "name": "遠隔" },
+    { "type": "Caster", "name": "詠唱" },
+    { "type": "Healer", "name": "回復" },
+    { "type": "Crafter", "name": "製作" },
+    { "type": "Disciples", "name": "採集" }
+  ],
   "material": [
     { "type": "Ingredient", "name": "食材" },
     { "type": "Seafood", "name": "水産物" },
