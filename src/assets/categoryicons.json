@@ -10,7 +10,7 @@
     { "type": "Gladiator", "name": "ナイト" },
     { "type": "Marauder", "name": "戦士" },
     { "type": "DarkKnight", "name": "暗黒騎士" },
-    { "type": "Gunbreaker", "name": "癌ブレイカー" },
+    { "type": "Gunbreaker", "name": "ガンブレイカー" },
     { "type": "Lancer", "name": "竜騎士" },
     { "type": "Pugilist", "name": "モンク" },
     { "type": "Samurai", "name": "侍" },
@@ -38,6 +38,15 @@
     { "type": "Miner", "name": "採掘" },
     { "type": "Botanist", "name": "園芸" },
     { "type": "Fisher", "name": "漁師" }
+  ],
+  "role": [
+    { "type": "Tank", "name": "タンク" },
+    { "type": "Melee", "name": "近接" },
+    { "type": "Range", "name": "遠隔" },
+    { "type": "Caster", "name": "詠唱" },
+    { "type": "Healer", "name": "回復" },
+    { "type": "Crafter", "name": "製作" },
+    { "type": "Disciples", "name": "採集" }
   ],
   "material": [
     { "type": "Ingredient", "name": "食材" },

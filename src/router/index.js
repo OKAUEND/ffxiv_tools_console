@@ -5,7 +5,7 @@ import firebase from "@/firebase.js";
 import Singin from "@/components/Console/singin.vue";
 import Console from "@/components/Console/Console.vue";
 import LogRegister from "@/components/Console/LogRegister.vue";
-import IconManagement from "@/components/Console/IconManagement.vue";
+import IconRegister from "@/components/Console/IconRegister.vue";
 
 Vue.use(VueRouter);
 
@@ -26,8 +26,8 @@ const routes = [
         component: LogRegister
       },
       {
-        path: "/IconManagement",
-        component: IconManagement
+        path: "/IconRegister",
+        component: IconRegister
       }
     ]
   }

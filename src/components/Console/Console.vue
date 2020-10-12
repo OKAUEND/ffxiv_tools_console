@@ -2,7 +2,7 @@
   <div class="Console">
     <div id="nav">
       <router-link to="/Console">製作レシピ追加/更新</router-link> |
-      <router-link to="/IconManagement">アイコン追加/更新</router-link>
+      <router-link to="/IconRegister">アイコン追加/更新</router-link>
     </div>
     <transition mode="out-in">
       <router-view />
