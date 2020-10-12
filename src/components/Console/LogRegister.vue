@@ -266,7 +266,7 @@ export default {
         .collection("Image")
         .doc(key.document)
         .collection(key.collection)
-        .where("Type", "==", key.rank)
+        .where("Rank", "==", key.rank)
         .where("MaterialType", "==", key.detail);
 
       const storeicons = await documentRef
