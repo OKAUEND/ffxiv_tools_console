@@ -28,14 +28,12 @@
 
 <script>
 import firebase from "../../firebase.js";
-import Group from "@/IconGroup.js";
-import iconjson from "../../assets/categoryicons.json";
-import basejson from "../../assets/category.json";
-import BaseCategory from "@/components/Console/BaseRadioButtonList.vue";
+import IconListQuery from "@/components/Console/IconListQuery.vue";
+
 export default {
   name: "IconManagement",
   components: {
-    BaseCategory
+    IconListQuery
   },
   data() {
     return {
