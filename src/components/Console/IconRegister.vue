@@ -101,20 +101,13 @@ export default {
     },
 
     async updateStorageAndFirestore() {
-      //Firestoreのドキュメントで最後のIDから1つ先に追加したいので最後のIDを取得する
-      const id = await this.fetchLastID().then(value => {
-        return this.isUpadateMode ? value : value + 1;
-      });
-
-      //ドキュメント名を、Type+5桁0埋めのIDで作成するために0埋め番号文字列を作成する
-      const ZeroPaddingNumber = `"00000${id}`.slice(-5);
-
-      //Type名と0埋め番号文字列を結合し、ドキュメント名を作成する
-      const typename = this.selectTypes[this.typeindex].name;
-      const documentName = `${typename}${ZeroPaddingNumber}`;
+      if (!this.engnameRegex) {
+        alert("アイテム名を入力してください");
+        return;
+      }
 
       //Storageのfullパスは、group名/type名/ドキュメント名.拡張子 で作成する
-      const fullpath = `${this.createStoragePath}/${documentName}.png`;
+      const fullpath = `${this.createStoragePath}/${this.engnameRegex}.png`;
 
       //statusを進行中を示す1にする
       this.progressstatus = 1;
@@ -124,7 +117,9 @@ export default {
         .then(() => {
           console.log("Storage Upload Success");
           const GCP_FULLURL = `${process.env.VUE_APP_GCP_URL}${fullpath}`;
-          return this.createFirestoreDocument(documentName, id, GCP_FULLURL);
+          //連番形式のドキュメント名は、Firestoreのバッドルールのため、アイテム名にする
+          //なお、アイテム名はゲーム内で最初に登場したアイテムの名前を使用する
+          return this.createFirestoreDocument(this.engnameRegex, GCP_FULLURL);
         })
         .then(() => {
           this.progressstatus = 2;
