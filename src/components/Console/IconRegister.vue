@@ -40,58 +40,26 @@ export default {
       statusComments: ["準備中", "登録中", "登録完了"],
       category: "",
       rank: "",
-      job: "",
-      groupindex: 0,
-      typeindex: 0,
-      materialindex: 0,
-      imagefile: "",
-      icons: [],
+      detail: "",
+      crafter: "",
+      engname: "",
+
       file: {},
-      isUpadateMode: false,
-      isUpdateStoreOnly: false,
-      storedocumentID: 0,
-      progressstatus: 0
+      imagefile: "",
+      progressstatus: 0,
+      icons: []
     };
   },
   computed: {
-    IconDetail() {
-      return iconjson;
-    },
-    BaseDetail() {
-      return basejson;
-    },
-    Jobs() {
-      switch (this.category) {
-        case "Material":
-        case "Tools":
-        case "House":
-          return iconjson.crafter;
-        case "Weapon":
-        case "Armor":
-          return iconjson.battlejob;
-        default:
-          return [];
+    engnameRegex: {
+      set(engname) {
+        this.engname = engname.replace(/\s/g, "");
+      },
+      get() {
+        return this.engname;
       }
     },
-    selectGroups() {
-      return Group.groups[this.groupindex];
-    },
-    selectTypes() {
-      return Group.types[this.groupindex];
-    },
-    selectMaterialType() {
-      return this.selectGroups.isMaterialTypeInfo === true
-        ? Group.materialtype[this.materialindex]
-        : { name: "none" };
-    },
-    GroupMaterialTypes() {
-      return Group.materialtype;
-    },
-    createStoragePath() {
-      const group = this.selectGroups.name;
-      const type = this.selectTypes[this.typeindex].name;
-      return `${group}/${type}`;
-    },
+
     ProcessingStatusComment() {
       return this.statusComments[this.progressstatus];
     },
