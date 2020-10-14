@@ -1,12 +1,17 @@
 <template>
   <div>
     <div>
-      <input type="text" placeholder="E-mail" v-model="email" />
+      <input
+        type="text"
+        placeholder="E-mail"
+        autocomplete="on"
+        v-model="email"
+      />
     </div>
     <div>
       <input
         type="password"
-        autocomplete="off"
+        autocomplete="on"
         placeholder="Password"
         v-model="password"
       />
