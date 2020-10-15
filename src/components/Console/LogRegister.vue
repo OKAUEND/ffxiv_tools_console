@@ -1,6 +1,5 @@
 <template>
   <div class="LogRegister">
-    <store-list @click="setCraftData"></store-list>
     <div v-if="isUpadateMode">更新モード</div>
     <div v-else-if="!isUpadateMode">新規追加モード</div>
     <button @click="isUpadateMode = !isUpadateMode">新規追加モードへ</button>
