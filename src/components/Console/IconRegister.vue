@@ -112,7 +112,7 @@ export default {
       }
 
       //Storageのfullパスは、group名/type名/ドキュメント名.拡張子 で作成する
-      const fullpath = `${this.createStoragePath}/${this.engnameRegex}.png`;
+      const fullpath = `${this.category}/${this.rank}/${this.engnameRegex}.png`;
 
       //statusを進行中を示す1にする
       this.progressstatus = 1;
