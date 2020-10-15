@@ -116,6 +116,9 @@ export default {
       areaXpoint: "",
       areaYpoint: "",
 
+      createtime: {},
+      updatetime: {},
+
       isUpadateMode: false,
       Paths: [
         { url: "Material/Raw/" },
@@ -403,6 +406,9 @@ export default {
 
       //更新モードをオンにし、FireStoreへ書き込み時に同じドキュメントへ書き込むようにする
       this.isUpadateMode = true;
+
+      this.createtime = Data.createTime;
+      this.updatetime = Data.updateTime;
     },
     /**
      * 入力した内容へ配列を更新する
