@@ -6,6 +6,7 @@
         <icon-list-query @change="selectedQueries" />
         <button @click="emitEvent()">アイコン検索</button>
         <div>
+          {{ selection.name }}
           <img
             :src="selection.URL"
             alt="Select Item Icon"
