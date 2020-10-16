@@ -90,6 +90,13 @@ export default {
       if (!file) {
         return;
       }
+
+      //英語名を入力するのがめんどいのでファイル名を取得して流用する
+      this.engnameRegex = file.name
+        .split(".")
+        .slice(0, -1)
+        .join(".");
+
       this.renderImageFile(file);
       this.file = file;
     },
