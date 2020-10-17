@@ -377,7 +377,6 @@ export default {
       };
     },
     setCraftLog(Data) {
-      console.log(Data);
       //編集前に戻す用のために、取得したデータをバックアップする
       //でもこのページから移動したら消したいのでComponent内のみで保持する
       this.BackUpData = Data;
