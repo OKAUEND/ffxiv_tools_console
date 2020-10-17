@@ -65,6 +65,15 @@
           :order="order"
           @change="updateChildrenLogs"
         >
+          <base-modal
+            ><template v-slot:ButtonText>検索</template
+            ><template v-slot:content
+              ><store-list
+                @query="fetchlogs"
+                @select="converChildObject"
+                :logs="logs"
+                :order="order"/></template
+          ></base-modal>
         </ingredient>
       </div>
     </div>

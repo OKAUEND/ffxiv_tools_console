@@ -1,11 +1,8 @@
 <template>
   <div class="Ingredient" :class="DisabledBorderColor">
+    <slot></slot>
     必須素材
     <div>有効化<input type="checkbox" v-model="isEnable" /></div>
-    <modal
-      ><template v-slot:ButtonText>検索</template
-      ><template v-slot:content><search-form @click="setChildData"/></template
-    ></modal>
     <div class="Ingredient__Child">素材名:{{ this.name }}</div>
     <div class="Ingredient__Child">ENG:{{ this.engname }}</div>
     <div>
@@ -25,15 +22,9 @@
 </template>
 
 <script>
-import Modal from "@/components/Console/modal/BaseModal.vue";
-import SearchForm from "@/components/Console/StoreList.vue";
 import firebase from "@/firebase.js";
 export default {
   name: "Ingredient",
-  components: {
-    Modal,
-    SearchForm
-  },
   data() {
     return {
       isEnable: false,
