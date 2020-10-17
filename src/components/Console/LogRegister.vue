@@ -276,7 +276,7 @@ export default {
         .firestore()
         .collection("Image")
         .doc(key.document)
-        .collection(key.collection)
+        .collection(key.rank)
         .where("Rank", "==", key.rank)
         .where("MaterialType", "==", key.detail);
 
