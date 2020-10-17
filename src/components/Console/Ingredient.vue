@@ -4,7 +4,7 @@
     必須素材
     <div>有効化<input type="checkbox" v-model="isEnable" /></div>
     <div class="Ingredient__Child">素材名:{{ this.name }}</div>
-    <div class="Ingredient__Child">ENG:{{ this.engname }}</div>
+    <div class="Ingredient__Child">英名:{{ this.engname }}</div>
     <div>
       <img
         class="minisize"
