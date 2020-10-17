@@ -56,6 +56,7 @@
           >
         </div>
       </section>
+      <button @click="executeCraftLog()">追加/更新</button>
       <div class="LogRegister__Ingredients">
         <ingredient
           v-for="(Log, order) in childrenlogs"
@@ -67,7 +68,6 @@
         </ingredient>
       </div>
     </div>
-    <button @click="executeCraftLog()">追加/更新</button>
   </div>
 </template>
 
