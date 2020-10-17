@@ -40,6 +40,10 @@ export default {
     logs: {
       requier: true,
       type: Array
+    },
+    order: {
+      type: Number,
+      default: 0
     }
   },
   data() {
@@ -69,6 +73,7 @@ export default {
     },
 
     selectedCraftLog(Data) {
+      Data.order = this.order;
       this.$emit("select", Data);
     }
   }
