@@ -62,6 +62,16 @@ export default {
         default:
           return [];
       }
+    },
+    /**
+     * 段階の名前を取得するために配列より該当オブジェクトを取得
+     */
+    rankstage() {
+      const findrank = this.category.rank.find(temp => {
+        return temp.type === this.rank;
+      });
+
+      return findrank.stagename;
     }
   },
   methods: {
@@ -69,7 +79,7 @@ export default {
       return this.$emit("change", {
         document: this.group,
         collection: this.rank,
-        rank: this.rank,
+        rank: this.rankstage,
         detail: this.detail,
         crafter: this.crafter
       });
