@@ -418,6 +418,19 @@ export default {
       this.createtime = Data.createTime;
       this.updatetime = Data.updateTime;
     },
+
+    converChildObject(data) {
+      const temp = {
+        isEnable: true,
+        name: data.text.name,
+        engname: data.text.engname,
+        value: 0,
+        imageurl: data.imageurl,
+        order: data.order
+      };
+      this.updateChildrenLogs(temp);
+    },
+
     /**
      * 入力した内容へ配列を更新する
      *
