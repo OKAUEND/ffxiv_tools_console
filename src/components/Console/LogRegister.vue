@@ -43,7 +43,7 @@
       </section>
       <section>
         <h2>分類</h2>
-        <category-list :Category="DivisionInfo.other" v-model="other"
+        <category-list :Category="DivisionInfo.other" v-model="craftcontent"
           >製作種別</category-list
         >
         <div>高難易<input type="checkbox" v-model="ishighlevel" /></div>
@@ -110,7 +110,7 @@ export default {
       category: "",
       job: "",
       rank: "",
-      other: "",
+      craftcontent: "",
       starmark: 0,
       MeisterBookNumber: "",
       ishighlevel: false,
@@ -340,7 +340,7 @@ export default {
         imageurl: this.imageurl,
 
         type: {
-          craftcontent: this.other,
+          craftcontent: this.craftcontent,
           job: this.job,
           category: this.category,
           MeisterBookrank: MeisterBookRank
