@@ -406,7 +406,11 @@ export default {
 
       // this.MeisterBookNumber = MeisterBook.type;
 
-      this.rank = Data.rank;
+      const rank = this.DivisionInfo.rank.find(rank => {
+        return rank.priority === Data.priority;
+      });
+
+      this.rank = rank.type;
 
       //必要な素材の情報
       this.childrenlogs = Data.childrenlogs;
