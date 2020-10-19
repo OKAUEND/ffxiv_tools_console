@@ -416,6 +416,8 @@ export default {
 
       this.createtime = Data.createTime;
       this.updatetime = Data.updateTime;
+
+      this.patchversion = Data.patchversion;
     },
 
     converChildObject(data) {
