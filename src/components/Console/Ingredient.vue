@@ -97,7 +97,7 @@ export default {
      */
     EventEmit() {
       //ドキュメントIDからドキュメントのパスを生成する
-      const DocumentPath = `CraftLog/${this.ChildDocumentID}`;
+      const DocumentPath = `CraftLog/${this.engname}`;
       const DocRef = firebase.firestore().doc(DocumentPath);
 
       return this.$emit("change", {
